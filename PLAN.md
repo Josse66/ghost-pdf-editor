@@ -164,9 +164,9 @@ Objetivo: eliminar incertidumbre antes de construir.
 ### Fase 2 — Motor de lectura (1–2 semanas)
 - [ ] Drag & drop / selector de archivo (el archivo se lee como `ArrayBuffer`, nunca se sube).
 - [ ] Render de páginas con pdf.js en canvas, con zoom y scroll; render perezoso.
-- [ ] `core/reader`: extraer fragmentos → `core/layout`: agrupar en `TextBlock`s.
+- [x] `core/reader`: extraer fragmentos → `core/layout`: agrupar en `TextBlock`s. *(Líneas con runs por estilo y párrafos; columnas y celdas de tabla separadas; texto rotado. Pendiente para la Fase 3: orden de lectura por columnas, hoy intercala.)*
 - [ ] Modo debug: dibujar las cajas de cada bloque encima del render (clave para depurar).
-- [ ] Tests de `layout` contra el corpus.
+- [x] Tests de `layout` contra el corpus. *(Sintético: CV, dos columnas, factura, rotado. Falta sumar los PDFs reales del usuario.)*
 - 🧰 **Skills:** `/impeccable craft` para la pantalla de carga (drop zone, estado vacío, progreso) y el visor. `break-ui` sobre el visor: PDF de 1 página, de 300, nombre de archivo larguísimo, PDF vacío/corrupto. *El motor (`core/`) no usa skills de diseño.*
 - **Entregable:** subes un PDF y ves los bloques de texto resaltados correctamente.
 
