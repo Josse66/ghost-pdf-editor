@@ -23,6 +23,12 @@ typography:
     fontWeight: 600
     lineHeight: 1.25
     letterSpacing: "-0.025em"
+  display-compact:
+    fontFamily: "Hanken Grotesk Variable, system-ui, sans-serif"
+    fontSize: "2rem"
+    fontWeight: 600
+    lineHeight: 1.25
+    letterSpacing: "-0.025em"
   headline:
     fontFamily: "Hanken Grotesk Variable, system-ui, sans-serif"
     fontSize: "1.5rem"
@@ -73,6 +79,18 @@ typography:
   tab-numeral:
     fontFamily: "Source Serif 4 Variable, Georgia, serif"
     fontSize: "15px"
+    fontWeight: 600
+    lineHeight: 1
+    fontFeature: "\"tnum\""
+  tab-numeral-3:
+    fontFamily: "Source Serif 4 Variable, Georgia, serif"
+    fontSize: "12.5px"
+    fontWeight: 600
+    lineHeight: 1
+    fontFeature: "\"tnum\""
+  tab-numeral-4:
+    fontFamily: "Source Serif 4 Variable, Georgia, serif"
+    fontSize: "11px"
     fontWeight: 600
     lineHeight: 1
     fontFeature: "\"tnum\""
