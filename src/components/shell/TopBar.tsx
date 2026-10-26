@@ -1,4 +1,4 @@
-import { FolderOpen, Download, Minus, Plus, MoveHorizontal } from 'lucide-react'
+import { Download, FolderOpen, Maximize, Minus, MoveHorizontal, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useFilePicker } from '@/hooks/useFileOpen'
 import { useT } from '@/i18n'
@@ -14,7 +14,8 @@ export function TopBar() {
   const ready = status === 'ready'
 
   return (
-    <header className="border-rule grid h-14 grid-cols-[1fr_auto] items-center gap-3 border-b px-3 sm:px-5 lg:grid-cols-[1fr_auto_1fr]">
+    // Regla doble bajo la cabeza, como la que separa la cabeza de página de un léxico.
+    <header className="border-rule grid h-[58px] grid-cols-[1fr_auto] items-center gap-3 border-b-[3px] border-double px-3 sm:px-5 lg:grid-cols-[1fr_auto_1fr]">
       <div className="flex min-w-0 items-baseline gap-2">
         <span className="text-[15px] font-semibold tracking-tight whitespace-nowrap">
           {t('appName')}
@@ -108,9 +109,19 @@ function ZoomControls() {
       <Button
         variant="ghost"
         size="icon"
+        aria-label={t('fitPage')}
+        aria-pressed={zoom === 'page'}
+        onClick={() => setZoom('page')}
+        className="aria-pressed:text-ultramar"
+      >
+        <Maximize />
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
         aria-label={t('fitWidth')}
-        aria-pressed={zoom === null}
-        onClick={() => setZoom(null)}
+        aria-pressed={zoom === 'width'}
+        onClick={() => setZoom('width')}
         className="aria-pressed:text-ultramar"
       >
         <MoveHorizontal />

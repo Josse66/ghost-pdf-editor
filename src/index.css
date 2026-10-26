@@ -14,7 +14,7 @@
 @theme inline {
   --font-sans: 'Hanken Grotesk Variable', system-ui, sans-serif;
   --font-serif: 'Source Serif 4 Variable', Georgia, serif;
-  --font-heading: var(--font-serif);
+  --font-heading: var(--font-sans);
 
   --color-ink-0: var(--ink-0);
   --color-ink-1: var(--ink-1);

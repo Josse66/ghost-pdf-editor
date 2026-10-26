@@ -1,8 +1,8 @@
 import { useId } from 'react'
+import { DEBUG_MODES } from '@/components/viewer/debug-modes'
 import { cn } from '@/lib/utils'
 import { useT, type Translate } from '@/i18n'
-import type { MessageKey } from '@/i18n/messages'
-import { useDocument, type DebugMode } from '@/store/document'
+import { useDocument } from '@/store/document'
 
 /** Columna derecha: los cambios asentados como entradas de diccionario (llegan en la Fase 3). */
 export function ChangesPanel() {
@@ -15,14 +15,14 @@ export function ChangesPanel() {
     <div className="flex h-full flex-col">
       <section className="flex-1 overflow-y-auto px-6 py-5">
         {currentTextless && (
-          <div role="note" className="border-vermilion mb-6 border-b pb-4 font-serif">
+          <div role="note" className="border-vermilion mb-6 border-b pb-4">
             <p className="text-vermilion text-[17px] font-semibold">
               {t('noTextTitle', { n: current })}
             </p>
             <p className="text-ink-8 mt-1 text-[15px] leading-relaxed">{t('noTextPage')}</p>
           </div>
         )}
-        <h2 className="border-rule flex items-baseline justify-between border-b pb-2 text-xs font-semibold tracking-[0.1em] uppercase">
+        <h2 className="border-rule guide-caps flex items-baseline justify-between border-b pb-2 text-[15px] font-semibold">
           {t('changes')}
           <span className="tabular text-muted-foreground font-normal">0</span>
         </h2>
@@ -38,12 +38,6 @@ export function ChangesPanel() {
   )
 }
 
-const MODES: { value: DebugMode; label: MessageKey }[] = [
-  { value: 'off', label: 'debugOff' },
-  { value: 'line', label: 'debugLines' },
-  { value: 'paragraph', label: 'debugParagraphs' },
-]
-
 function DebugSwitch({ t }: { t: Translate }) {
   const debug = useDocument((s) => s.debug)
   const setDebug = useDocument((s) => s.setDebug)
@@ -52,11 +46,11 @@ function DebugSwitch({ t }: { t: Translate }) {
   return (
     <fieldset className="border-rule border-t px-6 py-4">
       <legend className="sr-only">{t('debugTitle')}</legend>
-      <p className="mb-2 text-xs font-semibold tracking-[0.1em] uppercase" aria-hidden>
+      <p className="text-ink-9 mb-2 text-sm font-medium" aria-hidden>
         {t('debugTitle')}
       </p>
       <div className="border-input grid grid-cols-3 rounded-md border p-0.5">
-        {MODES.map((mode) => (
+        {DEBUG_MODES.map((mode) => (
           <label
             key={mode.value}
             className={cn(

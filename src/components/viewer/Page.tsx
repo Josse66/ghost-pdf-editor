@@ -84,10 +84,11 @@ export const Page = memo(function Page({
       className="mx-auto w-fit scroll-mt-6"
       aria-label={t('page', { n: info.page })}
     >
+      {/* En escritorio el aviso vive en la columna de cambios; sin ella, arriba de la lámina. */}
       {hasText === false && (
         <p
           role="note"
-          className="text-vermilion mb-2 font-serif text-sm"
+          className="text-vermilion mb-2 text-sm lg:hidden"
           style={{ maxWidth: width }}
         >
           {t('noTextPage')}
@@ -138,7 +139,8 @@ function DebugOverlay({
     }
   }, [info.page, kind])
 
-  const color = kind === 'line' ? 'var(--ultramar)' : 'var(--vermilion)'
+  // Ultramar sin relleno: la lámina nunca se tiñe, y el bermellón queda para la edición activa.
+  const outline = `1.5px ${kind === 'line' ? 'solid' : 'dashed'} var(--ultramar)`
   return (
     <div className="pointer-events-none absolute inset-0" aria-hidden>
       {blocks.map((block) => {
@@ -153,8 +155,7 @@ function DebugOverlay({
               top: r.top,
               width: r.width,
               height: r.height,
-              outline: `1.5px solid ${color}`,
-              background: `color-mix(in srgb, ${color} 8%, transparent)`,
+              outline,
             }}
           />
         )

@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 test('sin documento muestra la lámina para soltar el PDF', async ({ page }) => {
   await page.goto('/')
   await expect(page).toHaveTitle('Ghost PDF Editor')
-  await expect(page.getByRole('heading', { name: 'Suelta tu PDF aquí' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Abre tu PDF' })).toBeVisible()
   await expect(page.getByText('Tu PDF nunca sale de este dispositivo.')).toBeVisible()
 })
 
@@ -71,11 +71,16 @@ test('a 320 px el error con nombre largo cabe dentro de la lámina', async ({ pa
   expect(p!.x + p!.width).toBeLessThanOrEqual(320)
 })
 
-test('un escaneo avisa arriba de la página que no tiene texto', async ({ page }) => {
+test('un escaneo avisa a la vista que la página no tiene texto', async ({ page }, testInfo) => {
   await page.goto('/')
   const chooser = page.waitForEvent('filechooser')
   await page.getByRole('button', { name: 'Elegir PDF' }).click()
   await (await chooser).setFiles('test-fixtures/generated/break-ui/recibo-escaneado.pdf')
-  const note = page.getByRole('figure', { name: 'Página 1', exact: true }).getByRole('note')
+  // Un solo aviso por tamaño: en escritorio en la columna de cambios, sin ella arriba de la lámina.
+  const note =
+    testInfo.project.name === 'chromium'
+      ? page.getByRole('complementary').getByRole('note')
+      : page.getByRole('figure', { name: 'Página 1', exact: true }).getByRole('note')
   await expect(note).toBeInViewport()
+  await expect(page.getByRole('note')).toHaveCount(1)
 })

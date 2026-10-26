@@ -1,6 +1,7 @@
 import { FileUp, LockKeyhole } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useFilePicker } from '@/hooks/useFileOpen'
+import { useFinePointer } from '@/hooks/usePointer'
 import { cn } from '@/lib/utils'
 import { useT } from '@/i18n'
 import type { MessageKey } from '@/i18n/messages'
@@ -19,6 +20,8 @@ export function EntryPlate({ dragging }: { dragging: boolean }) {
   const t = useT()
   const pick = useFilePicker()
   const { status, fileName, error, progress } = useDocument()
+  // Arrastrar y soltar solo existe con mouse o trackpad; en táctil no se ofrece.
+  const canDrop = useFinePointer()
 
   return (
     <div className="flex min-h-full items-center justify-center px-4 py-8">
@@ -41,14 +44,15 @@ export function EntryPlate({ dragging }: { dragging: boolean }) {
           ) : (
             <>
               {status === 'error' && error && (
-                <div role="alert" className="font-serif">
-                  <p className="text-ink-7 decoration-vermilion text-lg [overflow-wrap:anywhere] line-through decoration-2">
+                <div role="alert">
+                  {/* El nombre tachado es una entrada corregida: va en la serif de los cambios. */}
+                  <p className="text-ink-7 decoration-vermilion font-serif text-lg [overflow-wrap:anywhere] line-through decoration-2">
                     {fileName}
                   </p>
                   <p className="mt-1 text-[15px] leading-snug">{t(ERROR_TEXT[error])}</p>
                 </div>
               )}
-              <h1 className="font-serif text-[2rem] leading-tight font-semibold text-balance sm:text-[2.4rem]">
+              <h1 className="text-[2rem] leading-tight font-semibold tracking-tight text-balance sm:text-[2.4rem]">
                 {dragging ? t('dropActive') : t('dropTitle')}
               </h1>
               <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -56,10 +60,12 @@ export function EntryPlate({ dragging }: { dragging: boolean }) {
                   <FileUp />
                   {status === 'error' ? t('chooseAnother') : t('choosePdf')}
                 </Button>
-                <span className="text-muted-foreground text-[15px]">{t('dropHint')}</span>
+                {canDrop && (
+                  <span className="text-muted-foreground text-[15px]">{t('dropHint')}</span>
+                )}
               </div>
               <p className="text-ink-8 flex items-start gap-2 text-sm">
-                <LockKeyhole className="text-ultramar mt-0.5 size-4 shrink-0" aria-hidden />
+                <LockKeyhole className="text-ink-8 mt-0.5 size-4 shrink-0" aria-hidden />
                 {t('privacy')}
               </p>
             </>
@@ -75,7 +81,7 @@ function Loading({ name, read, total }: { name: string; read: number; total: num
   const fraction = total ? read / total : 0
   return (
     <div aria-live="polite" className="flex flex-col gap-4">
-      <h1 className="font-serif text-2xl leading-tight font-semibold [overflow-wrap:anywhere]">
+      <h1 className="text-2xl leading-tight font-semibold tracking-tight [overflow-wrap:anywhere]">
         {t('loading', { name })}
       </h1>
       <div

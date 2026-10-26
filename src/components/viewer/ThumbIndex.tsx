@@ -12,6 +12,9 @@ export function ThumbIndex({ numPages }: { numPages: number }) {
   const current = useDocument((s) => s.current)
   const format = useFormatNumber()
   const per = numPages <= MAX_SINGLE_TABS ? 1 : Math.ceil(numPages / MAX_SINGLE_TABS)
+  // Con tres o más cifras el número no cabe en una pestaña angosta: baja el cuerpo y los
+  // uñeros inactivos se ensanchan un poco.
+  const digits = String(numPages).length
 
   const tabs = Array.from({ length: Math.ceil(numPages / per) }, (_, i) => {
     const first = i * per + 1
@@ -26,10 +29,12 @@ export function ThumbIndex({ numPages }: { numPages: number }) {
           aria-current={active ? 'page' : undefined}
           aria-label={single ? t('goToPage', { n: first }) : t('goToRange', { a: first, b: last })}
           className={cn(
-            'tabular flex h-10 w-full items-center justify-center rounded-l-md font-serif text-[15px] leading-none font-semibold transition-[width,background-color] duration-200 ease-out lg:h-11',
+            // Media luna a la izquierda: el corte del canto de un diccionario.
+            'tabular flex h-10 w-full items-center justify-center rounded-l-full font-serif leading-none font-semibold transition-[width,background-color] duration-200 ease-out lg:h-11',
+            digits >= 4 ? 'text-[11px]' : digits === 3 ? 'text-[12.5px]' : 'text-[15px]',
             active
               ? 'bg-vermilion w-full text-white'
-              : 'bg-ink-10 text-ink-0 hover:bg-ink-8 w-[78%]',
+              : cn('bg-ink-10 text-ink-0 hover:bg-ink-8', digits >= 3 ? 'w-[90%]' : 'w-[78%]'),
           )}
         >
           {format(active ? current : first)}

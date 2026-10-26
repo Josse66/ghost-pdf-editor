@@ -12,7 +12,8 @@ export function FileName({ name, className }: { name: string; className?: string
   const tail = name.length > TAIL ? name.slice(-TAIL) : name
   return (
     <span title={name} className={cn('flex min-w-0', className)}>
-      <span className="truncate">{head}</span>
+      {/* Un span vacío con overflow se vuelve la línea base del flex y sube el nombre. */}
+      {head && <span className="truncate">{head}</span>}
       <span className="shrink-0 whitespace-pre">{tail}</span>
     </span>
   )

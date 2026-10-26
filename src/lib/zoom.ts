@@ -14,9 +14,9 @@ export function nextStep(scale: number, direction: 1 | -1): number {
 }
 
 /**
- * Escala que hace caber la página más ancha en el ancho disponible. Puede bajar del zoom mínimo
- * manual: en un celular la página tiene que caber aunque quede chica.
+ * Límites para una escala de ajuste (a página o al ancho). Puede bajar del zoom mínimo manual:
+ * en un celular la página tiene que caber aunque quede chica.
  */
-export function fitWidthScale(available: number, maxPageWidth: number): number {
-  return Math.min(MAX, Math.max(0.2, available / maxPageWidth))
+export function fitScale(scale: number): number {
+  return Math.min(MAX, Math.max(0.2, scale))
 }

@@ -3,6 +3,8 @@ import type { LoadedDocument } from '@/core/engine'
 
 export type OpenError = 'empty' | 'password' | 'invalid' | 'not-pdf' | 'unknown'
 export type DebugMode = 'off' | 'line' | 'paragraph'
+/** Zoom manual (px CSS por punto PDF) o un ajuste automático a la página o al ancho. */
+export type Zoom = number | 'page' | 'width'
 
 interface DocumentState {
   status: 'empty' | 'loading' | 'ready' | 'error'
@@ -10,10 +12,9 @@ interface DocumentState {
   doc: LoadedDocument | null
   error: OpenError | null
   progress: { read: number; total: number }
-  /** Escala en px por punto PDF; null = ajustar al ancho. */
-  zoom: number | null
-  /** Escala que ajusta la página más ancha al visor; la calcula el visor al medir su ancho. */
-  fitScale: number
+  zoom: Zoom
+  /** Escalas de ajuste; las calcula el visor al medir su espacio disponible. */
+  fit: { page: number; width: number }
   debug: DebugMode
   /** Rango de páginas visibles (para las palabras guía) y la página principal. */
   visible: { first: number; last: number }
@@ -21,8 +22,8 @@ interface DocumentState {
   /** Páginas ya leídas que no tienen texto (escaneos). */
   textless: ReadonlySet<number>
   openFile: (file: File) => Promise<void>
-  setZoom: (zoom: number | null) => void
-  setFitScale: (fitScale: number) => void
+  setZoom: (zoom: Zoom) => void
+  setFit: (fit: { page: number; width: number }) => void
   setDebug: (debug: DebugMode) => void
   setVisible: (first: number, last: number, current: number) => void
   setPageHasText: (page: number, hasText: boolean) => void
@@ -36,8 +37,8 @@ export const useDocument = create<DocumentState>((set, get) => ({
   doc: null,
   error: null,
   progress: { read: 0, total: 0 },
-  zoom: null,
-  fitScale: 1,
+  zoom: 'page',
+  fit: { page: 1, width: 1 },
   debug: 'off',
   visible: { first: 1, last: 1 },
   current: 1,
@@ -68,7 +69,8 @@ export const useDocument = create<DocumentState>((set, get) => ({
       const doc = await engine.load(data, (read, total) => set({ progress: { read, total } }))
       // Si mientras tanto se abrió otro archivo, este resultado ya no importa.
       if (seq !== openSeq) return
-      set({ status: 'ready', doc, zoom: null, visible: { first: 1, last: 1 }, current: 1 })
+      // Se abre viendo la primera lámina completa; ajustar al ancho queda a un clic.
+      set({ status: 'ready', doc, zoom: 'page', visible: { first: 1, last: 1 }, current: 1 })
     } catch (error) {
       set({ status: 'error', error: classifyError(error), doc: null })
     }
@@ -83,8 +85,10 @@ export const useDocument = create<DocumentState>((set, get) => ({
     set({ textless: next })
   },
   setZoom: (zoom) => set({ zoom }),
-  setFitScale: (fitScale) => {
-    if (Math.abs(get().fitScale - fitScale) > 0.001) set({ fitScale })
+  setFit: (fit) => {
+    const prev = get().fit
+    if (Math.abs(prev.page - fit.page) > 0.001 || Math.abs(prev.width - fit.width) > 0.001)
+      set({ fit })
   },
   setDebug: (debug) => set({ debug }),
   setVisible: (first, last, current) => {
@@ -111,4 +115,5 @@ function classifyError(error: unknown): OpenError {
 }
 
 /** Escala efectiva del visor. */
-export const selectScale = (s: { zoom: number | null; fitScale: number }) => s.zoom ?? s.fitScale
+export const selectScale = (s: { zoom: Zoom; fit: { page: number; width: number } }) =>
+  typeof s.zoom === 'number' ? s.zoom : s.fit[s.zoom]

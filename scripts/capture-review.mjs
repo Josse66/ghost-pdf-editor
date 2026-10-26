@@ -26,7 +26,7 @@ for (const [name, opts] of [
   await page.waitForTimeout(1200)
   await page.screenshot({ path: `${OUT}/${name}.png` })
   if (name === 'desktop') {
-    await page.getByText(debugMode, { exact: true }).click()
+    await page.getByRole('radio', { name: debugMode }).click({ force: true })
     await page.waitForTimeout(800)
     await page.screenshot({ path: `${OUT}/${name}-debug.png` })
   }

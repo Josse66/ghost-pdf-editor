@@ -54,7 +54,7 @@ export default function App() {
   )
 }
 
-/** Ctrl/⌘ + y − acercan y alejan el PDF (no la página); Ctrl/⌘ 0 ajusta al ancho. */
+/** Ctrl/⌘ + y − acercan y alejan el PDF (no la página); Ctrl/⌘ 0 ajusta a la página. */
 function useZoomShortcuts() {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -64,7 +64,7 @@ function useZoomShortcuts() {
       const scale = selectScale(state)
       if (e.key === '+' || e.key === '=') state.setZoom(nextStep(scale, 1))
       else if (e.key === '-') state.setZoom(nextStep(scale, -1))
-      else if (e.key === '0') state.setZoom(null)
+      else if (e.key === '0') state.setZoom('page')
       else return
       e.preventDefault()
     }
