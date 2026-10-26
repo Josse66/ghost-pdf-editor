@@ -64,7 +64,11 @@ export interface PageInfo {
   height: number
   /** Rotación de la página: 0, 90, 180 o 270. */
   rotate: number
+  /** Caja visible en puntos PDF [x0, y0, x1, y1]; ver core/geometry.ts. */
+  view: readonly [number, number, number, number]
 }
+
+export type LoadProgress = (pagesRead: number, totalPages: number) => void
 
 export interface LoadedDocument {
   numPages: number
@@ -79,7 +83,7 @@ export interface RenderTarget {
 }
 
 export interface PdfEngine {
-  load(data: ArrayBuffer): Promise<LoadedDocument>
+  load(data: ArrayBuffer, onProgress?: LoadProgress): Promise<LoadedDocument>
   /** Bloques de una página: por línea o agrupados en párrafos. */
   getTextBlocks(page: number, kind?: TextBlock['kind']): Promise<TextBlock[]>
   renderPage(page: number, target: RenderTarget): Promise<void>
