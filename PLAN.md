@@ -156,19 +156,22 @@ Objetivo: eliminar incertidumbre antes de construir.
 - [x] `LICENSE` (MIT) + `THIRD_PARTY_LICENSES` / créditos de fuentes y librerías.
 - [x] `.gitignore` con `test-fixtures/privado/`; los `spikes/` se quedan como referencia.
 - [x] `PRODUCT.md` (`/impeccable init`) y dirección visual «Diccionario» (`/impeccable shape`), con brief en `.impeccable/surfaces/src-app-tsx.md`.
-- [ ] Repo **público** `ghost-pdf-editor` en GitHub (rama `main`), conectado a Vercel → deploy automático + preview por cada PR.
-- [ ] GitHub Actions: lint + typecheck + test en cada PR. *(Workflow listo en `.github/workflows/ci.yml`; falta verlo correr cuando exista el repo.)*
+- [x] Repo **público** `ghost-pdf-editor` en GitHub (rama `main`), conectado a Vercel → deploy automático + preview por cada PR. *([github.com/Josse66/ghost-pdf-editor](https://github.com/Josse66/ghost-pdf-editor) · [ghost-pdf-editor.vercel.app](https://ghost-pdf-editor.vercel.app). En PowerShell usar `vercel.cmd`.)*
+- [x] GitHub Actions: lint + typecheck + test en cada PR. *(Verde en 44 s.)*
 - 🧰 **Skills:** `/impeccable init` (crea `PRODUCT.md`: quién lo usa, tono, personalidad) → `/impeccable shape` (dirección visual y tokens antes de escribir UI) → `pick-ui-library` (confirmar shadcn + qué libs extra: toasts, iconos, drag) → `ask-sonner` si eliges Sonner para notificaciones.
-- **Entregable:** página vacía desplegada en `ghost-pdf-editor.vercel.app`.
+- **Entregable:** ✅ página vacía desplegada en `ghost-pdf-editor.vercel.app`.
 
 ### Fase 2 — Motor de lectura (1–2 semanas)
-- [ ] Drag & drop / selector de archivo (el archivo se lee como `ArrayBuffer`, nunca se sube).
-- [ ] Render de páginas con pdf.js en canvas, con zoom y scroll; render perezoso.
-- [ ] `core/reader`: extraer fragmentos → `core/layout`: agrupar en `TextBlock`s.
-- [ ] Modo debug: dibujar las cajas de cada bloque encima del render (clave para depurar).
-- [ ] Tests de `layout` contra el corpus.
+- [x] Drag & drop / selector de archivo (el archivo se lee como `ArrayBuffer`, nunca se sube).
+- [x] Render de páginas con pdf.js en canvas, con zoom y scroll; render perezoso. *(Solo se dibujan las páginas cercanas; ajustar al ancho, zoom ± y Ctrl +/−/0.)*
+- [x] `core/reader`: extraer fragmentos → `core/layout`: agrupar en `TextBlock`s. *(Líneas con runs por estilo y párrafos; columnas y celdas de tabla separadas; texto rotado. Pendiente para la Fase 3: orden de lectura por columnas, hoy intercala.)*
+- [x] Modo debug: dibujar las cajas de cada bloque encima del render (clave para depurar). *(Panel «Revisión»: líneas en ultramar, párrafos en bermellón.)*
+- [x] Tests de `layout` contra el corpus. *(Sintético: CV, dos columnas, factura, rotado. Falta sumar los PDFs reales del usuario.)*
 - 🧰 **Skills:** `/impeccable craft` para la pantalla de carga (drop zone, estado vacío, progreso) y el visor. `break-ui` sobre el visor: PDF de 1 página, de 300, nombre de archivo larguísimo, PDF vacío/corrupto. *El motor (`core/`) no usa skills de diseño.*
-- **Entregable:** subes un PDF y ves los bloques de texto resaltados correctamente.
+- [x] `break-ui` sobre el visor: 10 peores casos (nombre largo, 300 págs, tamaños mezclados, rotada, escaneado, 0 bytes, truncado, no PDF, contraseña, inglés) en 4 anchos; 8 arreglos aplicados y 4 regresiones e2e. *(`npm run fixtures:break` + interruptor `?fixture=` solo en dev.)*
+- [x] Carga ligera: pdf.js y el visor se descargan al abrir el primer PDF (JS inicial 716 KB → 276 KB).
+- [x] Revisión final de Impeccable (veredicto `ship`) y `DESIGN.md` + `.impeccable/design.json` generados desde el build.
+- **Entregable:** ✅ subes un PDF y ves los bloques de texto resaltados correctamente (en `dev`; a `main` tras verificar el preview).
 
 ### Fase 3 — Capa de edición (1–2 semanas)
 - [ ] Doble clic en bloque → `contenteditable` posicionado exacto, con fuente/tamaño/color aproximados (CSS).
@@ -207,7 +210,7 @@ Objetivo: eliminar incertidumbre antes de construir.
 - v1.x: mover/redimensionar bloques, agregar texto nuevo, insertar imágenes, firma dibujada, rellenar formularios (AcroForm, pdf-lib ya lo soporta), reordenar/eliminar/rotar páginas, unir PDFs.
 - v2: eliminar texto original del content stream (redacción real) en vez de taparlo.
 - v3: edición nativa del content stream conservando la fuente original; reflujo de párrafos.
-- v4: OCR con Tesseract.js para escaneados.
+- v4: OCR para escaneados (PaddleOCR.js con Tesseract.js v7 de respaldo, según el reporte de investigación). *Caso real reportado por el usuario el 2026-10-26: un PDF escaneado exportado desde Notion abre pero no se puede editar; hoy la app solo avisa «Esta página no tiene texto editable».*
 
 ---
 
@@ -267,7 +270,10 @@ Cada fase se mide: "¿cuántos del corpus funcionan bien?"
 
 ## 6. Flujo de trabajo
 
-- **Git:** rama `main` siempre desplegable. Una rama por tarea (`feat/text-layout`, `fix/rotated-pages`), PR a `main` → Vercel genera preview URL → revisas en celular → merge.
+- **Git:** dos ramas fijas.
+  - `main` = **producción** (`ghost-pdf-editor.vercel.app`). Solo recibe merges desde `dev`, ya verificados.
+  - `dev` = **integración**. Ahí se trabaja (o en ramas cortas `feat/…` / `fix/…` que se unen a `dev`). Cada push a `dev` genera un preview en Vercel con URL fija de rama, para probarlo en el celular.
+  - Cuando `dev` funciona en el preview y el CI está en verde → PR `dev` → `main` → merge = deploy a producción.
 - **Commits:** Conventional Commits (`feat:`, `fix:`, `refactor:`, `test:`).
 - **Issues:** cada checkbox de las fases = un issue en GitHub; un Project board (Kanban) con columnas Todo / Doing / Done.
 - **Definición de "terminado":** funciona en el corpus, tiene test, está desplegado.

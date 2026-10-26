@@ -137,6 +137,312 @@
         ],
         "createdAt": "2026-10-26T14:28:56.594Z",
         "reason": "Claude: selection ring hugs PDF document text by design; padding would shift the document layout"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-26T16:26:43.477Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), not shipped; Calibri there simulates PDF page content"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-26T16:26:43.919Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), not shipped; Calibri there simulates PDF page content"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-streaming.html"
+        ],
+        "createdAt": "2026-10-26T16:26:44.322Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), not shipped; Calibri there simulates PDF page content"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-26T16:26:44.727Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), not shipped; Calibri there simulates PDF page content"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/lead-labanotation.html"
+        ],
+        "createdAt": "2026-10-26T16:26:45.100Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), not shipped; Calibri there simulates PDF page content"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-lexicon.html"
+        ],
+        "createdAt": "2026-10-26T16:26:45.554Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), not shipped; Calibri there simulates PDF page content"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-specimen.html"
+        ],
+        "createdAt": "2026-10-26T16:26:45.965Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), not shipped; Calibri there simulates PDF page content"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-cassette.html"
+        ],
+        "createdAt": "2026-10-26T16:26:46.353Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), not shipped; Calibri there simulates PDF page content"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "src/components/ui/button.tsx"
+        ],
+        "createdAt": "2026-10-26T16:27:39.427Z",
+        "reason": "Claude: shadcn base size=sm variant, unused by the app"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "src/core/layout/corpus.test.ts"
+        ],
+        "createdAt": "2026-10-26T16:27:39.880Z",
+        "reason": "Claude: test asserts the PDF fixture's font family, not UI type"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          "src/dev/FixtureSwitch.tsx"
+        ],
+        "createdAt": "2026-10-26T16:27:40.273Z",
+        "reason": "Claude: dev-only break-ui switch, neutral chrome by spec, not shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-26T16:27:41.362Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-26T16:27:41.777Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-26T16:27:42.161Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-26T16:27:43.129Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-26T16:27:43.565Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-26T16:27:43.953Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-streaming.html"
+        ],
+        "createdAt": "2026-10-26T16:27:44.874Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-streaming.html"
+        ],
+        "createdAt": "2026-10-26T16:27:45.228Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-streaming.html"
+        ],
+        "createdAt": "2026-10-26T16:27:45.588Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-26T16:27:46.494Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-26T16:27:46.862Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-26T16:27:47.226Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/lead-labanotation.html"
+        ],
+        "createdAt": "2026-10-26T16:27:48.107Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/lead-labanotation.html"
+        ],
+        "createdAt": "2026-10-26T16:27:48.546Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-lexicon.html"
+        ],
+        "createdAt": "2026-10-26T16:27:49.515Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-lexicon.html"
+        ],
+        "createdAt": "2026-10-26T16:27:49.900Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-lexicon.html"
+        ],
+        "createdAt": "2026-10-26T16:27:50.277Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-specimen.html"
+        ],
+        "createdAt": "2026-10-26T16:27:51.249Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-specimen.html"
+        ],
+        "createdAt": "2026-10-26T16:27:51.616Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-specimen.html"
+        ],
+        "createdAt": "2026-10-26T16:27:51.995Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-cassette.html"
+        ],
+        "createdAt": "2026-10-26T16:27:52.937Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-cassette.html"
+        ],
+        "createdAt": "2026-10-26T16:27:53.338Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-cassette.html"
+        ],
+        "createdAt": "2026-10-26T16:27:53.754Z",
+        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
       }
     ]
   }
