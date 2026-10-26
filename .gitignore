@@ -34,3 +34,7 @@ dist-ssr/
 # Impeccable: estado local de las rondas de decisión
 .impeccable/questions/
 .impeccable/config.local.json
+
+.vercel
+.env*
+.impeccable/hook.cache.json
