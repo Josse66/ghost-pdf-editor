@@ -156,10 +156,10 @@ Objetivo: eliminar incertidumbre antes de construir.
 - [x] `LICENSE` (MIT) + `THIRD_PARTY_LICENSES` / créditos de fuentes y librerías.
 - [x] `.gitignore` con `test-fixtures/privado/`; los `spikes/` se quedan como referencia.
 - [x] `PRODUCT.md` (`/impeccable init`) y dirección visual «Diccionario» (`/impeccable shape`), con brief en `.impeccable/surfaces/src-app-tsx.md`.
-- [ ] Repo **público** `ghost-pdf-editor` en GitHub (rama `main`), conectado a Vercel → deploy automático + preview por cada PR.
-- [ ] GitHub Actions: lint + typecheck + test en cada PR. *(Workflow listo en `.github/workflows/ci.yml`; falta verlo correr cuando exista el repo.)*
+- [x] Repo **público** `ghost-pdf-editor` en GitHub (rama `main`), conectado a Vercel → deploy automático + preview por cada PR. *([github.com/Josse66/ghost-pdf-editor](https://github.com/Josse66/ghost-pdf-editor) · [ghost-pdf-editor.vercel.app](https://ghost-pdf-editor.vercel.app). En PowerShell usar `vercel.cmd`.)*
+- [x] GitHub Actions: lint + typecheck + test en cada PR. *(Verde en 44 s.)*
 - 🧰 **Skills:** `/impeccable init` (crea `PRODUCT.md`: quién lo usa, tono, personalidad) → `/impeccable shape` (dirección visual y tokens antes de escribir UI) → `pick-ui-library` (confirmar shadcn + qué libs extra: toasts, iconos, drag) → `ask-sonner` si eliges Sonner para notificaciones.
-- **Entregable:** página vacía desplegada en `ghost-pdf-editor.vercel.app`.
+- **Entregable:** ✅ página vacía desplegada en `ghost-pdf-editor.vercel.app`.
 
 ### Fase 2 — Motor de lectura (1–2 semanas)
 - [ ] Drag & drop / selector de archivo (el archivo se lee como `ArrayBuffer`, nunca se sube).
@@ -267,7 +267,10 @@ Cada fase se mide: "¿cuántos del corpus funcionan bien?"
 
 ## 6. Flujo de trabajo
 
-- **Git:** rama `main` siempre desplegable. Una rama por tarea (`feat/text-layout`, `fix/rotated-pages`), PR a `main` → Vercel genera preview URL → revisas en celular → merge.
+- **Git:** dos ramas fijas.
+  - `main` = **producción** (`ghost-pdf-editor.vercel.app`). Solo recibe merges desde `dev`, ya verificados.
+  - `dev` = **integración**. Ahí se trabaja (o en ramas cortas `feat/…` / `fix/…` que se unen a `dev`). Cada push a `dev` genera un preview en Vercel con URL fija de rama, para probarlo en el celular.
+  - Cuando `dev` funciona en el preview y el CI está en verde → PR `dev` → `main` → merge = deploy a producción.
 - **Commits:** Conventional Commits (`feat:`, `fix:`, `refactor:`, `test:`).
 - **Issues:** cada checkbox de las fases = un issue en GitHub; un Project board (Kanban) con columnas Todo / Doing / Done.
 - **Definición de "terminado":** funciona en el corpus, tiene test, está desplegado.
