@@ -210,7 +210,7 @@ Objetivo: eliminar incertidumbre antes de construir.
 - v1.x: mover/redimensionar bloques, agregar texto nuevo, insertar imágenes, firma dibujada, rellenar formularios (AcroForm, pdf-lib ya lo soporta), reordenar/eliminar/rotar páginas, unir PDFs.
 - v2: eliminar texto original del content stream (redacción real) en vez de taparlo.
 - v3: edición nativa del content stream conservando la fuente original; reflujo de párrafos.
-- v4: OCR con Tesseract.js para escaneados.
+- v4: OCR para escaneados (PaddleOCR.js con Tesseract.js v7 de respaldo, según el reporte de investigación). *Caso real reportado por el usuario el 2026-10-26: un PDF escaneado exportado desde Notion abre pero no se puede editar; hoy la app solo avisa «Esta página no tiene texto editable».*
 
 ---
 
