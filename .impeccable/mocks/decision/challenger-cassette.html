@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&family=Kalam:wght@700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:"Work Sans",system-ui,sans-serif;background:#fff;color:#111}
+.stripe{height:8px;background:linear-gradient(90deg,#D7262E 0 70%,#111 70%)}
+.top{height:56px;display:flex;align-items:center;padding:0 24px;gap:16px;border-bottom:1px solid #DADCE0}
+.logo{font-weight:700;font-size:19px}
+.file{font-size:14px;color:#5F6368;margin-left:10px}
+.sp{flex:1}
+.btn{height:36px;padding:0 16px;border-radius:6px;border:1.5px solid #1F3A93;color:#1F3A93;font-weight:600;font-size:14px;display:flex;align-items:center}
+.btn.solid{background:#1F3A93;color:#fff}
+.main{display:grid;grid-template-columns:120px 1fr 420px;height:836px}
+.pages{border-right:1px solid #DADCE0;padding:20px 0;display:flex;flex-direction:column;align-items:center;gap:14px;font-size:12px;color:#5F6368}
+.pg{width:70px;height:90px;border:1px solid #DADCE0}
+.pg.on{border:2px solid #1F3A93}
+.stage{background:#F1F3F4;display:flex;justify-content:center;padding:28px 0;overflow:hidden}
+.page{width:540px;height:740px;background:#fff;box-shadow:0 0 0 1px #E0E0E0;padding:54px 50px;font-family:Calibri,Carlito,sans-serif;color:#222}
+.page h1{font-size:29px;color:#1f3864}
+.page .m{font-size:12px;color:#666;margin:6px 0 20px}
+.page h2{font-size:15.5px;color:#2f5496;border-bottom:1px solid #2f5496;margin:16px 0 9px}
+.page p{font-size:12px;line-height:1.5;margin-bottom:8px}
+.sel{outline:2px solid #1F3A93;outline-offset:3px}
+.card{border-left:1px solid #DADCE0;padding:22px 26px;background:#fff repeating-linear-gradient(#fff 0 35px,#DCE4F7 35px 36px)}
+.tabs{display:flex;gap:0;margin-bottom:18px;border:1.5px solid #1F3A93;border-radius:6px;overflow:hidden;width:max-content}
+.tabs span{padding:8px 16px;font-weight:600;font-size:14px;color:#1F3A93;background:#fff}
+.tabs span.on{background:#1F3A93;color:#fff}
+.hd{font-family:Kalam,cursive;font-size:24px;color:#1F3A93;border-bottom:2px solid #1F3A93;margin-bottom:6px;line-height:1.2}
+.tk{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:baseline;height:36px;font-size:15px}
+.tk .no{color:#5F6368;font-size:13px}
+.tk .t{color:#1F3A93;font-weight:600}
+.tk .t.pen{color:#5F6368;font-weight:400;font-style:italic}
+.tk .d{font-variant-numeric:tabular-nums;font-size:14px}
+.tape{margin-top:20px}
+.tape .lbl{font-size:13px;color:#5F6368;display:flex;justify-content:space-between;margin-bottom:6px}
+.bar{height:12px;border-radius:6px;background:#E8EAED;position:relative;overflow:hidden}
+.bar i{position:absolute;left:0;top:0;bottom:0;width:96%;background:#1F3A93}
+.bar b{position:absolute;right:0;top:0;bottom:0;width:4%;background:#D7262E}
+</style></head><body>
+<div class="stripe"></div>
+<div class="top"><div class="logo">Ghost PDF Editor</div><div class="file">cv-josefina-nunez.pdf</div><div class="sp"></div><div class="btn">Abrir</div><div class="btn solid">Exportar PDF</div></div>
+<div class="main">
+  <aside class="pages"><div class="pg on"></div>1<div class="pg"></div>2</aside>
+  <section class="stage"><div class="page">
+    <h1>Josefina Núñez Peña</h1>
+    <div class="m">Desarrolladora Full Stack · Monterrey, N.L. · josefina@ejemplo.com</div>
+    <h2>Experiencia</h2>
+    <p><span class="sel"><b>Ingeniera de Software Sénior</b></span> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+    <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día.</p>
+    <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
+    <h2>Educación</h2>
+    <p>Ingeniería en Computación — Universidad Nacional, 2016–2020.</p>
+  </div></section>
+  <aside class="card">
+    <div class="tabs"><span>Cara A · Original</span><span class="on">Cara B · Editado</span></div>
+    <div class="hd">Cara B</div>
+    <div class="tk"><span class="no">1</span><span class="t">Josefina Núñez Peña</span><span class="d">24 pt</span></div>
+    <div class="tk"><span class="no">2</span><span class="t">Ingeniera de Software Sénior</span><span class="d">412/428 pt</span></div>
+    <div class="tk"><span class="no">3</span><span class="t pen">Desarrolladora Full Stack… (sin guardar)</span><span class="d">—</span></div>
+    <div class="tape"><div class="lbl"><span>Cinta de la línea 2</span><span>96% · cabe justo</span></div><div class="bar"><i></i><b></b></div></div>
+  </aside>
+</div>
+</body></html>

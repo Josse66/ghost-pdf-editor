@@ -1,0 +1,174 @@
+[
+  {
+    "file": "cv-calibri.pdf",
+    "family": "Carlito",
+    "lib": "pdf-lib",
+    "ms": 258,
+    "inKB": 52,
+    "outKB": 62,
+    "report": [
+      {
+        "find": "Ingeniero de Software",
+        "replace": "Ingeniera de Software Sénior",
+        "size": 10.99,
+        "fitSize": 8.36,
+        "metricErrorPct": 0.49,
+        "widthRatio": 1.31,
+        "bg": [255, 255, 255],
+        "bgSpread": 0,
+        "textColor": [34, 34, 34]
+      },
+      {
+        "find": "José Núñez Peña",
+        "replace": "Josefina Núñez Peña",
+        "size": 24,
+        "fitSize": 19.46,
+        "metricErrorPct": 0.38,
+        "widthRatio": 1.23,
+        "bg": [255, 255, 255],
+        "bgSpread": 0,
+        "textColor": [31, 56, 100]
+      },
+      {
+        "find": "Desarrollador Full Stack · Ciudad de México · jose.nunez@ejemplo.com · +52 55 1234 5678",
+        "replace": "Desarrolladora Full Stack · Monterrey, N.L. · josefina@ejemplo.com · +52 81 9876 5432",
+        "size": 10.99,
+        "fitSize": 10.99,
+        "metricErrorPct": 0.19,
+        "widthRatio": 0.96,
+        "bg": [255, 255, 255],
+        "bgSpread": 0,
+        "textColor": [102, 102, 102]
+      }
+    ]
+  },
+  {
+    "file": "cv-calibri.pdf",
+    "family": "Carlito",
+    "lib": "cantoo",
+    "ms": 213,
+    "inKB": 52,
+    "outKB": 69,
+    "report": [
+      {
+        "find": "Ingeniero de Software",
+        "replace": "Ingeniera de Software Sénior",
+        "size": 10.99,
+        "fitSize": 8.36,
+        "metricErrorPct": 0.49,
+        "widthRatio": 1.31,
+        "bg": [255, 255, 255],
+        "bgSpread": 0,
+        "textColor": [34, 34, 34]
+      },
+      {
+        "find": "José Núñez Peña",
+        "replace": "Josefina Núñez Peña",
+        "size": 24,
+        "fitSize": 19.46,
+        "metricErrorPct": 0.38,
+        "widthRatio": 1.23,
+        "bg": [255, 255, 255],
+        "bgSpread": 0,
+        "textColor": [31, 56, 100]
+      },
+      {
+        "find": "Desarrollador Full Stack · Ciudad de México · jose.nunez@ejemplo.com · +52 55 1234 5678",
+        "replace": "Desarrolladora Full Stack · Monterrey, N.L. · josefina@ejemplo.com · +52 81 9876 5432",
+        "size": 10.99,
+        "fitSize": 10.99,
+        "metricErrorPct": 0.19,
+        "widthRatio": 0.96,
+        "bg": [255, 255, 255],
+        "bgSpread": 0,
+        "textColor": [102, 102, 102]
+      }
+    ]
+  },
+  {
+    "file": "factura-color.pdf",
+    "family": "LiberationSans",
+    "lib": "pdf-lib",
+    "ms": 224,
+    "inKB": 58,
+    "outKB": 65,
+    "report": [
+      {
+        "find": "FACTURA No. F-2025-0187",
+        "replace": "FACTURA No. F-2025-0188",
+        "size": 19.99,
+        "fitSize": 19.85,
+        "metricErrorPct": 0.73,
+        "widthRatio": 1.01,
+        "bg": [11, 83, 148],
+        "bgSpread": 0,
+        "textColor": [255, 255, 255]
+      },
+      {
+        "find": "Total a pagar (IVA incluido)",
+        "replace": "Total a pagar (IVA 16% incluido)",
+        "size": 12,
+        "fitSize": 10.06,
+        "metricErrorPct": 1.45,
+        "widthRatio": 1.19,
+        "bg": [252, 229, 205],
+        "bgSpread": 0,
+        "textColor": [17, 17, 17]
+      },
+      {
+        "find": "Texto sobre degradado: este bloque prueba el tapado con fondo no uniforme.",
+        "replace": "Texto editado sobre degradado: aquí se nota si el tapado falla.",
+        "size": 10,
+        "fitSize": 10,
+        "metricErrorPct": 0.32,
+        "widthRatio": 0.81,
+        "bg": [152, 47, 97],
+        "bgSpread": 232,
+        "textColor": [255, 255, 255]
+      }
+    ]
+  },
+  {
+    "file": "factura-color.pdf",
+    "family": "LiberationSans",
+    "lib": "cantoo",
+    "ms": 197,
+    "inKB": 58,
+    "outKB": 75,
+    "report": [
+      {
+        "find": "FACTURA No. F-2025-0187",
+        "replace": "FACTURA No. F-2025-0188",
+        "size": 19.99,
+        "fitSize": 19.85,
+        "metricErrorPct": 0.73,
+        "widthRatio": 1.01,
+        "bg": [11, 83, 148],
+        "bgSpread": 0,
+        "textColor": [255, 255, 255]
+      },
+      {
+        "find": "Total a pagar (IVA incluido)",
+        "replace": "Total a pagar (IVA 16% incluido)",
+        "size": 12,
+        "fitSize": 10.06,
+        "metricErrorPct": 1.45,
+        "widthRatio": 1.19,
+        "bg": [252, 229, 205],
+        "bgSpread": 0,
+        "textColor": [17, 17, 17]
+      },
+      {
+        "find": "Texto sobre degradado: este bloque prueba el tapado con fondo no uniforme.",
+        "replace": "Texto editado sobre degradado: aquí se nota si el tapado falla.",
+        "size": 10,
+        "fitSize": 10,
+        "metricErrorPct": 0.32,
+        "widthRatio": 0.81,
+        "bg": [152, 47, 97],
+        "bgSpread": 232,
+        "textColor": [255, 255, 255]
+      }
+    ]
+  }
+]

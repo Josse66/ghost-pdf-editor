@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Hanken+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:"Hanken Grotesk",system-ui,sans-serif;background:#F6F6F3;color:#161412}
+.top{height:58px;display:flex;align-items:center;padding:0 28px;gap:18px;border-bottom:2px solid #161412}
+.logo{font-weight:700;font-size:19px}
+.guide{flex:1;display:flex;justify-content:center;gap:28px;font-family:"Source Serif 4",Georgia,serif;font-size:15px;letter-spacing:.08em;text-transform:uppercase}
+.guide b{font-weight:700}
+.btn{font-size:15px;font-weight:600;display:flex;align-items:center;gap:6px}
+.btn:after{content:"";border-left:7px solid #161412;border-top:5px solid transparent;border-bottom:5px solid transparent}
+.btn.solid{background:#161412;color:#F6F6F3;padding:8px 14px}
+.btn.solid:after{border-left-color:#F6F6F3}
+.main{display:grid;grid-template-columns:96px 1fr 400px;height:842px}
+.shoulder{border-right:1px solid #161412;padding:24px 0 24px 18px;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.shoulder small{font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin:0 14px 10px 0}
+.tab{width:52px;height:46px;background:#161412;color:#F6F6F3;border-radius:6px 0 0 6px;display:flex;align-items:center;justify-content:center;font-family:"Source Serif 4",Georgia,serif;font-weight:700;font-size:18px}
+.tab.on{background:#B8321F;width:66px}
+.stage{display:flex;justify-content:center;padding:30px 0;overflow:hidden}
+.plate{padding:10px;border:1.5px solid #161412;background:#F6F6F3}
+.page{width:540px;height:740px;background:#fff;padding:54px 50px;font-family:Calibri,Carlito,sans-serif;color:#222}
+.page h1{font-size:29px;color:#1f3864}
+.page .m{font-size:12px;color:#666;margin:6px 0 20px}
+.page h2{font-size:15.5px;color:#2f5496;border-bottom:1px solid #2f5496;margin:16px 0 9px}
+.page p{font-size:12px;line-height:1.5;margin-bottom:8px}
+.sel{outline:1.5px solid #B8321F;outline-offset:3px}
+.cap{font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-top:8px}
+.entries{border-left:1px solid #161412;padding:24px 28px}
+.entries h3{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid #161412;padding-bottom:8px;margin-bottom:16px}
+.e{font-family:"Source Serif 4",Georgia,serif;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid rgba(22,20,18,.25)}
+.e .old{font-size:16.5px;text-decoration:line-through;text-decoration-color:#B8321F;text-decoration-thickness:2px;color:#5a534c}
+.e .new{font-size:19px;font-weight:700;margin-top:2px}
+.e .ap{font-size:14px;margin-top:6px;line-height:1.45}
+.e .ap i{font-style:italic}
+.warn{color:#B8321F;font-weight:600}
+.note{font-size:14px;line-height:1.5}
+</style></head><body>
+<div class="top"><div class="logo">Ghost PDF Editor</div><div class="guide"><span><b>Página 1</b></span><span>—</span><span>Página 2</span></div><div class="btn">Abrir</div><div class="btn solid">Exportar PDF</div></div>
+<div class="main">
+  <aside class="shoulder"><small>Pág.</small><span class="tab on">1</span><span class="tab">2</span></aside>
+  <section class="stage"><div><div class="plate"><div class="page">
+    <h1>Josefina Núñez Peña</h1>
+    <div class="m">Desarrolladora Full Stack · Monterrey, N.L. · josefina@ejemplo.com</div>
+    <h2>Experiencia</h2>
+    <p><span class="sel"><b>Ingeniera de Software Sénior</b></span> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+    <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día.</p>
+    <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
+    <h2>Educación</h2>
+    <p>Ingeniería en Computación — Universidad Nacional, 2016–2020.</p>
+  </div></div><div class="cap">Lámina 1 · cv-josefina-nunez.pdf</div></div></section>
+  <aside class="entries">
+    <h3>Cambios · 2</h3>
+    <div class="e"><div class="old">Ingeniero de Software</div><div class="new">Ingeniera de Software Sénior</div>
+      <div class="ap"><i>pág. 1, línea 4.</i> Calibri Bold → Carlito, 11 pt. <span class="warn">Más largo: se ajusta 4% el espaciado.</span></div></div>
+    <div class="e"><div class="old">José Núñez Peña</div><div class="new">Josefina Núñez Peña</div>
+      <div class="ap"><i>pág. 1, título.</i> Fuente original reutilizada, 24 pt.</div></div>
+    <p class="note">Al exportar, el texto tachado se borra del archivo; no queda escondido debajo.</p>
+  </aside>
+</div>
+</body></html>

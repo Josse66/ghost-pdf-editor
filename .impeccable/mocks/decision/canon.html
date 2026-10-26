@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:system-ui,"Segoe UI",sans-serif;background:#F3F4F6;color:#111827}
+.top{height:56px;background:#fff;border-bottom:1px solid #E5E7EB;display:flex;align-items:center;padding:0 20px;gap:12px}
+.logo{font-weight:700;font-size:18px}
+.tools{display:flex;gap:6px;margin-left:24px}
+.tools i{width:34px;height:34px;border-radius:8px;background:#F3F4F6;display:block}
+.tools i.on{background:#DBEAFE}
+.sp{flex:1}
+.btn{height:36px;padding:0 16px;border-radius:8px;font-weight:600;font-size:14px;display:flex;align-items:center;border:1px solid #D1D5DB}
+.btn.solid{background:#2563EB;color:#fff;border-color:#2563EB}
+.main{display:grid;grid-template-columns:200px 1fr 280px;height:844px}
+.thumbs{background:#fff;border-right:1px solid #E5E7EB;padding:16px;display:flex;flex-direction:column;gap:14px;align-items:center}
+.t{width:120px;height:155px;background:#fff;border:1px solid #E5E7EB;border-radius:4px}
+.t.on{border:2px solid #2563EB}
+.thumbs span{font-size:12px;color:#6B7280}
+.stage{display:flex;justify-content:center;padding:28px 0;overflow:hidden}
+.page{width:560px;height:760px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.12);padding:56px 52px;font-family:Calibri,Carlito,sans-serif;color:#222}
+.page h1{font-size:30px;color:#1f3864}
+.page .m{font-size:12.5px;color:#666;margin:6px 0 22px}
+.page h2{font-size:16px;color:#2f5496;border-bottom:1px solid #2f5496;margin:18px 0 10px}
+.page p{font-size:12.5px;line-height:1.5;margin-bottom:8px}
+.sel{outline:2px solid #2563EB;outline-offset:3px}
+.props{background:#fff;border-left:1px solid #E5E7EB;padding:20px}
+.props h4{font-size:13px;font-weight:600;margin-bottom:12px}
+.f{height:36px;border:1px solid #D1D5DB;border-radius:8px;margin-bottom:10px;display:flex;align-items:center;padding:0 10px;font-size:14px;color:#374151}
+</style></head><body>
+<div class="top"><div class="logo">Ghost PDF Editor</div><div class="tools"><i class="on"></i><i></i><i></i><i></i><i></i></div><div class="sp"></div><div class="btn">Abrir</div><div class="btn solid">Exportar</div></div>
+<div class="main">
+  <aside class="thumbs"><div class="t on"></div><span>1</span><div class="t"></div><span>2</span></aside>
+  <section class="stage"><div class="page">
+    <h1>Josefina Núñez Peña</h1>
+    <div class="m">Desarrolladora Full Stack · Monterrey, N.L. · josefina@ejemplo.com</div>
+    <h2>Experiencia</h2>
+    <p><span class="sel"><b>Ingeniera de Software Sénior</b></span> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+    <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día.</p>
+    <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
+    <h2>Educación</h2>
+    <p>Ingeniería en Computación — Universidad Nacional, 2016–2020.</p>
+  </div></section>
+  <aside class="props"><h4>Texto</h4><div class="f">Carlito Bold</div><div class="f">11 pt</div><div class="f">#222222</div></aside>
+</div>
+</body></html>

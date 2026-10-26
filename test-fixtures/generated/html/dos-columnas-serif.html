@@ -1,0 +1,10 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><style>
+@page{size:A4;margin:20mm} body{font-family:Cambria;font-size:10.5pt;line-height:1.35}
+h1{font-family:"Times New Roman";font-size:18pt;text-align:center} .cols{columns:2;column-gap:10mm;text-align:justify;hyphens:auto}
+</style><body><h1>Efectos de la fragmentación tipográfica en documentos digitales</h1><div class="cols">
+<p>Los documentos en formato PDF no almacenan párrafos ni líneas, sino instrucciones de dibujo que colocan glifos individuales en coordenadas precisas. Esta característica, ideal para la impresión fiel, complica cualquier intento de edición posterior.</p>
+<p>Cuando un usuario desea corregir una errata, el editor debe reconstruir la estructura lógica del texto a partir de la geometría: agrupar glifos en palabras, palabras en líneas y líneas en párrafos, respetando columnas, sangrías y justificación.</p>
+<p>La justificación introduce espacios variables entre palabras, lo que confunde a los algoritmos que dependen de distancias fijas. Además, las ligaduras tipográficas como «fi» y «fl» combinan varios caracteres en un solo glifo, alterando el conteo de caracteres.</p>
+<p>Finalmente, las fuentes incrustadas suelen ser subconjuntos que contienen únicamente los glifos utilizados en el documento original, lo que impide escribir caracteres nuevos sin recurrir a una fuente sustituta con métricas compatibles.</p>
+<p>Este texto continúa para llenar la segunda columna y verificar que el agrupamiento no mezcle líneas de columnas distintas que comparten la misma línea base horizontal.</p>
+</div></body></html>

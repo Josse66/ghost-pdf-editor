@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:"Hanken Grotesk",system-ui,sans-serif;background:#FAFAF8;color:#0D0D0D}
+.top{height:56px;display:flex;align-items:center;padding:0 24px;gap:16px;border-bottom:1px solid #D9D9D4}
+.logo{font-weight:800;font-size:19px}
+.file{font-family:"JetBrains Mono";font-size:12px;color:#55554F;margin-left:10px}
+.sp{flex:1}
+.btn{height:36px;padding:0 16px;border-radius:18px;border:1px solid #0D0D0D;font-weight:600;font-size:14px;display:flex;align-items:center}
+.btn.solid{background:#3D5AFE;border-color:#3D5AFE;color:#fff}
+.main{display:grid;grid-template-columns:120px 1fr 460px;height:844px}
+.pages{border-right:1px solid #D9D9D4;padding:20px 0;display:flex;flex-direction:column;align-items:center;gap:14px;font-family:"JetBrains Mono";font-size:11px;color:#55554F}
+.pg{width:70px;height:90px;background:#fff;border:1px solid #D9D9D4}
+.pg.on{border:2px solid #3D5AFE}
+.stage{display:flex;justify-content:center;padding:28px 0;overflow:hidden;background:#F0F0EC}
+.page{width:540px;height:740px;background:#fff;box-shadow:0 0 0 1px #E2E2DC;padding:54px 50px;font-family:Calibri,Carlito,sans-serif;color:#222}
+.page h1{font-size:29px;color:#1f3864}
+.page .m{font-size:12px;color:#666;margin:6px 0 20px}
+.page h2{font-size:15.5px;color:#2f5496;border-bottom:1px solid #2f5496;margin:16px 0 9px}
+.page p{font-size:12px;line-height:1.5;margin-bottom:8px}
+.sel{outline:2px solid #3D5AFE;outline-offset:3px}
+.spec{border-left:1px solid #D9D9D4;padding:22px 26px;display:flex;flex-direction:column;gap:18px}
+.lbl{font-family:"JetBrains Mono";font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#55554F}
+.big{font-family:Carlito,Calibri,sans-serif;font-weight:700;font-size:40px;line-height:1.05;letter-spacing:-.02em}
+.read{font-family:"JetBrains Mono";font-size:13px;display:flex;justify-content:space-between;border-top:1px solid #D9D9D4;padding-top:8px}
+.read b{color:#3D5AFE;font-weight:600}
+.sl{display:grid;grid-template-columns:70px 1fr 56px;align-items:center;gap:12px;font-size:14px}
+.tr{height:4px;background:#D9D9D4;border-radius:2px;position:relative}
+.tr i{position:absolute;left:0;top:0;bottom:0;width:var(--v);background:#0D0D0D;border-radius:2px}
+.tr i:after{content:"";position:absolute;right:-9px;top:-7px;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid #0D0D0D}
+.sl span:last-child{font-family:"JetBrains Mono";font-size:12px;text-align:right}
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.grid b{height:34px;border:1px solid #D9D9D4;display:flex;align-items:center;justify-content:center;font-family:Carlito,Calibri,sans-serif;font-size:17px;font-weight:700;background:#fff}
+.grid b.x{color:#fff;background:#3D5AFE;border-color:#3D5AFE}
+.hint{font-size:13.5px;color:#33332F;line-height:1.45}
+</style></head><body>
+<div class="top"><div class="logo">Ghost PDF Editor</div><div class="file">cv-josefina-nunez.pdf · 2 pág.</div><div class="sp"></div><div class="btn">Abrir</div><div class="btn solid">Exportar PDF</div></div>
+<div class="main">
+  <aside class="pages"><div class="pg on"></div>1<div class="pg"></div>2</aside>
+  <section class="stage"><div class="page">
+    <h1>Josefina Núñez Peña</h1>
+    <div class="m">Desarrolladora Full Stack · Monterrey, N.L. · josefina@ejemplo.com</div>
+    <h2>Experiencia</h2>
+    <p><span class="sel"><b>Ingeniera de Software Sénior</b></span> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+    <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día.</p>
+    <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
+    <h2>Educación</h2>
+    <p>Ingeniería en Computación — Universidad Nacional, 2016–2020.</p>
+  </div></section>
+  <aside class="spec">
+    <div class="lbl">Editando · línea 4</div>
+    <div class="big">Ingeniera de Software Sénior</div>
+    <div class="read"><span>ancho</span><b>412 / 428 pt · cabe</b></div>
+    <div class="sl"><span>Ancho</span><div class="tr"><i style="--v:62%"></i></div><span>96%</span></div>
+    <div class="sl"><span>Peso</span><div class="tr"><i style="--v:78%"></i></div><span>700</span></div>
+    <div class="lbl">Letras de la fuente original</div>
+    <div class="grid"><b>I</b><b>n</b><b>g</b><b>e</b><b>i</b><b>r</b><b>a</b><b>d</b><b>S</b><b>o</b><b class="x">f</b><b class="x">t</b><b>w</b><b>é</b><b>J</b><b>s</b><b>N</b><b>ú</b><b>ñ</b><b>P</b></div>
+    <p class="hint">La fuente del PDF no trae «f» ni «t» sueltas: esas se escriben con Carlito, su gemela métrica.</p>
+  </aside>
+</div>
+</body></html>

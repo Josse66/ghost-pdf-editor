@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:Nunito,system-ui,sans-serif;background:#E9E9E8;color:#1D1D1B}
+.top{height:64px;background:#F47A20;display:flex;align-items:center;padding:0 24px;gap:16px;color:#1D1D1B}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:22px;letter-spacing:-.01em}
+.logo i{width:34px;height:34px;border-radius:50%;background:#fff;display:block;position:relative}
+.logo i:after{content:"";position:absolute;inset:9px;border-radius:50%;border:5px solid #F47A20}
+.file{margin-left:18px;font-weight:700;font-size:15px;opacity:.95}
+.sp{flex:1}
+.btn{height:40px;padding:0 18px;border-radius:20px;font-weight:800;font-size:15px;display:flex;align-items:center;border:2px solid #1D1D1B;color:#1D1D1B}
+.btn.solid{background:#1D1D1B;color:#fff}
+.main{display:grid;grid-template-columns:232px 1fr 300px;height:calc(900px - 64px - 40px)}
+.rail{background:#fff;padding:22px 18px;border-right:1px solid #D4D4D2}
+.rail h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6B6B68;margin-bottom:18px}
+.line{position:relative;padding-left:44px}
+.line:before{content:"";position:absolute;left:16px;top:10px;bottom:10px;width:10px;border-radius:5px;background:#E4007C}
+.st{position:relative;height:74px;display:flex;flex-direction:column;justify-content:center}
+.st b{font-weight:800;font-size:15px}
+.st span{font-size:13px;color:#6B6B68}
+.st:before{content:"";position:absolute;left:-36px;width:22px;height:22px;border-radius:50%;background:#fff;border:5px solid #E4007C}
+.st.edit:before{left:-41px;width:32px;height:32px;border:7px solid #1D1D1B}
+.st.cur b{color:#1D1D1B;text-decoration:underline 3px #F47A20;text-underline-offset:4px}
+.stage{display:flex;justify-content:center;padding:28px 0;overflow:hidden}
+.page{width:560px;height:725px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.18);padding:56px 52px;font-family:Calibri,Carlito,sans-serif;color:#222}
+.page h1{font-size:30px;color:#1f3864;font-weight:700}
+.page .m{font-size:12.5px;color:#666;margin:6px 0 22px}
+.page h2{font-size:16px;color:#2f5496;border-bottom:1px solid #2f5496;margin:18px 0 10px}
+.page p{font-size:12.5px;line-height:1.5;margin-bottom:8px}
+.sel{outline:3px solid #F47A20;outline-offset:3px;border-radius:2px;background:rgba(244,122,32,.07)}
+.caret{display:inline-block;width:2px;height:15px;background:#1D1D1B;vertical-align:-2px}
+.insp{background:#fff;border-left:1px solid #D4D4D2;padding:20px}
+.insp h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6B6B68;margin-bottom:12px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #EDEDEC;font-size:14px}
+.row em{font-style:normal;color:#6B6B68}
+.tag{font-size:12px;font-weight:800;padding:3px 10px;border-radius:12px;background:#0069B4;color:#fff}
+.sw{width:18px;height:18px;border-radius:4px;background:#222;display:inline-block;vertical-align:middle;margin-right:6px}
+.fit{margin-top:16px;height:10px;border-radius:5px;background:#EDEDEC;position:relative}
+.fit:before{content:"";position:absolute;left:0;top:0;bottom:0;width:86%;border-radius:5px;background:#0069B4}
+.bottom{height:40px;background:#1D1D1B;color:#fff;display:flex;align-items:center;padding:0 24px;gap:12px;font-size:14px;font-weight:700}
+.bottom i{width:16px;height:16px;border-radius:50%;border:3px solid #F47A20;display:block}
+</style></head><body>
+<div class="top">
+  <div class="logo"><i></i>Ghost PDF Editor</div>
+  <div class="file">cv-josefina-nunez.pdf · 2 páginas</div>
+  <div class="sp"></div>
+  <div class="btn">Abrir</div>
+  <div class="btn solid">Exportar PDF</div>
+</div>
+<div class="main">
+  <aside class="rail">
+    <h4>Recorrido</h4>
+    <div class="line">
+      <div class="st edit cur"><b>Página 1</b><span>2 ediciones</span></div>
+      <div class="st"><b>Página 2</b><span>Sin cambios</span></div>
+      <div class="st"><b>Exportar</b><span>Terminal</span></div>
+    </div>
+  </aside>
+  <section class="stage">
+    <div class="page">
+      <h1>Josefina Núñez Peña</h1>
+      <div class="m">Desarrolladora Full Stack · Monterrey, N.L. · josefina@ejemplo.com</div>
+      <h2>Experiencia</h2>
+      <p><span class="sel"><b>Ingeniera de Software Sénior</b><span class="caret"></span></span> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+      <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día. Reduje el tiempo de respuesta promedio en un 35% migrando servicios críticos a una arquitectura basada en colas.</p>
+      <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
+      <p>Construcción de sitios con React y Node.js para clientes del sector financiero; integración de pagos y accesibilidad.</p>
+      <h2>Educación</h2>
+      <p>Ingeniería en Computación — Universidad Nacional, 2016–2020.</p>
+      <h2>Habilidades</h2>
+      <p>TypeScript, React, Node.js, PostgreSQL, Docker, pruebas automatizadas.</p>
+    </div>
+  </section>
+  <aside class="insp">
+    <h4>Bloque seleccionado</h4>
+    <div class="row"><em>Fuente</em><span>Calibri Bold <span class="tag">→ Carlito</span></span></div>
+    <div class="row"><em>Tamaño</em><span>11 pt</span></div>
+    <div class="row"><em>Color</em><span><span class="sw"></span>#222222</span></div>
+    <div class="row"><em>Ancho</em><span>Cabe en la línea</span></div>
+    <div class="fit"></div>
+    <h4 style="margin-top:26px">Al exportar</h4>
+    <div class="row"><em>Texto original</em><span>Se borra del archivo</span></div>
+  </aside>
+</div>
+<div class="bottom"><i></i>Tu PDF nunca sale de este dispositivo · 2 ediciones sin exportar</div>
+</body></html>

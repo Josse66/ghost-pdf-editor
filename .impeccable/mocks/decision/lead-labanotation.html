@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Archivo+Narrow:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:Archivo,system-ui,sans-serif;background:#fff;color:#111}
+.top{height:56px;border-bottom:1px solid #111;display:flex;align-items:center;padding:0 24px;gap:16px}
+.logo{font-weight:800;font-size:19px;letter-spacing:-.01em}
+.file{font-size:14px;color:#555;margin-left:10px}
+.sp{flex:1}
+.btn{height:36px;padding:0 16px;border:1.5px solid #111;font-weight:600;font-size:14px;display:flex;align-items:center}
+.btn.solid{background:#111;color:#fff}
+.main{display:grid;grid-template-columns:150px 1fr 380px;height:844px}
+.pages{border-right:1px solid #E7E7E7;padding:20px 0;display:flex;flex-direction:column;align-items:center;gap:18px}
+.pg{width:78px;height:100px;border:1px solid #BDBDBD;position:relative;background:#fff}
+.pg.on{border:1.5px solid #111}
+.pg.on:after{content:"";position:absolute;inset:-9px;border:2px solid #111;border-radius:50%}
+.pg span{position:absolute;bottom:-20px;left:0;right:0;text-align:center;font-family:"Archivo Narrow";font-size:12px;color:#555}
+.stage{background:#F4F4F4;display:flex;justify-content:center;padding:28px 0;overflow:hidden}
+.page{width:560px;height:760px;background:#fff;box-shadow:0 0 0 1px #E0E0E0;padding:56px 52px;font-family:Calibri,Carlito,sans-serif;color:#222}
+.page h1{font-size:30px;color:#1f3864}
+.page .m{font-size:12.5px;color:#666;margin:6px 0 22px}
+.page h2{font-size:16px;color:#2f5496;border-bottom:1px solid #2f5496;margin:18px 0 10px}
+.page p{font-size:12.5px;line-height:1.5;margin-bottom:8px}
+.sel{outline:1.5px solid #111;outline-offset:3px}
+.score{border-left:1px solid #111;padding:18px 22px;position:relative}
+.score h4{font-family:"Archivo Narrow";font-size:13px;letter-spacing:.06em;text-transform:uppercase;display:flex;justify-content:space-between;margin-bottom:14px}
+.staff{position:relative;height:560px;display:grid;grid-template-columns:1fr 1fr;column-gap:24px}
+.staff:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:#111;transform:translateX(-1px)}
+.band{position:absolute;left:-22px;right:-22px;top:40px;height:96px;background:#EDEDED}
+.col{position:relative;display:flex;flex-direction:column-reverse;gap:12px;padding:0 6px}
+.blk{height:var(--h);background:#111;width:100%}
+.blk.h{background:repeating-linear-gradient(45deg,#111 0 3px,#fff 3px 7px);border:1.5px solid #111}
+.blk.d{background:radial-gradient(#111 1.4px,#fff 1.6px) 0 0/7px 7px;border:1.5px solid #111}
+.blk.o{background:#fff;border:1.5px solid #111}
+.n{position:absolute;right:-18px;font-family:"Archivo Narrow";font-size:11px;color:#555}
+.key{margin-top:18px;display:grid;grid-template-columns:22px 1fr;gap:8px 10px;font-size:13px;align-items:center}
+.key i{height:16px;display:block}
+.cur{position:relative;font-size:13px;margin-top:6px;padding:10px 0;border-top:1px solid #E7E7E7}
+</style></head><body>
+<div class="top"><div class="logo">Ghost PDF Editor</div><div class="file">cv-josefina-nunez.pdf</div><div class="sp"></div><div class="btn">Abrir</div><div class="btn solid">Exportar PDF</div></div>
+<div class="main">
+  <aside class="pages"><div class="pg on"><span>1</span></div><div class="pg"><span>2</span></div></aside>
+  <section class="stage"><div class="page">
+    <h1>Josefina Núñez Peña</h1>
+    <div class="m">Desarrolladora Full Stack · Monterrey, N.L. · josefina@ejemplo.com</div>
+    <h2>Experiencia</h2>
+    <p><span class="sel"><b>Ingeniera de Software Sénior</b></span> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+    <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día. Reduje el tiempo de respuesta promedio en un 35%.</p>
+    <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
+    <p>Construcción de sitios con React y Node.js para clientes del sector financiero.</p>
+    <h2>Educación</h2>
+    <p>Ingeniería en Computación — Universidad Nacional, 2016–2020.</p>
+  </div></section>
+  <aside class="score">
+    <h4><span>Original</span><span>Editado</span></h4>
+    <div class="staff">
+      <div class="band"></div>
+      <div class="col"><div class="blk o" style="--h:60px"></div><div class="blk o" style="--h:40px"></div><div class="blk o" style="--h:84px"></div></div>
+      <div class="col"><div class="blk" style="--h:60px"></div><div class="blk d" style="--h:52px"></div><div class="blk h" style="--h:84px"></div><span class="n" style="top:44px">3</span><span class="n" style="top:150px">2</span><span class="n" style="bottom:4px">1</span></div>
+    </div>
+    <div class="cur"><b>3 · Ingeniera de Software Sénior</b><br>Calibri Bold → Carlito · 11 pt</div>
+    <div class="key">
+      <i style="background:#111"></i><span>Texto cambiado</span>
+      <i style="background:repeating-linear-gradient(45deg,#111 0 3px,#fff 3px 7px);border:1.5px solid #111"></i><span>Fuente sustituta</span>
+      <i style="background:radial-gradient(#111 1.4px,#fff 1.6px) 0 0/7px 7px;border:1.5px solid #111"></i><span>No cabe en la línea</span>
+    </div>
+  </aside>
+</div>
+</body></html>

@@ -1,0 +1,143 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-26T14:28:35.573Z",
+        "reason": "Claude: unchosen decision-round sketch (spent hand, round closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "skipped-heading",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-10-26T14:28:35.942Z",
+        "reason": "Claude: unchosen decision-round sketch (spent hand, round closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-26T14:28:36.776Z",
+        "reason": "Claude: unchosen decision-round sketch (spent hand, round closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "skipped-heading",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/canon.html"
+        ],
+        "createdAt": "2026-10-26T14:28:37.132Z",
+        "reason": "Claude: unchosen decision-round sketch (spent hand, round closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-cassette.html"
+        ],
+        "createdAt": "2026-10-26T14:28:37.978Z",
+        "reason": "Claude: unchosen decision-round sketch (spent hand, round closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-cassette.html"
+        ],
+        "createdAt": "2026-10-26T14:28:38.325Z",
+        "reason": "Claude: unchosen decision-round sketch (spent hand, round closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-specimen.html"
+        ],
+        "createdAt": "2026-10-26T14:28:39.157Z",
+        "reason": "Claude: unchosen decision-round sketch (spent hand, round closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "skipped-heading",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-streaming.html"
+        ],
+        "createdAt": "2026-10-26T14:28:39.983Z",
+        "reason": "Claude: unchosen decision-round sketch (spent hand, round closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/lead-labanotation.html"
+        ],
+        "createdAt": "2026-10-26T14:28:40.844Z",
+        "reason": "Claude: unchosen decision-round sketch (spent hand, round closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/lead-labanotation.html"
+        ],
+        "createdAt": "2026-10-26T14:28:41.208Z",
+        "reason": "Claude: unchosen decision-round sketch (spent hand, round closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "skipped-heading",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/lead-labanotation.html"
+        ],
+        "createdAt": "2026-10-26T14:28:41.555Z",
+        "reason": "Claude: unchosen decision-round sketch (spent hand, round closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-26T14:28:42.421Z",
+        "reason": "Claude: unchosen decision-round sketch (spent hand, round closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-26T14:28:42.795Z",
+        "reason": "Claude: unchosen decision-round sketch (spent hand, round closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "skipped-heading",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/model-pick.html"
+        ],
+        "createdAt": "2026-10-26T14:28:43.178Z",
+        "reason": "Claude: unchosen decision-round sketch (spent hand, round closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-lexicon.html"
+        ],
+        "createdAt": "2026-10-26T14:28:56.594Z",
+        "reason": "Claude: selection ring hugs PDF document text by design; padding would shift the document layout"
+      }
+    ]
+  }
+}

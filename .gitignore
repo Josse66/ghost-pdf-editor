@@ -1,0 +1,36 @@
+# Dependencias y builds
+node_modules/
+dist/
+coverage/
+.vercel/
+
+# Salidas de spikes y tests
+spikes/out/
+test-results/
+playwright-report/
+
+# PDFs privados del corpus: nunca al repo público
+test-fixtures/privado/*
+!test-fixtures/privado/LEEME.md
+
+# Notas de investigación crudas (el reporte final sí se versiona)
+research_notes/
+
+# Entorno
+.env
+.env.*
+*.log
+.DS_Store
+Thumbs.db
+.claude/settings.local.json
+
+# Vite / editores
+dist-ssr/
+*.local
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Impeccable: estado local de las rondas de decisión
+.impeccable/questions/
+.impeccable/config.local.json
