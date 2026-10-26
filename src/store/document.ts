@@ -1,8 +1,7 @@
 import { create } from 'zustand'
 import type { LoadedDocument } from '@/core/engine'
-import { engine } from '@/lib/engine'
 
-export type OpenError = 'password' | 'invalid' | 'not-pdf' | 'unknown'
+export type OpenError = 'empty' | 'password' | 'invalid' | 'not-pdf' | 'unknown'
 export type DebugMode = 'off' | 'line' | 'paragraph'
 
 interface DocumentState {
@@ -19,11 +18,14 @@ interface DocumentState {
   /** Rango de páginas visibles (para las palabras guía) y la página principal. */
   visible: { first: number; last: number }
   current: number
+  /** Páginas ya leídas que no tienen texto (escaneos). */
+  textless: ReadonlySet<number>
   openFile: (file: File) => Promise<void>
   setZoom: (zoom: number | null) => void
   setFitScale: (fitScale: number) => void
   setDebug: (debug: DebugMode) => void
   setVisible: (first: number, last: number, current: number) => void
+  setPageHasText: (page: number, hasText: boolean) => void
 }
 
 let openSeq = 0
@@ -39,17 +41,30 @@ export const useDocument = create<DocumentState>((set, get) => ({
   debug: 'off',
   visible: { first: 1, last: 1 },
   current: 1,
+  textless: new Set(),
 
   async openFile(file) {
     const seq = ++openSeq
-    set({ status: 'loading', fileName: file.name, error: null, progress: { read: 0, total: 0 } })
+    set({
+      status: 'loading',
+      fileName: file.name,
+      error: null,
+      progress: { read: 0, total: 0 },
+      textless: new Set(),
+    })
     try {
       // El archivo se lee en memoria; nunca se sube a ningún lado.
       const data = await file.arrayBuffer()
+      if (data.byteLength === 0) {
+        set({ status: 'error', error: 'empty', doc: null })
+        return
+      }
       if (!looksLikePdf(data)) {
         set({ status: 'error', error: 'not-pdf', doc: null })
         return
       }
+      // pdf.js (~700 KB) se descarga hasta que hay un PDF que abrir: la entrada carga ligera.
+      const { engine } = await import('@/lib/engine')
       const doc = await engine.load(data, (read, total) => set({ progress: { read, total } }))
       // Si mientras tanto se abrió otro archivo, este resultado ya no importa.
       if (seq !== openSeq) return
@@ -59,6 +74,14 @@ export const useDocument = create<DocumentState>((set, get) => ({
     }
   },
 
+  setPageHasText: (page, hasText) => {
+    const { textless } = get()
+    if (textless.has(page) === !hasText) return
+    const next = new Set(textless)
+    if (hasText) next.delete(page)
+    else next.add(page)
+    set({ textless: next })
+  },
   setZoom: (zoom) => set({ zoom }),
   setFitScale: (fitScale) => {
     if (Math.abs(get().fitScale - fitScale) > 0.001) set({ fitScale })

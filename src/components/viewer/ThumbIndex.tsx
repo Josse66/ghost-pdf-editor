@@ -1,6 +1,6 @@
 import { scrollToPage } from '@/lib/scroll'
 import { cn } from '@/lib/utils'
-import { useT } from '@/i18n'
+import { useFormatNumber, useT } from '@/i18n'
 import { useDocument } from '@/store/document'
 
 /** Hasta este número de páginas cada uñero es una página; arriba de eso, un rango. */
@@ -10,6 +10,7 @@ const MAX_SINGLE_TABS = 16
 export function ThumbIndex({ numPages }: { numPages: number }) {
   const t = useT()
   const current = useDocument((s) => s.current)
+  const format = useFormatNumber()
   const per = numPages <= MAX_SINGLE_TABS ? 1 : Math.ceil(numPages / MAX_SINGLE_TABS)
 
   const tabs = Array.from({ length: Math.ceil(numPages / per) }, (_, i) => {
@@ -31,7 +32,7 @@ export function ThumbIndex({ numPages }: { numPages: number }) {
               : 'bg-ink-10 text-ink-0 hover:bg-ink-8 w-[78%]',
           )}
         >
-          {first}
+          {format(active ? current : first)}
         </button>
       </li>
     )

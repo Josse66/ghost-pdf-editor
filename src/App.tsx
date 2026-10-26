@@ -1,13 +1,17 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { ChangesPanel } from '@/components/editor/ChangesPanel'
 import { Definitions, EntryPlate } from '@/components/entry/EntryPlate'
 import { TopBar } from '@/components/shell/TopBar'
-import { PageList } from '@/components/viewer/PageList'
 import { ThumbIndex } from '@/components/viewer/ThumbIndex'
 import { useWindowFileDrop } from '@/hooks/useFileOpen'
 import { useLang } from '@/i18n'
 import { nextStep } from '@/lib/zoom'
 import { selectScale, useDocument } from '@/store/document'
+
+// El visor trae pdf.js consigo; se carga junto con el primer PDF.
+const PageList = lazy(() =>
+  import('@/components/viewer/PageList').then((m) => ({ default: m.PageList })),
+)
 
 // Espacio de trabajo según .impeccable/surfaces/src-app-tsx.md:
 // uñeros | lámina | cambios en escritorio; lámina a pantalla completa en celular.
@@ -33,7 +37,9 @@ export default function App() {
         </aside>
         <main className="min-h-0 overflow-hidden">
           {ready ? (
-            <PageList doc={doc} />
+            <Suspense>
+              <PageList doc={doc} />
+            </Suspense>
           ) : (
             <div className="h-full overflow-auto">
               <EntryPlate dragging={dragging} />

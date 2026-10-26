@@ -4,6 +4,7 @@ import { useFilePicker } from '@/hooks/useFileOpen'
 import { useT } from '@/i18n'
 import { nextStep, toPercent } from '@/lib/zoom'
 import { selectScale, useDocument } from '@/store/document'
+import { FileName } from './FileName'
 
 export function TopBar() {
   const t = useT()
@@ -19,11 +20,9 @@ export function TopBar() {
           {t('appName')}
         </span>
         {ready && fileName && (
-          <span
-            title={fileName}
-            className="text-muted-foreground hidden min-w-0 truncate text-sm md:inline"
-          >
-            · {fileName}
+          <span className="text-muted-foreground hidden min-w-0 items-baseline gap-1 text-sm md:flex">
+            <span aria-hidden>·</span>
+            <FileName name={fileName} />
           </span>
         )}
       </div>

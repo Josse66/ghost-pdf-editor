@@ -168,6 +168,8 @@ Objetivo: eliminar incertidumbre antes de construir.
 - [x] Modo debug: dibujar las cajas de cada bloque encima del render (clave para depurar). *(Panel «Revisión»: líneas en ultramar, párrafos en bermellón.)*
 - [x] Tests de `layout` contra el corpus. *(Sintético: CV, dos columnas, factura, rotado. Falta sumar los PDFs reales del usuario.)*
 - 🧰 **Skills:** `/impeccable craft` para la pantalla de carga (drop zone, estado vacío, progreso) y el visor. `break-ui` sobre el visor: PDF de 1 página, de 300, nombre de archivo larguísimo, PDF vacío/corrupto. *El motor (`core/`) no usa skills de diseño.*
+- [x] `break-ui` sobre el visor: 10 peores casos (nombre largo, 300 págs, tamaños mezclados, rotada, escaneado, 0 bytes, truncado, no PDF, contraseña, inglés) en 4 anchos; 8 arreglos aplicados y 4 regresiones e2e. *(`npm run fixtures:break` + interruptor `?fixture=` solo en dev.)*
+- [x] Carga ligera: pdf.js y el visor se descargan al abrir el primer PDF (JS inicial 716 KB → 276 KB).
 - **Entregable:** subes un PDF y ves los bloques de texto resaltados correctamente.
 
 ### Fase 3 — Capa de edición (1–2 semanas)

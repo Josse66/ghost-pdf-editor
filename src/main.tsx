@@ -8,3 +8,11 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>,
 )
+
+// Interruptor de PDFs de prueba (break-ui): solo en desarrollo, fuera del build de producción.
+if (import.meta.env.DEV) {
+  void import('./dev/FixtureSwitch').then(({ FixtureSwitch }) => {
+    const host = document.body.appendChild(document.createElement('div'))
+    createRoot(host).render(<FixtureSwitch />)
+  })
+}

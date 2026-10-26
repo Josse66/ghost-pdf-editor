@@ -16,7 +16,8 @@
     "test:watch": "vitest --project unit",
     "test:e2e": "playwright test",
     "review:capture": "node scripts/capture-review.mjs",
-    "fixtures:long": "node scripts/make-long-fixtures.mjs"
+    "fixtures:long": "node scripts/make-long-fixtures.mjs",
+    "fixtures:break": "node scripts/make-break-fixtures.mjs"
   },
   "dependencies": {
     "@cantoo/fontkit": "^2.0.12",

@@ -8,10 +8,20 @@ import { useDocument, type DebugMode } from '@/store/document'
 export function ChangesPanel() {
   const t = useT()
   const pageCount = useDocument((s) => s.doc?.numPages ?? 0)
+  const current = useDocument((s) => s.current)
+  const currentTextless = useDocument((s) => s.textless.has(s.current))
 
   return (
     <div className="flex h-full flex-col">
       <section className="flex-1 overflow-y-auto px-6 py-5">
+        {currentTextless && (
+          <div role="note" className="border-vermilion mb-6 border-b pb-4 font-serif">
+            <p className="text-vermilion text-[17px] font-semibold">
+              {t('noTextTitle', { n: current })}
+            </p>
+            <p className="text-ink-8 mt-1 text-[15px] leading-relaxed">{t('noTextPage')}</p>
+          </div>
+        )}
         <h2 className="border-rule flex items-baseline justify-between border-b pb-2 text-xs font-semibold tracking-[0.1em] uppercase">
           {t('changes')}
           <span className="tabular text-muted-foreground font-normal">0</span>

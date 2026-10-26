@@ -1,26 +1,40 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react'
 import type { PageInfo, TextBlock } from '@/core/engine'
 import { toScreenRect, viewportTransform } from '@/core/geometry'
+import { FileName } from '@/components/shell/FileName'
 import { engine } from '@/lib/engine'
 import { useT } from '@/i18n'
-import type { DebugMode } from '@/store/document'
+import { useDocument, type DebugMode } from '@/store/document'
 
 interface PageProps {
   info: PageInfo
+  /** Escala del documento; una página más ancha que `maxWidth` se reduce sola para caber. */
   scale: number
+  maxWidth: number
   /** La página está cerca del área visible: se dibuja. Lejos, se libera el canvas. */
   near: boolean
   debug: DebugMode
+  /** Solo en la primera lámina: en celular no hay otro lugar donde se vea el nombre. */
+  fileName?: string
 }
 
 /** Una página del PDF presentada como lámina enmarcada. */
-export const Page = memo(function Page({ info, scale, near, debug }: PageProps) {
+export const Page = memo(function Page({
+  info,
+  scale: docScale,
+  maxWidth,
+  near,
+  debug,
+  fileName,
+}: PageProps) {
   const t = useT()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   // pdf.js tarda en cancelar un render; el siguiente espera a que el anterior suelte el canvas,
   // o el viejo alcanza a dibujar a otra escala encima del nuevo.
   const renderChain = useRef<Promise<void>>(Promise.resolve())
   const [hasText, setHasText] = useState<boolean | null>(null)
+  const setPageHasText = useDocument((s) => s.setPageHasText)
+  const scale = Math.min(docScale, maxWidth / info.width)
   const width = Math.round(info.width * scale)
   const height = Math.round(info.height * scale)
 
@@ -54,12 +68,14 @@ export const Page = memo(function Page({ info, scale, near, debug }: PageProps) 
     if (!near || hasText !== null) return
     let alive = true
     void engine.getTextBlocks(info.page, 'line').then((lines) => {
-      if (alive) setHasText(lines.length > 0)
+      if (!alive) return
+      setHasText(lines.length > 0)
+      setPageHasText(info.page, lines.length > 0)
     })
     return () => {
       alive = false
     }
-  }, [info.page, near, hasText])
+  }, [info.page, near, hasText, setPageHasText])
 
   return (
     <figure
@@ -68,6 +84,15 @@ export const Page = memo(function Page({ info, scale, near, debug }: PageProps) 
       className="mx-auto w-fit scroll-mt-6"
       aria-label={t('page', { n: info.page })}
     >
+      {hasText === false && (
+        <p
+          role="note"
+          className="text-vermilion mb-2 font-serif text-sm"
+          style={{ maxWidth: width }}
+        >
+          {t('noTextPage')}
+        </p>
+      )}
       <div className="border-rule bg-ink-0 border-[1.5px] p-2">
         <div className="relative bg-white" style={{ width, height }}>
           <canvas ref={canvasRef} className="block size-full" aria-hidden />
@@ -80,11 +105,14 @@ export const Page = memo(function Page({ info, scale, near, debug }: PageProps) 
           )}
         </div>
       </div>
-      <figcaption className="text-muted-foreground mt-2 flex items-baseline justify-between gap-4 text-xs">
-        <span className="guide-caps tabular text-ink-8">{t('page', { n: info.page })}</span>
-        {hasText === false && (
-          <span className="text-vermilion max-w-[48ch] text-right">{t('noTextPage')}</span>
-        )}
+      <figcaption
+        className="text-muted-foreground mt-2 flex items-baseline gap-2 text-xs"
+        style={{ maxWidth: width + 2 * (1.5 + 8) }}
+      >
+        <span className="guide-caps tabular text-ink-8 shrink-0">
+          {t('page', { n: info.page })}
+        </span>
+        {fileName && <FileName name={fileName} className="md:hidden" />}
       </figcaption>
     </figure>
   )

@@ -15,18 +15,25 @@ export function PageList({ doc }: { doc: LoadedDocument }) {
   const debug = useDocument((s) => s.debug)
   const setFitScale = useDocument((s) => s.setFitScale)
   const setVisible = useDocument((s) => s.setVisible)
+  const fileName = useDocument((s) => s.fileName)
   const [near, setNear] = useState<ReadonlySet<number>>(() => new Set([1, 2]))
+  /** Ancho disponible para el contenido de una lámina, en px CSS. */
+  const [available, setAvailable] = useState(Number.POSITIVE_INFINITY)
 
-  // Ajustar al ancho: se recalcula cada vez que cambia el ancho del visor.
+  // Ajustar al ancho de la página típica (la mediana): en un PDF con tamaños mezclados, una sola
+  // página apaisada no encoge todas las demás; esa página se reduce sola para caber (ver Page).
   useLayoutEffect(() => {
     const el = scrollRef.current
     if (!el) return
-    const maxWidth = Math.max(...doc.pages.map((p) => p.width))
+    const widths = doc.pages.map((p) => p.width).sort((a, b) => a - b)
+    const typical = widths[Math.floor(widths.length / 2)]!
     const measure = () => {
       const style = getComputedStyle(el)
       const padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight)
       const air = el.clientWidth > 720 ? WIDE_AIR : 0
-      setFitScale(fitWidthScale(el.clientWidth - padding - PLATE_CHROME - air, maxWidth))
+      const room = el.clientWidth - padding - PLATE_CHROME - air
+      setAvailable(room)
+      setFitScale(fitWidthScale(room, typical))
     }
     measure()
     const observer = new ResizeObserver(measure)
@@ -90,7 +97,9 @@ export function PageList({ doc }: { doc: LoadedDocument }) {
             key={info.page}
             info={info}
             scale={scale}
+            maxWidth={available}
             near={near.has(info.page)}
+            fileName={info.page === 1 ? (fileName ?? undefined) : undefined}
             debug={debug}
           />
         ))}

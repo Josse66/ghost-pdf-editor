@@ -7,6 +7,7 @@ import type { MessageKey } from '@/i18n/messages'
 import { useDocument, type OpenError } from '@/store/document'
 
 const ERROR_TEXT: Record<OpenError, MessageKey> = {
+  empty: 'errorEmpty',
   password: 'errorPassword',
   invalid: 'errorInvalid',
   'not-pdf': 'errorNotPdf',
@@ -23,14 +24,15 @@ export function EntryPlate({ dragging }: { dragging: boolean }) {
     <div className="flex min-h-full items-center justify-center px-4 py-8">
       <div
         className={cn(
-          // La lámina conserva la proporción de una hoja pero nunca rebasa la altura disponible.
-          'w-full max-w-[min(34rem,calc((100svh-8.5rem)/1.18))] border-[1.5px] p-2 transition-colors duration-150',
+          // Desde sm la lámina tiene proporción de hoja sin rebasar la altura disponible; en un
+          // celular angosto esa proporción la haría más ancha que la columna, así que crece natural.
+          'w-full border-[1.5px] p-2 transition-colors duration-150 sm:max-w-[min(34rem,calc((100svh-8.5rem)/1.18))]',
           dragging ? 'border-ultramar bg-ultramar/5' : 'border-rule',
         )}
       >
         <div
           className={cn(
-            'flex aspect-[1/1.18] min-h-[22rem] flex-col justify-center gap-6 bg-white px-8 sm:px-12',
+            'flex flex-col justify-center gap-6 bg-white px-6 py-10 sm:aspect-[1/1.18] sm:min-h-[22rem] sm:px-12 sm:py-0',
             dragging && 'outline-ultramar outline-2 -outline-offset-8 outline-dashed',
           )}
         >
@@ -40,7 +42,7 @@ export function EntryPlate({ dragging }: { dragging: boolean }) {
             <>
               {status === 'error' && error && (
                 <div role="alert" className="font-serif">
-                  <p className="text-ink-7 decoration-vermilion text-lg break-all line-through decoration-2">
+                  <p className="text-ink-7 decoration-vermilion text-lg [overflow-wrap:anywhere] line-through decoration-2">
                     {fileName}
                   </p>
                   <p className="mt-1 text-[15px] leading-snug">{t(ERROR_TEXT[error])}</p>
@@ -56,8 +58,8 @@ export function EntryPlate({ dragging }: { dragging: boolean }) {
                 </Button>
                 <span className="text-muted-foreground text-[15px]">{t('dropHint')}</span>
               </div>
-              <p className="text-ink-8 flex items-center gap-2 text-sm">
-                <LockKeyhole className="text-ultramar size-4" aria-hidden />
+              <p className="text-ink-8 flex items-start gap-2 text-sm">
+                <LockKeyhole className="text-ultramar mt-0.5 size-4 shrink-0" aria-hidden />
                 {t('privacy')}
               </p>
             </>
@@ -73,7 +75,7 @@ function Loading({ name, read, total }: { name: string; read: number; total: num
   const fraction = total ? read / total : 0
   return (
     <div aria-live="polite" className="flex flex-col gap-4">
-      <h1 className="font-serif text-2xl leading-tight font-semibold break-all">
+      <h1 className="font-serif text-2xl leading-tight font-semibold [overflow-wrap:anywhere]">
         {t('loading', { name })}
       </h1>
       <div

@@ -40,3 +40,4 @@ dist-ssr/
 .impeccable/hook.cache.json
 .impeccable/review/
 test-fixtures/generated/largo-*.pdf
+test-fixtures/generated/break-ui/
