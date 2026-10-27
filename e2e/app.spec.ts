@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises'
 import { expect, test } from '@playwright/test'
 
 test('sin documento muestra la lámina para soltar el PDF', async ({ page }) => {
@@ -156,4 +157,66 @@ test('pellizcar hace zoom solo en el documento', async ({ page }, testInfo) => {
   expect(await page.evaluate('window.visualViewport.scale')).toBe(1)
   const scroller = page.locator('[data-scroll-root]')
   expect(await scroller.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true)
+})
+
+// Fase 4: exportar descarga un PDF donde el texto viejo ya no existe y el nuevo sí es texto.
+test('exporta el PDF editado y el texto viejo ya no se puede extraer', async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== 'chromium', 'la descarga se prueba una vez')
+  await page.goto('/')
+  const chooser = page.waitForEvent('filechooser')
+  await page.getByRole('button', { name: 'Elegir PDF' }).click()
+  await (await chooser).setFiles('test-fixtures/generated/cv-calibri.pdf')
+
+  const exportButton = page.getByRole('button', { name: 'Exportar PDF' })
+  await expect(exportButton).toBeDisabled()
+
+  await page.getByRole('button', { name: /^Editar: Ingeniero de Software/ }).dblclick()
+  await page.keyboard.press('Control+Home')
+  await page.keyboard.type('Sr. ')
+  await page.keyboard.press('Enter')
+
+  const download = page.waitForEvent('download')
+  await exportButton.click()
+  const file = await download
+  expect(file.suggestedFilename()).toBe('cv-calibri-editado.pdf')
+  await expect(page.getByRole('complementary').last()).toContainText(
+    'Se descargó cv-calibri-editado.pdf.',
+  )
+
+  const { getDocument } = await import('pdfjs-dist/legacy/build/pdf.mjs')
+  const bytes = new Uint8Array(await readFile(await file.path()))
+  const pdf = await getDocument({ data: bytes }).promise
+  const content = await (await pdf.getPage(1)).getTextContent()
+  const text = content.items.map((item) => ('str' in item ? item.str : '')).join('')
+  expect(text).toContain('Sr. Ingeniero de Software')
+  expect(text.replace('Sr. Ingeniero de Software', '')).not.toContain('Ingeniero de Software')
+})
+
+// Sin red la primera vez, el motor no baja: el aviso lo explica y Reintentar funciona al volver.
+test('sin conexión la primera exportación lo explica y se puede reintentar', async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== 'chromium', 'flujo de red, una vez')
+  await page.goto('/')
+  const chooser = page.waitForEvent('filechooser')
+  await page.getByRole('button', { name: 'Elegir PDF' }).click()
+  await (await chooser).setFiles('test-fixtures/generated/cv-calibri.pdf')
+  await page.getByRole('button', { name: /^Editar: Ingeniero de Software/ }).dblclick()
+  await page.keyboard.press('End')
+  await page.keyboard.type(' ')
+  await page.keyboard.press('Enter')
+
+  // El worker pide el wasm desde su propio contexto: se corta a nivel del navegador.
+  await page.context().route('**/*.wasm', (route) => route.abort('internetdisconnected'))
+  await page.keyboard.press('Control+s')
+  const alert = page.getByRole('complementary').last().getByRole('alert')
+  await expect(alert).toContainText('No se pudo exportar')
+  await expect(alert).toContainText('hace falta conexión')
+
+  await page.context().unroute('**/*.wasm')
+  const download = page.waitForEvent('download')
+  await alert.getByRole('button', { name: 'Reintentar' }).click()
+  expect((await download).suggestedFilename()).toBe('cv-calibri-editado.pdf')
 })

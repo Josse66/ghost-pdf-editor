@@ -8,8 +8,11 @@ import { useFinePointer } from '@/hooks/usePointer'
 import { scrollToBlock } from '@/lib/scroll'
 import { cn } from '@/lib/utils'
 import { useFormatNumber, useT, type Translate } from '@/i18n'
+import type { MessageKey } from '@/i18n/messages'
 import { useDocument } from '@/store/document'
 import { useEdits } from '@/store/edits'
+import { useCurrentExport, warningsFor, type ExportWarning } from '@/store/export'
+import { ExportNotice } from './ExportNotice'
 
 /** Columna derecha (escritorio): los cambios asentados como entradas de diccionario. */
 export function ChangesPanel() {
@@ -29,6 +32,7 @@ export function ChangesPanel() {
             <p className="text-ink-8 mt-1 text-[15px] leading-relaxed">{t('noTextPage')}</p>
           </div>
         )}
+        <ExportNotice className="mb-6" />
         <ChangesList />
         <p className="tabular text-muted-foreground mt-6 text-xs">
           {pageCount === 1 ? t('pageCountOne') : t('pageCount', { n: pageCount })}
@@ -118,6 +122,8 @@ function ChangeEntry({
 }) {
   const block = useEdits((s) => s.blocks.get(edit.blockId))
   const revert = useEdits((s) => s.revert)
+  const exported = useCurrentExport()
+  const warnings = exported?.report ? warningsFor(exported.report, edit.blockId) : []
   const style = block?.runs[0]
   const substitute = style ? substituteFor(style.fontFamily, style.generic) : null
 
@@ -150,6 +156,12 @@ function ChangeEntry({
           {substitute && !substitute.metricCompatible && (
             <span className="text-vermilion"> · {t('notTwin')}</span>
           )}
+          {warnings.map((w) => (
+            <span key={w} className="text-vermilion">
+              {' '}
+              · {t(WARNING_TEXT[w])}
+            </span>
+          ))}
         </p>
         <Button
           variant="ghost"
@@ -163,6 +175,14 @@ function ChangeEntry({
     </li>
   )
 }
+
+/** Letra chiquita de cada aviso de exportación. */
+const WARNING_TEXT = {
+  notErased: 'warnNotErased',
+  squeezed: 'warnSqueezed',
+  shrunk: 'warnShrunk',
+  overflow: 'warnOverflow',
+} as const satisfies Record<ExportWarning, MessageKey>
 
 /** Orden de lectura del documento: página y luego el orden de los bloques en ella. */
 function documentOrder(a: BlockEdit, b: BlockEdit): number {

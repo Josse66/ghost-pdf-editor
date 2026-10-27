@@ -452,6 +452,15 @@
         ],
         "createdAt": "2026-10-27T13:33:40.273Z",
         "reason": "Claude: test fixture names the PDF's font family, not UI type"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "src/core/writer/fit.test.ts"
+        ],
+        "createdAt": "2026-10-27T14:35:46.401Z",
+        "reason": "Claude: fuente del PDF de prueba, no de la UI (mismo criterio que los demás tests del núcleo)"
       }
     ]
   }

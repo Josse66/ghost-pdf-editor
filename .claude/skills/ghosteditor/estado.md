@@ -1,7 +1,7 @@
 # Estado de Ghost PDF Editor
 
-> **Último guardado:** 2026-10-27 · rama de trabajo `dev` en `75b42db` · producción (`main`) en `acfc64a`
-> (PR #2 de la Fase 3 abierto con auto-merge; al juntarse, `main` queda con la Fase 3).
+> **Último guardado:** 2026-10-27 · producción (`main`) en `13840d1` (Fase 3) · `dev` = `main` + decisiones de la
+> Fase 4 + motor de exportación (`core/writer`).
 > Lo escribe y actualiza la skill `ghosteditor` (modo «guardar»). Si algo de aquí contradice lo que muestran
 > git, GitHub o los archivos, **manda lo vivo**: dilo y actualiza este archivo.
 
@@ -24,8 +24,8 @@ sin romper el formato y exporta un PDF. Sin backend, el archivo nunca sale del d
 | 0 · Investigación y spikes | ✅ Hecha (falta solo corpus de PDFs reales del usuario, en `test-fixtures/privado/`) |
 | 1 · Setup | ✅ Hecha (Vite 8, React 19, TS 6 estricto, Tailwind v4, shadcn, oxlint, Vitest 5, Playwright, CI, Vercel) |
 | 2 · Motor de lectura + visor «Diccionario» | ✅ **En producción** (PR #1, merge `acfc64a`, 2026-10-26) |
-| 3 · Capa de edición | ✅ Terminada y probada en celular real. **PR #2 `dev`→`main` con auto-merge** (2026-10-27) |
-| 4 · Exportación (MVP) | ⏭️ Siguiente. Antes hay decisiones abiertas (sección 5) |
+| 3 · Capa de edición | ✅ **En producción** (PR #2, merge `13840d1`, 2026-10-27; probada en Android real) |
+| 4 · Exportación (MVP) | ✅ Probada en celular real y endurecida (`/impeccable harden`). **PR #3 `dev`→`main` con auto-merge** (2026-10-27). Pendiente menor: tests por píxeles |
 | 5 · Pulido, PWA, landing | Pendiente |
 
 ### Qué hace hoy la app (en `dev`)
@@ -42,54 +42,70 @@ sin romper el formato y exporta un PDF. Sin backend, el archivo nunca sale del d
   aviso si la fuente no tiene gemela, Restaurar.
 - Avisos honestos: marca bermellón en lo editado; subrayado bermellón si el texto ya no cabe; escaneado sin texto;
   errores de archivo (vacío, dañado, contraseña, no PDF).
-- **Todavía NO exporta** (Fase 4).
+- **Exportar** (solo en `dev`): el botón se habilita con el primer cambio, muestra «Exportando…» y descarga
+  `nombre-editado.pdf`. Corre en `src/workers/export.worker.ts` (PDFium wasm y gemelas se piden al propio origen
+  solo al exportar). El resultado se avisa arriba de Cambios (y sobre la lámina en celular): línea de estado si salió
+  igual, aviso bermellón si hubo avisos o error; cada entrada dice su aviso («letras un poco apretadas…»).
 
 ## 3. Lo último que pasó y la pregunta pendiente
 
-**Lo último:** el usuario probó la Fase 3 en su celular (Android, Chrome) y pidió zoom con pellizco solo en el
-documento; se hizo (`75b42db`) y le encantó («mucho más intuitivo para editar»). Se abrió el **PR #2** `dev`→`main`
-con auto-merge (merge commit). Comentó que el diseño «se ve un poco simple»: **lo dejamos para el final** (Fase 5),
-probando varias direcciones; no es prioridad ahora.
+**Lo último:** la Fase 3 (con zoom de pellizco, que al usuario le encantó) se juntó a `main`. El usuario cerró las 4
+decisiones de la Fase 4 en lo recomendado y se construyó el **motor de exportación** en `src/core/writer/`:
+PDFium borra los objetos de texto por posición → `gc.ts` tira el contenido viejo suelto → `fit.ts` acomoda cada
+línea (espacio libre → Tz 85 % → achicar; títulos centrados siguen centrados) → pdf-lib dibuja con la gemela
+recortada → guardado completo sin flujos de objetos. Devuelve un reporte (`notErased`, `squeezed`, `shrunk`,
+`overflow`, `missingGlyphs`) para que la app avise. La prueba `export.test.ts` confirma que ni pdf.js ni PDFium
+recuperan el texto viejo, que el resto queda intacto y que el PDF crece solo ~15 KB. Comentó que el diseño «se ve un
+poco simple»: **lo dejamos para el final** (Fase 5).
 
-Si el PR #2 ya se juntó y `dev` no está sincronizado: `git checkout dev && git merge --ff-only origin/main && git push`.
+Después se **conectó a la app** (worker, botón, avisos, e2e que descarga y relee el PDF) y se verificó en el navegador
+de escritorio y en vista móvil.
+
+El usuario exportó desde su celular y funcionó. Se pasó `/impeccable harden` por el flujo: «Preparando…» mientras
+baja el motor la primera vez, aviso específico sin conexión (con Reintentar en el aviso), nombres larguísimos que
+se parten, Ctrl/⌘ S exporta; e2e de sin-red → reintentar. Se abrió el **PR #3** `dev`→`main` con auto-merge.
+El usuario preguntó por qué Chrome decía que accedía a su ubicación: la app no usa geolocalización (verificado en
+código, build y preview); lo más probable es el indicador de Android sobre la app Chrome. En los previews Vercel
+inyecta su barra de comentarios (`vercel.live`), que tampoco la usa; se puede apagar en Vercel si molesta.
 
 **Pregunta pendiente para el usuario (hacerla al retomar):**
-> ¿Arrancamos la Fase 4 (exportar)? Antes hay que cerrar las decisiones de la sección 5, empezando por el borrado
-> real del texto viejo con PDFium.
-> Opciones: «Sí, vamos con las decisiones de la Fase 4» · «Primero documentar la Fase 3 con Impeccable (pendiente 2)».
+> La Fase 4 (MVP) está en producción si el PR #3 se juntó. ¿Seguimos con la Fase 5 (pulido, PWA/offline, rediseño
+> visual con varias direcciones) o primero los pendientes de la Fase 4 (tests por píxeles, corpus real)?
+> Opciones: «Fase 5» · «Cerrar pendientes de la Fase 4».
 
 ## 4. Pendientes concretos (en orden)
 
-1. Confirmar que el PR #2 (Fase 3) se juntó y sincronizar `dev` con `main`.
+1. Confirmar que el PR #3 (Fase 4) se juntó y sincronizar `dev` con `main` (`git rebase origin/main` si hay commits
+   locales sin subir; si no, `git merge --ff-only origin/main`). Sin cancelar exportación todavía (tarda segundos).
 2. Refrescar `.impeccable/design.json` (quedó más viejo que `DESIGN.md`) y documentar los
    componentes nuevos de la Fase 3 (capa de edición, hoja de Cambios) con el documentador de Impeccable. Opcional:
    revisión final de Impeccable (`impeccable-finish-reviewer`) sobre la capa de edición.
-3. Arrancar la **Fase 4** (ver sección 5 para lo que hay que decidir primero).
+3. Fase 4, después: tests visuales por píxeles fuera de la zona editada; corpus real del usuario.
 4. Anotados en `PLAN.md`, sin fecha: autoguardado del log de ediciones en OPFS; orden de lectura por columnas para
    navegar con Tab; OCR (v4) — caso real: PDF escaneado exportado de Notion no se puede editar; modo oscuro, PWA y
    landing (Fase 5); prueba en iPhone real (ya se probó en Android).
 5. **Rediseño visual al final (Fase 5):** el usuario siente la UI «un poco simple»; probar varias direcciones de
    diseño con Impeccable cuando lo funcional esté listo.
 
-## 5. Decisiones abiertas antes de la Fase 4 (preguntar al usuario)
+## 5. Decisiones abiertas
 
-1. **¿Borrado real de los glifos editados desde el MVP** (PDFium WASM, `@embedpdf/pdfium`, MIT) en vez de tapar con
-   rectángulo? Recomendado: **sí** (si no, el texto viejo sigue extraíble: contradice la promesa de privacidad).
-   Ya hay spike que lo valida (`spikes/spike3-pdfium-native.mjs`). Ojo: PDFium embebe la fuente completa → pasarle
-   la gemela ya recortada (subset).
-2. **Texto que no cabe:** propuesta: espacio libre a la derecha → Tz/Tc dentro de ~85–110 % → reflujo; reducir el
-   tamaño solo como último recurso (se ve feo, Spike 2).
-3. **Fuentes sin gemela** (Aptos, Verdana, Garamond…): usar la parecida + aviso (ya se avisa en Cambios).
-4. **Guardado:** completo (no incremental) por privacidad.
+Ninguna para la Fase 4: se cerraron el 2026-10-27 (ver sección 6). Notas para implementarla:
+- Spike que valida el borrado: `spikes/spike3-pdfium-native.mjs`. Ojo: PDFium embebe la fuente completa → pasarle
+  la gemela ya recortada (subset).
 - Skills de la Fase 4 según `PLAN.md` §8: casi ninguna de diseño; `/impeccable harden` sobre el flujo de exportar;
   Playwright para tests visuales de ida y vuelta (exportar → reabrir → comparar píxeles y texto).
 - La exportación debe respetar `BlockEdit.lines` (líneas tal como se cortaron en pantalla) y `runs` (estilo heredado).
+- Siguen abiertas para la Fase 5: ¿iOS Safari de primera clase? Presupuesto de IA (ver `PLAN.md` §9).
 
 ## 6. Decisiones ya tomadas (no reabrir sin razón)
 
 - Licencia **MIT** (se puede reevaluar AGPL solo si nos bloqueamos; mupdf.js queda fuera).
 - Stack: pdf.js 6 (lectura/render), **@cantoo/pdf-lib + @cantoo/fontkit** (pdf-lib original pierde glifos en el
   subset; cantoo con `@pdf-lib/fontkit` truena), **@embedpdf/pdfium** para edición nativa (Fase 4 / v2).
+- **Fase 4 (2026-10-27):** borrado real de los glifos editados con PDFium (`@embedpdf/pdfium`) desde el MVP, nunca
+  solo tapar; guardado **completo**; prueba automática de que el texto viejo no se recupera. Texto que no cabe:
+  espacio libre a la derecha → Tz/Tc hasta ~85 % → reflujo → reducir tamaño al final. Sin gemela: la más parecida
+  + aviso.
 - Unidad de edición: **párrafo/línea**, no fragmento (editar fragmentos encima el texto siguiente).
 - Dirección visual **«Diccionario»**: papel biblia `#F6F6F3` (nunca crema), tinta `#161412`, bermellón `#B8321F`
   (tachado, edición activa, avisos, uñero actual), ultramar `#2C4F9E` (enlaces, selección, foco, cajas debug).
@@ -123,6 +139,15 @@ Si el PR #2 ya se juntó y `dev` no está sincronizado: `git checkout dev && git
 - Contornos de selección pegados a la caja (`outline-offset-0`); separados tapan la línea vecina.
 - iOS hace zoom al enfocar texto < 16px: el editor táctil se pinta a ≥16px y se escala con `transform` (nunca
   `maximum-scale`).
+- Exportación (Spike 4, `docs/fase0-hallazgos.md`): usar los **WOFF** de Fontsource convertidos a TTF
+  (`core/fonts/woff.ts`), nunca WOFF2 (truena al recortar) ni el WOFF sin convertir (los lectores no lo abren).
+  Embeber **sin ligaduras** (`liga/clig/dlig: false`) o el texto copiado sale mal. La raya «–» de Carlito se ve más
+  corta que la de Calibri: es la gemela, no un error. PDFium deja el contenido viejo como objeto suelto → `gc.ts` +
+  guardar con `useObjectStreams: false`. Ver un export: `EXPORT_OUT=ruta.pdf npx vitest run src/core/writer` y
+  `node spikes/render-page.mjs ruta.pdf salida.png`.
+- El wasm de PDFium se importa como `@embedpdf/pdfium/pdfium.wasm?url` (la ruta `dist/…` no está en los `exports`
+  del paquete). Siempre pasarle `wasmBinary`: si no, PDFium lo baja de jsDelivr (rompe la promesa de privacidad).
+  La primera exportación en `npm run dev` recarga la página porque Vite optimiza deps nuevas: es solo en desarrollo.
 - Zoom con pellizco: el visor lleva `touch-action: pan-x pan-y` (nunca `maximum-scale`); el canvas limita su
   densidad a ~12 M píxeles (iOS no dibuja canvases de más de ~16,7 M). El e2e simula dos dedos con CDP
   (`Input.dispatchTouchEvent`) en el perfil `android`.

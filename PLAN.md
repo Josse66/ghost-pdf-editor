@@ -184,10 +184,10 @@ Objetivo: eliminar incertidumbre antes de construir.
 - **Entregable:** puedes editar varios bloques y ver el resultado en pantalla.
 
 ### Fase 4 — Motor de exportación (1–2 semanas) ← **aquí se gana o se pierde**
-- [ ] `core/fonts`: tabla de equivalencias + carga de fuentes libres (servidas desde `/public/fonts`, cacheadas).
-- [ ] `core/color`: muestreo de fondo del canvas alrededor del bloque.
-- [ ] `core/writer`: por cada `Edit` → tapar → dibujar texto nuevo con fuente/tamaño/color/rotación correctos → ajuste si no cabe.
-- [ ] Export en un Web Worker, descarga con nombre `original-editado.pdf`.
+- [x] `core/fonts`: tabla de equivalencias + carga de fuentes libres. *(Tabla hecha en la Fase 3. En la exportación se usan los WOFF de Fontsource —los mismos que pinta el editor—, convertidos a TTF por `core/fonts/woff.ts`; el worker los pide al propio origen y el navegador los cachea.)*
+- [x] ~~`core/color`: muestreo de fondo del canvas alrededor del bloque.~~ *(Ya no hace falta: el texto viejo se borra, no se tapa, y el color de la tinta lo da PDFium del objeto borrado.)*
+- [x] `core/writer`: por cada edición → **borrar los glifos viejos con PDFium** (no tapar; guardado completo) → dibujar texto nuevo con fuente/tamaño/color correctos → ajuste si no cabe. *(`erase.ts` borra por posición; `gc.ts` tira los objetos sueltos del contenido viejo; `fit.ts` hace la escalera espacio libre → Tz 85 % → achicar y conserva títulos centrados; `fonts.ts` parte el texto por alfabeto de Fontsource y embebe recortado, sin ligaduras para que el texto se copie bien; `export.ts` lo orquesta y devuelve un reporte de lo que hay que avisar. Prueba de ida y vuelta: ni pdf.js ni PDFium recuperan el texto viejo, el resto de la página queda intacto, +15 KB.)*
+- [x] Export en un Web Worker, descarga con nombre `original-editado.pdf`. *(`src/workers/export.worker.ts`: PDFium y las gemelas se piden al propio origen solo al exportar; botón con estado «Exportando…»; avisos del reporte en Cambios y sobre la lámina en celular; e2e que descarga y relee el PDF.)*
 - [ ] Tests visuales: renderizar PDF exportado vs original y comparar píxeles (Playwright screenshots / pixelmatch) fuera de la zona editada.
 - 🧰 **Skills:** casi ninguna de diseño — esta fase es motor puro. Solo `/impeccable harden` sobre el flujo de exportar (errores, progreso, archivo grande, cancelar). Plugin **Playwright** (si lo activaste) o el navegador de la app para los tests e2e.
 - **Entregable: MVP v1.** Editar y exportar un CV/factura y que no se note.
@@ -346,8 +346,8 @@ Varias skills de diseño se traslapan. Regla para no recibir consejos contradict
 1. ✅ Ubicación (`C:/dev/pdf-master`) y nombre (Ghost PDF Editor) decididos.
 2. ✅ **Fase 0** terminada (falta solo el corpus real, que llega en Fase 2). Ver `docs/fase0-hallazgos.md`.
 3. **Decisiones abiertas** que salieron del reporte de investigación (§ "Decisiones que tienes que tomar"). Se cierran cuando llegue su fase:
-   - **Antes de la Fase 4:** ¿adelantar al MVP la *eliminación real* de los glifos editados (PDFium), con guardado completo y una prueba automática de que el texto viejo no se recupera? Recomendado: sí, es la promesa de privacidad.
-   - **Fase 4:** fuentes faltantes (sustituir el run completo + aviso), Aptos y otras fuentes sin clon libre, límites de Tz/Tc antes de pasar a reflujo.
+   - ✅ **Decidido (2026-10-27), antes de la Fase 4:** *eliminación real* de los glifos editados con PDFium desde el MVP, guardado **completo** (nunca incremental) y prueba automática de que el texto viejo no se recupera.
+   - ✅ **Decidido (2026-10-27), Fase 4:** texto que no cabe → espacio libre a la derecha → apretar con Tz/Tc hasta ~85 % → reflujo a otra línea → reducir tamaño solo como último recurso. Fuentes sin gemela (Aptos, Verdana, Garamond…) → la gemela más parecida + aviso en Cambios.
    - **Fase 5:** ¿iOS Safari es de primera clase? Presupuesto de IA (qué paquetes, solo escritorio o también móvil).
    - **Posicionamiento (§0):** la edición gratis en el navegador ya existe (Stirling-PDF v3, BentoPDF). Ghost se diferencia por privacidad *verificable*, fidelidad en CVs y facturas de Office/Docs, y ligereza en móvil.
 4. 👉 **Fase 1 — Setup**, en este orden:

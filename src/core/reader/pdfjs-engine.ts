@@ -83,10 +83,6 @@ export function createPdfjsEngine(pdfjs: PdfjsModule): PdfEngine {
       }
     },
 
-    async exportWithEdits() {
-      throw new Error('La exportación llega en la Fase 4.')
-    },
-
     async destroy() {
       lineCache.clear()
       // En pdf.js 6 el documento ya no tiene destroy(): se destruye su tarea de carga.

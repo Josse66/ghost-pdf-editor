@@ -1,5 +1,5 @@
-// Contrato del motor PDF. La UI y el store solo hablan con esta interfaz, nunca con
-// pdf.js, @cantoo/pdf-lib o PDFium directamente, para poder cambiar de motor sin tocar React.
+// Contrato del motor de lectura PDF (la escritura vive en core/writer/export.ts). La UI y el store
+// solo hablan con esta interfaz, nunca con pdf.js directamente, para poder cambiar de motor sin tocar React.
 // TypeScript puro: nada de React aquí (ver CLAUDE.md).
 import type { GenericFamily } from './fonts/substitutes'
 
@@ -54,12 +54,6 @@ export interface TextBlock extends Box {
   lines?: TextBlock[]
 }
 
-/** Una edición pendiente. El documento original nunca se modifica en memoria. */
-export interface Edit {
-  blockId: string
-  newText: string
-}
-
 export interface PageInfo {
   page: number
   /** Tamaño en puntos PDF, ya con la rotación de página aplicada. */
@@ -90,6 +84,5 @@ export interface PdfEngine {
   /** Bloques de una página: por línea o agrupados en párrafos. */
   getTextBlocks(page: number, kind?: TextBlock['kind']): Promise<TextBlock[]>
   renderPage(page: number, target: RenderTarget): Promise<void>
-  exportWithEdits(edits: readonly Edit[]): Promise<Uint8Array>
   destroy(): Promise<void>
 }

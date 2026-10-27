@@ -57,6 +57,15 @@ Lo cambiamos por mupdf.js porque la investigación encontró que `@embedpdf/pdfi
 - **En ambas**, el texto más largo se encima con " — Compañía…": confirma el hallazgo 5 del TL;DR.
 - Velocidad: 74–126 ms.
 
+## Spike 4 — Gemelas de Fontsource en el PDF (`spike4*.mjs`, Fase 4)
+
+- Los **WOFF** de Fontsource se pueden embeber con `@cantoo/pdf-lib` recortados (+3–4 KB por archivo). **WOFF2 truena** al recortar.
+- **Sin recortar, pdf-lib mete el WOFF tal cual** y los lectores no lo entienden («loca table not found»): por eso `core/fonts/woff.ts` convierte WOFF → TTF antes.
+- Sin recortar, además, se aplican **ligaduras** («fi», «ft») y el texto copiado sale mal («Soħa» por «Sofía»): se embebe con `liga`, `clig` y `dlig` apagadas.
+- La raya «–» de Carlito es **más corta** que la de Calibri aunque ocupe el mismo ancho: es el diseño de la gemela (también se ve así en el editor), no un error del recorte.
+- Para borrar se usa PDFium, pero para dibujar se usa pdf-lib: PDFium embebe la fuente entera (57 → 347 KB en el Spike 3).
+- PDFium deja el contenido viejo de la página como objeto suelto dentro del archivo: hay que recolectarlo (`core/writer/gc.ts`) y guardar sin flujos de objetos para poder verificarlo.
+
 ## Decisiones propuestas
 
 | Tema | Propuesta | Estado |

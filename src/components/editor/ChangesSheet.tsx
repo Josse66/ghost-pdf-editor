@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { useFormatNumber, useT } from '@/i18n'
 import { useEdits } from '@/store/edits'
 import { ChangesList } from './ChangesPanel'
+import { ExportNotice } from './ExportNotice'
 
 /**
  * Sin columna derecha (celular y tablet), los cambios viven en una hoja que sube desde abajo.
@@ -43,6 +44,7 @@ export function ChangesSheet() {
             </Button>
           </div>
           <div className="overflow-y-auto overscroll-contain px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))]">
+            <ExportNotice className="mb-5" />
             <ChangesList onNavigate={close} />
           </div>
         </div>

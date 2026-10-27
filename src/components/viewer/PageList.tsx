@@ -3,6 +3,7 @@ import type { LoadedDocument } from '@/core/engine'
 import { usePinchZoom } from '@/hooks/usePinchZoom'
 import { fitScale } from '@/lib/zoom'
 import { selectScale, useDocument } from '@/store/document'
+import { ExportNotice } from '@/components/editor/ExportNotice'
 import { DebugSelect } from './DebugSelect'
 import { Page } from './Page'
 
@@ -106,7 +107,12 @@ export function PageList({ doc }: { doc: LoadedDocument }) {
       // pan-x pan-y: un dedo desplaza (con la inercia del navegador) y el pellizco es del visor.
       className="h-full touch-pan-x touch-pan-y overflow-auto overscroll-contain px-3 py-6 outline-none sm:px-6"
     >
-      {/* En pantallas sin columna derecha, la revisión de cajas vive arriba de las láminas. */}
+      {/* Sin columna derecha, el resultado de exportar y la revisión de cajas van arriba de las láminas. */}
+      <ExportNotice
+        touch
+        className="mx-auto mb-4 lg:hidden"
+        style={{ maxWidth: available + PLATE_CHROME }}
+      />
       <DebugSelect
         className="mx-auto mb-4 lg:hidden"
         style={{ maxWidth: available + PLATE_CHROME }}
