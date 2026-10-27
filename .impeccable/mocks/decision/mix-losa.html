@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Losa flotante</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--con:#e4e3df;--con0:#f3f2ef;--char:#2a2a28;--mid:#5f5d58;--line:#bdbab4;--blue:#24466b;--glass:#3e74ad}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:Archivo,sans-serif;color:var(--char);background:var(--con);background-image:linear-gradient(rgba(42,42,40,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(42,42,40,.07) 1px,transparent 1px);background-size:24px 24px}
+.slab{position:absolute;left:24px;right:376px;top:20px;height:56px;background:var(--con0);display:flex;align-items:center;gap:16px;padding:0 20px;box-shadow:12px 14px 0 rgba(42,42,40,.14);z-index:2}
+.brand{font-weight:800;font-size:17px;letter-spacing:-.01em}
+.file{color:var(--mid);font-size:14px}
+.spacer{flex:1}
+.pg{font-size:12px;font-weight:600;letter-spacing:.1em;color:var(--mid)}
+.zoom{display:flex;align-items:center;font-size:13px;border:1px solid var(--line)}
+.zoom span{width:32px;height:32px;display:grid;place-items:center}
+.zoom b{width:52px;text-align:center;font-weight:600}
+.btn{height:38px;padding:0 16px;font:600 14px Archivo;display:flex;align-items:center;border:1px solid var(--line);background:transparent}
+.btn.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+.rail{position:absolute;left:24px;top:110px;width:56px;display:flex;flex-direction:column;gap:10px}
+.slot{height:56px;background:var(--con0);box-shadow:inset 3px 3px 0 rgba(0,0,0,.10);display:grid;place-items:center;font-weight:700;color:var(--mid)}
+.slot.cur{background:var(--char);color:#fff;box-shadow:6px 7px 0 rgba(42,42,40,.16)}
+.sheet{position:absolute;left:300px;top:110px;width:612px;height:792px;background:#fff;padding:70px 66px;font-family:Carlito,sans-serif;color:#222;box-shadow:22px 26px 0 rgba(42,42,40,.16)}
+.sheet h1{font-size:30px;color:#1f3864;margin-bottom:6px}
+.sheet .sub{font-size:12.5px;color:#666;margin-bottom:22px}
+.sheet h2{font-size:15px;color:#2e5597;border-bottom:1px solid #2e5597;padding-bottom:3px;margin:16px 0 10px}
+.sheet p{font-size:12.5px;line-height:1.45;margin-bottom:9px}
+.edited{box-shadow:-9px 0 0 var(--blue)}
+aside{position:absolute;right:0;top:0;bottom:0;width:352px;background:var(--con0);border-left:1px solid var(--line);padding:30px 28px;display:flex;flex-direction:column}
+.done{font-size:14px;line-height:1.45;color:var(--mid);margin-bottom:26px}
+.done b{color:var(--char)}
+.head{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:10px;border-bottom:3px solid var(--char)}
+.head h3{font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.head h3 span{font-size:16px;font-weight:600;color:var(--mid);margin-left:6px}
+.head em{font-style:normal;font-size:13px;color:var(--mid)}
+.entry{padding:16px 0;border-bottom:1px solid var(--line)}
+.old{font-size:14px;color:var(--mid);text-decoration:line-through;text-decoration-color:var(--char);line-height:1.35}
+.new{font-size:16px;font-weight:600;line-height:1.35;margin-top:4px}
+.meta{display:flex;justify-content:space-between;margin-top:8px;font-size:13px;color:var(--mid)}
+.meta b{color:var(--blue)}
+.warn{margin-top:6px;font-size:13px;color:#7a4b00}
+</style></head><body>
+<div class="slab"><div class="brand">Ghost PDF Editor</div><div class="file">cv-calibri.pdf</div><div class="spacer"></div><span class="pg">PÁGINA 1 DE 5</span><div class="zoom"><span>−</span><b>100%</b><span>+</span></div><button class="btn">Abrir</button><button class="btn primary">Exportar PDF</button></div>
+<nav class="rail"><div class="slot cur">1</div><div class="slot">2</div><div class="slot">3</div><div class="slot">4</div><div class="slot">5</div></nav>
+<div class="sheet">
+  <h1>José Núñez Peña</h1>
+  <div class="sub">Desarrollador Full Stack · Ciudad de México · jose.nunez@ejemplo.com · +52 55 1234 5678</div>
+  <h2>Experiencia</h2>
+  <p class="edited"><b>Sr. Ingeniero de Software</b> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+  <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día. Reduje el tiempo de respuesta promedio en un 35% migrando servicios críticos a una arquitectura basada en colas.</p>
+  <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
+  <h2>Educación</h2>
+  <p>Ingeniería en Computación — Universidad Nacional, 2016–2020. Promedio: 9.2</p>
+</div>
+<aside>
+  <div class="done">Se descargó <b>cv-calibri-editado.pdf</b>. El texto anterior se borró del archivo.</div>
+  <div class="head"><h3>Cambios<span>3</span></h3><em>Deshacer · Rehacer</em></div>
+  <div class="entry"><div class="old">Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div><div class="new">Sr. Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div><div class="meta"><span>Pág. 1 · Calibri → Carlito</span><b>Restaurar</b></div></div>
+  <div class="entry"><div class="old">… inglés avanzado (C1).</div><div class="new">… inglés avanzado (C1), liderazgo técnico.</div><div class="meta"><span>Pág. 1 · Calibri → Carlito</span><b>Restaurar</b></div><div class="warn">Letras un poco apretadas para caber</div></div>
+  <div class="entry"><div class="old">Inglés avanzado</div><div class="new">Inglés avanzado (certificado C1, 2024)</div><div class="meta"><span>Pág. 3 · Calibri → Carlito</span><b>Restaurar</b></div></div>
+</aside>
+</body></html>

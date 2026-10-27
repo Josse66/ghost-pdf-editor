@@ -110,7 +110,8 @@ export const Page = memo(function Page({
           {t('noTextPage')}
         </p>
       )}
-      <div className="border-rule bg-ink-0 border-[1.5px] p-2">
+      {/* La hoja sola sobre la plaza, con una sombra recta y larga de luz de mediodía. */}
+      <div className="shadow-[10px_12px_0_rgb(42_42_40/0.14)] lg:shadow-[22px_26px_0_rgb(42_42_40/0.16)]">
         <div data-sheet className="relative bg-white" style={{ width, height }}>
           <canvas ref={canvasRef} className="block size-full" aria-hidden />
           {near && editable.length > 0 && (
@@ -127,7 +128,7 @@ export const Page = memo(function Page({
       </div>
       <figcaption
         className="text-muted-foreground mt-2 flex items-baseline gap-2 text-xs"
-        style={{ maxWidth: width + 2 * (1.5 + 8) }}
+        style={{ maxWidth: width }}
       >
         <span className="guide-caps tabular text-ink-8 shrink-0">
           {t('page', { n: info.page })}

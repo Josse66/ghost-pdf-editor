@@ -1,61 +1,15 @@
 // Ida y vuelta real: abrir un PDF, editar, exportar y volver a leerlo con dos lectores distintos
 // (pdf.js y PDFium). La promesa de privacidad: el texto viejo no se recupera de ninguna forma.
-import { access, readFile, writeFile } from 'node:fs/promises'
+import { readFile, writeFile } from 'node:fs/promises'
 import { beforeAll, describe, expect, it } from 'vitest'
-import * as pdfjs from 'pdfjs-dist/legacy/build/pdf.mjs'
 import { PDFDocument } from '@cantoo/pdf-lib'
-import type { BlockEdit } from '../edits/history'
-import { runsFromBlock } from '../edits/runs'
 import type { PdfEngine, TextBlock } from '../engine'
-import { createPdfjsEngine } from '../reader/pdfjs-engine'
 import { createPdfium, type Pdfium } from './erase'
 import { exportPdf, type ExportReport } from './export'
-import type { FontSource } from './fonts'
 import { unreachableRefs } from './gc'
+import { changedOutside, editOf, fonts, open, renderPage, toBuffer } from './test-utils'
 
 const FIXTURES = 'test-fixtures/generated'
-const SUBSETS = ['latin', 'latin-ext']
-
-/** Las gemelas de Fontsource, como las servirá la app. */
-const fonts: FontSource = async (family, bold, italic) => {
-  const name = family.toLowerCase()
-  const files = SUBSETS.map(
-    (subset) =>
-      `node_modules/@fontsource/${name}/files/${name}-${subset}-${bold ? 700 : 400}-${italic ? 'italic' : 'normal'}.woff`,
-  )
-  const present = await Promise.all(
-    files.map((f) =>
-      access(f).then(
-        () => f,
-        () => null,
-      ),
-    ),
-  )
-  return Promise.all(present.filter((f): f is string => !!f).map((f) => readFile(f)))
-}
-
-const toBuffer = (bytes: Uint8Array) =>
-  bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer
-
-async function open(bytes: Uint8Array): Promise<PdfEngine> {
-  const engine = createPdfjsEngine(pdfjs)
-  await engine.load(toBuffer(bytes))
-  return engine
-}
-
-/** Edita un bloque como lo haría el editor: reemplaza texto dentro de sus runs y de sus líneas. */
-function editOf(block: TextBlock, find: string, replace: string): BlockEdit {
-  const runs = runsFromBlock(block).map((r) => ({ ...r, text: r.text.replace(find, replace) }))
-  const lines = (block.lines ?? [block]).map((l) => l.text.replace(find, replace))
-  return {
-    blockId: block.id,
-    page: block.page,
-    before: block.text,
-    after: runs.map((r) => r.text).join(''),
-    runs,
-    lines,
-  }
-}
 
 /** Todo el texto de la página según PDFium (un segundo lector, independiente de pdf.js). */
 function pdfiumText(pdfium: Pdfium, bytes: Uint8Array): string {
@@ -167,4 +121,46 @@ describe('exportar con ediciones (cv-calibri.pdf)', () => {
   it('pesa poco: la gemela se embebe recortada', () => {
     expect(output.length - original.length).toBeLessThan(40_000)
   })
+})
+
+describe('exportar no toca nada fuera de lo editado (píxeles)', () => {
+  it('cv-calibri.pdf: fuera de las zonas editadas, la página se ve idéntica', async () => {
+    const wasm = await readFile('node_modules/@embedpdf/pdfium/dist/pdfium.wasm')
+    const pdfium = await createPdfium(toBuffer(wasm))
+    const original = new Uint8Array(await readFile(`${FIXTURES}/cv-calibri.pdf`))
+    const engine = await open(original)
+    const { pages } = await engine.load(toBuffer(original))
+    const paragraphs = await engine.getTextBlocks(1, 'paragraph')
+    const lines = await engine.getTextBlocks(1, 'line')
+    await engine.destroy()
+
+    const job = paragraphs.find((b) => b.text.includes('Ingeniero de Software'))!
+    const { bytes } = await exportPdf(
+      {
+        original,
+        edits: [editOf(job, 'Ingeniero de Software', 'Ingeniera Sénior de Software')],
+        blocks: new Map([[job.id, job]]),
+        pages,
+        pageLines: new Map([[1, lines]]),
+      },
+      { pdfium, fonts },
+    )
+
+    // La zona editada: la caja original más lo que ocupe ahora el texto nuevo.
+    const reread = await open(bytes)
+    const now = (await reread.getTextBlocks(1, 'line')).filter((l) =>
+      l.text.includes('Ingeniera Sénior'),
+    )
+    await reread.destroy()
+    expect(now).toHaveLength(1)
+
+    const scale = 2
+    const a = await renderPage(original, 1, scale)
+    const b = await renderPage(bytes, 1, scale)
+    const { changed, total } = changedOutside(a, b, pages[0]!, scale, [job, ...now])
+    expect(changed / total).toBeLessThan(0.0001)
+    // Controles: casi toda la página entra en la comparación, y sin la máscara el cambio sí se ve.
+    expect(total).toBeGreaterThan(a.width * a.height * 0.9)
+    expect(changedOutside(a, b, pages[0]!, scale, []).changed).toBeGreaterThan(100)
+  }, 30_000)
 })

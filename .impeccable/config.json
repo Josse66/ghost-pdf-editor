@@ -145,7 +145,7 @@
           ".impeccable/mocks/decision/assigned.html"
         ],
         "createdAt": "2026-10-26T16:26:43.477Z",
-        "reason": "Claude: decision-round sketch (closed 2026-10-26), not shipped; Calibri there simulates PDF page content"
+        "reason": "Claude: boceto de dirección para el rediseño (Fase 4.1); se aparta de DESIGN.md a propósito"
       },
       {
         "rule": "design-system-font",
@@ -154,7 +154,7 @@
           ".impeccable/mocks/decision/model-pick.html"
         ],
         "createdAt": "2026-10-26T16:26:43.919Z",
-        "reason": "Claude: decision-round sketch (closed 2026-10-26), not shipped; Calibri there simulates PDF page content"
+        "reason": "Claude: boceto de dirección para el rediseño (Fase 4.1); se aparta de DESIGN.md a propósito"
       },
       {
         "rule": "design-system-font",
@@ -172,7 +172,7 @@
           ".impeccable/mocks/decision/canon.html"
         ],
         "createdAt": "2026-10-26T16:26:44.727Z",
-        "reason": "Claude: decision-round sketch (closed 2026-10-26), not shipped; Calibri there simulates PDF page content"
+        "reason": "Claude: boceto de dirección para el rediseño (Fase 4.1); se aparta de DESIGN.md a propósito"
       },
       {
         "rule": "design-system-font",
@@ -253,7 +253,7 @@
           ".impeccable/mocks/decision/assigned.html"
         ],
         "createdAt": "2026-10-26T16:27:41.777Z",
-        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+        "reason": "Claude: boceto de dirección para el rediseño (Fase 4.1); se aparta de DESIGN.md a propósito"
       },
       {
         "rule": "design-system-radius",
@@ -280,7 +280,7 @@
           ".impeccable/mocks/decision/model-pick.html"
         ],
         "createdAt": "2026-10-26T16:27:43.565Z",
-        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+        "reason": "Claude: boceto de dirección para el rediseño (Fase 4.1); se aparta de DESIGN.md a propósito"
       },
       {
         "rule": "design-system-radius",
@@ -334,7 +334,7 @@
           ".impeccable/mocks/decision/canon.html"
         ],
         "createdAt": "2026-10-26T16:27:46.862Z",
-        "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+        "reason": "Claude: boceto de dirección para el rediseño (Fase 4.1); se aparta de DESIGN.md a propósito"
       },
       {
         "rule": "design-system-radius",
@@ -461,6 +461,186 @@
         ],
         "createdAt": "2026-10-27T14:35:46.401Z",
         "reason": "Claude: fuente del PDF de prueba, no de la UI (mismo criterio que los demás tests del núcleo)"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-metro-tiles.html"
+        ],
+        "createdAt": "2026-10-27T16:02:10.093Z",
+        "reason": "Claude: boceto de dirección para el rediseño (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/challenger-metro-tiles.html"
+        ],
+        "createdAt": "2026-10-27T16:02:10.514Z",
+        "reason": "Claude: boceto de dirección para el rediseño (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-assigned.html"
+        ],
+        "createdAt": "2026-10-27T19:53:28.665Z",
+        "reason": "Claude: boceto de dirección para el rediseño (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-assigned.html"
+        ],
+        "createdAt": "2026-10-27T19:53:29.065Z",
+        "reason": "Claude: boceto de dirección para el rediseño (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-pick.html"
+        ],
+        "createdAt": "2026-10-27T19:53:29.427Z",
+        "reason": "Claude: boceto de dirección para el rediseño (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-pick.html"
+        ],
+        "createdAt": "2026-10-27T19:53:29.796Z",
+        "reason": "Claude: boceto de dirección para el rediseño (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-airport.html"
+        ],
+        "createdAt": "2026-10-27T19:53:30.173Z",
+        "reason": "Claude: boceto de dirección para el rediseño (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/r1-airport.html"
+        ],
+        "createdAt": "2026-10-27T19:53:30.576Z",
+        "reason": "Claude: boceto de dirección para el rediseño (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/cmp-annual.html"
+        ],
+        "createdAt": "2026-10-27T20:23:44.688Z",
+        "reason": "Claude: boceto de comparación de direcciones (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/cmp-annual.html"
+        ],
+        "createdAt": "2026-10-27T20:23:45.050Z",
+        "reason": "Claude: boceto de comparación de direcciones (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/cmp-crouwel.html"
+        ],
+        "createdAt": "2026-10-27T20:23:45.450Z",
+        "reason": "Claude: boceto de comparación de direcciones (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/cmp-crouwel.html"
+        ],
+        "createdAt": "2026-10-27T20:23:45.814Z",
+        "reason": "Claude: boceto de comparación de direcciones (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/cmp-feltron.html"
+        ],
+        "createdAt": "2026-10-27T20:23:46.200Z",
+        "reason": "Claude: boceto de comparación de direcciones (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/cmp-feltron.html"
+        ],
+        "createdAt": "2026-10-27T20:23:46.566Z",
+        "reason": "Claude: boceto de comparación de direcciones (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/mix-losa.html"
+        ],
+        "createdAt": "2026-10-27T20:30:04.766Z",
+        "reason": "Claude: boceto de combinación sobre Concreto (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/mix-losa.html"
+        ],
+        "createdAt": "2026-10-27T20:30:05.154Z",
+        "reason": "Claude: boceto de combinación sobre Concreto (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/mix-fichas.html"
+        ],
+        "createdAt": "2026-10-27T20:30:05.570Z",
+        "reason": "Claude: boceto de combinación sobre Concreto (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/mix-fichas.html"
+        ],
+        "createdAt": "2026-10-27T20:30:05.957Z",
+        "reason": "Claude: boceto de combinación sobre Concreto (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/mix-reticula.html"
+        ],
+        "createdAt": "2026-10-27T20:30:06.363Z",
+        "reason": "Claude: boceto de combinación sobre Concreto (Fase 4.1); se aparta de DESIGN.md a propósito"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          ".impeccable/mocks/decision/mix-reticula.html"
+        ],
+        "createdAt": "2026-10-27T20:30:06.801Z",
+        "reason": "Claude: boceto de combinación sobre Concreto (Fase 4.1); se aparta de DESIGN.md a propósito"
       }
     ]
   }

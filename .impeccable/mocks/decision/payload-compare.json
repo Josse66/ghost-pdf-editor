@@ -1,0 +1,66 @@
+{
+  "title": "Ghost PDF Editor · Concreto contra las tres mejores",
+  "question": "Concreto es el que ya está construido en la rama design. Compáralo con las tres mejores de cinco tiradas y elige cuál sigue. Todas conservan Exportar, Cambios con tachado, uñeros y el flujo de hoy.",
+  "options": [
+    {
+      "id": "concreto",
+      "kind": "grounded",
+      "label": "Concreto",
+      "kicker": "EL ACTUAL",
+      "lineage": "Arquitectura de Teodoro González de León (Museo Tamayo, Colegio de México)",
+      "thesis": "Volúmenes de concreto gris con aristas exactas y sombras largas: poco color, mucha estructura. Es el que ya está construido en la rama design.",
+      "palette": ["#E4E3DF", "#2A2A28", "#F3F2EF", "#24466B", "#3E74AD", "#A8322A"],
+      "materials": ["concreto cincelado", "aristas a 90°", "sombra larga", "azul de cristal"],
+      "viewport": "Cabeza carbón; uñeros como ranuras talladas en un muro cincelado; la hoja blanca con sombra larga sobre la plaza gris; «Cambios» grande sobre una regla carbón de 3 px.",
+      "risk": "Ninguno nuevo: ya lo viste y te convenció.",
+      "html": ".impeccable/mocks/decision/r1-pick.html"
+    },
+    {
+      "id": "challenger-annual",
+      "kind": "challenger",
+      "catalogId": "design-annual-s-plate-section",
+      "label": "Anuario de diseño",
+      "verdict": "competitive",
+      "lineage": "Sección de láminas de un anuario de diseño premiado",
+      "thesis": "El PDF tratado como lámina de museo: casi blanco, una sola grotesca, reglas de 1 px, marcas de registro en las esquinas de la hoja y un sello circular «Texto anterior borrado» al exportar.",
+      "palette": ["#F5F4F6", "#16181A", "#C9C7C4", "#DCDDF3", "#FFFFFF"],
+      "materials": ["papel sin estucar", "marcas de registro", "sello de imprenta", "reglas de 1 px"],
+      "viewport": "Cabeza blanca con regla fina; uñeros como números de lámina; la hoja con crucecitas de registro en las cuatro esquinas; Cambios como fichas de créditos divididas por reglas finas; el sello circular asoma a medias del borde de la hoja.",
+      "case": "La más seria y actual de las cinco tiradas; gana en ligereza, pierde algo del peso que te gustó de Concreto.",
+      "risk": "Puede sentirse demasiado ligero o «de galería» si la tipografía no tiene autoridad.",
+      "html": ".impeccable/mocks/decision/cmp-annual.html"
+    },
+    {
+      "id": "challenger-crouwel",
+      "kind": "challenger",
+      "catalogId": "crouwel-grid-specimen",
+      "label": "Retícula Crouwel",
+      "verdict": "competitive",
+      "lineage": "Carteles de Wim Crouwel: letra y composición sobre una retícula visible",
+      "thesis": "Estructura pura y modernista: una retícula tenue siempre presente, uñeros y Cambios alineados a ella, la página actual como una celda llena y un solo plano de color fuerte.",
+      "palette": ["#FFFFFF", "#111111", "#E8E8E8", "#E4002B"],
+      "materials": ["retícula de construcción", "letra geométrica", "un plano de acento"],
+      "viewport": "Fondo blanco con retícula de 24 px muy tenue; cabeza con el título armado en la retícula; uñeros como celdas, la actual llena en rojo; Cambios con título grande geométrico; Exportar como bloque de color.",
+      "case": "La pariente más cercana de Concreto (estructura, modernismo), más gráfica que material.",
+      "risk": "Si la retícula se nota de más, distrae del PDF.",
+      "html": ".impeccable/mocks/decision/cmp-crouwel.html"
+    },
+    {
+      "id": "challenger-feltron",
+      "kind": "challenger",
+      "catalogId": "feltron-personal-annual",
+      "label": "Informe anual",
+      "verdict": "competitive",
+      "lineage": "Informes anuales personales de Nicholas Felton",
+      "thesis": "Blanco austero, tinta negra y un solo color disciplinado para las cifras que importan: «3 cambios · 2 páginas · +15 KB». Ghost como un informe de lo que le hiciste al documento.",
+      "palette": ["#FAFAFA", "#111111", "#6B6B6B", "#0A7C66"],
+      "materials": ["cifras monumentales", "versalitas", "márgenes amplios"],
+      "viewport": "Cabeza blanca mínima; arriba de Cambios una franja de cifras grandes (cambios, páginas, peso); uñeros como lista numerada; la hoja con margen generoso.",
+      "case": "Comunica con datos lo que hace Ghost; se siente de despacho profesional.",
+      "risk": "Frío si los números no cuentan algo útil.",
+      "html": ".impeccable/mocks/decision/cmp-feltron.html"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "canon": false
+}

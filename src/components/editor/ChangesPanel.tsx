@@ -60,11 +60,11 @@ export function ChangesList({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <>
-      <div className="border-rule flex items-center justify-between gap-2 border-b pb-1.5">
-        <h2 className="guide-caps text-[15px] font-semibold">
+      <div className="border-ink-10 flex items-end justify-between gap-2 border-b-[3px] pb-2">
+        <h2 className="text-[30px] leading-none font-extrabold tracking-tight">
           {t('changes')}{' '}
-          <span className="tabular text-muted-foreground font-normal">
-            · {format(entries.length)}
+          <span className="tabular text-ink-7 align-[0.35em] text-base font-semibold">
+            {format(entries.length)}
           </span>
         </h2>
         <div className="flex gap-0.5">
@@ -92,9 +92,7 @@ export function ChangesList({ onNavigate }: { onNavigate?: () => void }) {
       </div>
       {entries.length === 0 ? (
         <>
-          <p className="text-muted-foreground mt-4 font-serif text-[15px] leading-relaxed">
-            {t('changesEmpty')}
-          </p>
+          <p className="text-ink-8 mt-4 text-[15px] leading-relaxed">{t('changesEmpty')}</p>
           <p className="text-ink-8 mt-3 text-sm leading-snug">
             {finePointer ? t('changesHintMouse') : t('changesHintTouch')}
           </p>
@@ -135,9 +133,9 @@ function ChangeEntry({
           onNavigate?.()
           scrollToBlock(edit.page, edit.blockId)
         }}
-        className="block w-full rounded-sm text-left font-serif"
+        className="block w-full text-left"
       >
-        <span className="text-ink-7 decoration-vermilion line-clamp-2 text-[15px] line-through decoration-2">
+        <span className="text-ink-7 decoration-ink-10 line-clamp-2 text-[15px] line-through decoration-[1.5px]">
           {edit.before}
         </span>
         <span className="mt-0.5 line-clamp-3 text-[17px] leading-snug font-semibold">
@@ -145,7 +143,7 @@ function ChangeEntry({
         </span>
       </button>
       <div className="mt-1.5 flex items-baseline justify-between gap-3">
-        <p className="text-ink-7 font-serif text-sm italic">
+        <p className="text-ink-7 text-[13px]">
           {style && substitute
             ? t('entryApparatus', {
                 page: edit.page,

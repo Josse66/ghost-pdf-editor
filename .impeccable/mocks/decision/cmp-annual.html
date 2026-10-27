@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Anuario de diseño</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400&family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--g:#f5f4f6;--ink:#16181a;--hair:#c9c7c4;--mute:#5c5f63;--seal:#dcddf3;--sealink:#2d2f6b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:"Schibsted Grotesk",sans-serif;color:var(--ink);background:var(--g)}
+.lab{font:400 11px "IBM Plex Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+header{height:60px;display:flex;align-items:center;gap:20px;padding:0 32px;border-bottom:1px solid var(--hair)}
+.brand{font-size:17px;font-weight:600}
+.spacer{flex:1}
+.btn{height:36px;padding:0 16px;font:500 14px "Schibsted Grotesk";display:flex;align-items:center;border:1px solid var(--ink);background:transparent;color:var(--ink)}
+.btn.primary{background:var(--ink);color:#fff}
+main{display:grid;grid-template-columns:96px 1fr 380px;height:840px}
+.plates{border-right:1px solid var(--hair);padding:28px 0 0 24px;display:flex;flex-direction:column;gap:18px}
+.pl{font-size:15px;color:var(--mute);display:flex;align-items:baseline;gap:6px}
+.pl b{font-weight:500}
+.pl.cur{color:var(--ink)}
+.pl.cur b{font-weight:600;border-bottom:2px solid var(--ink)}
+.pl.ed:after{content:"";width:6px;height:6px;border-radius:50%;background:var(--sealink)}
+.stage{position:relative;display:flex;justify-content:center;padding-top:44px;overflow:hidden}
+.wrap{position:relative}
+.sheet{width:592px;height:766px;background:#fff;padding:66px 62px;font-family:Carlito,sans-serif;color:#222}
+.reg{position:absolute;width:22px;height:22px}
+.reg:before,.reg:after{content:"";position:absolute;background:var(--ink)}
+.reg:before{left:10px;top:0;width:1px;height:22px}.reg:after{top:10px;left:0;height:1px;width:22px}
+.r1{left:-30px;top:-30px}.r2{right:-30px;top:-30px}.r3{left:-30px;bottom:-30px}.r4{right:-30px;bottom:-30px}
+.stamp{position:absolute;right:-56px;top:120px;width:112px;height:112px;border-radius:50%;background:var(--seal);display:grid;place-items:center;text-align:center;font:400 11px "IBM Plex Mono",monospace;letter-spacing:.1em;line-height:1.45;color:var(--sealink);text-transform:uppercase;padding:14px}
+.sheet h1{font-size:29px;color:#1f3864;margin-bottom:6px}
+.sheet .sub{font-size:12px;color:#666;margin-bottom:20px}
+.sheet h2{font-size:14.5px;color:#2e5597;border-bottom:1px solid #2e5597;padding-bottom:3px;margin:15px 0 9px}
+.sheet p{font-size:12px;line-height:1.45;margin-bottom:9px}
+.edited{box-shadow:0 2px 0 var(--sealink)}
+.cap{display:flex;justify-content:space-between;margin-top:14px;width:592px}
+aside{border-left:1px solid var(--hair);padding:28px 30px;display:flex;flex-direction:column}
+.done{font-size:15px;line-height:1.45;margin:10px 0 30px}
+.head{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:12px;border-bottom:1px solid var(--ink)}
+.head h3{font-size:44px;font-weight:400;letter-spacing:-.02em;line-height:1}
+.entry{padding:16px 0;border-bottom:1px solid var(--hair)}
+.old{font-size:14px;color:var(--mute);text-decoration:line-through;line-height:1.4}
+.new{font-size:16px;font-weight:500;line-height:1.4;margin-top:4px}
+.meta{display:flex;justify-content:space-between;margin-top:10px}
+.warn{margin-top:6px;font-size:13px;color:#8a4b00}
+</style></head><body>
+<header><div class="brand">Ghost PDF Editor</div><span class="lab">cv-calibri.pdf</span><div class="spacer"></div><span class="lab">Lámina 01 / 05 · 100%</span><button class="btn">Abrir</button><button class="btn primary">Exportar PDF</button></header>
+<main>
+  <nav class="plates"><span class="lab">Láminas</span><div class="pl cur ed"><b>01</b></div><div class="pl"><b>02</b></div><div class="pl ed"><b>03</b></div><div class="pl"><b>04</b></div><div class="pl"><b>05</b></div></nav>
+  <section class="stage"><div class="wrap">
+    <span class="reg r1"></span><span class="reg r2"></span><span class="reg r3"></span><span class="reg r4"></span>
+    <div class="sheet">
+      <h1>José Núñez Peña</h1>
+      <div class="sub">Desarrollador Full Stack · Ciudad de México · jose.nunez@ejemplo.com · +52 55 1234 5678</div>
+      <h2>Experiencia</h2>
+      <p class="edited"><b>Sr. Ingeniero de Software</b> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+      <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día. Reduje el tiempo de respuesta promedio en un 35% migrando servicios críticos a una arquitectura basada en colas.</p>
+      <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
+      <p>Construcción de sitios con React y Node.js para clientes del sector financiero; integración de pagos y accesibilidad (WCAG 2.1 AA).</p>
+      <h2>Educación</h2>
+      <p>Ingeniería en Computación — Universidad Nacional, 2016–2020. Promedio: 9.2</p>
+      <h2>Habilidades</h2>
+      <p>TypeScript, React, Node.js, PostgreSQL, Docker, pruebas automatizadas, inglés avanzado (C1), liderazgo técnico.</p>
+    </div>
+    <div class="stamp">Texto anterior borrado · cv-calibri-editado.pdf</div>
+    <div class="cap"><span class="lab">Lámina 01</span><span class="lab">cv-calibri.pdf</span></div>
+  </div></section>
+  <aside>
+    <span class="lab">Exportado</span>
+    <div class="done">Se descargó cv-calibri-editado.pdf. El texto anterior se borró del archivo.</div>
+    <div class="head"><h3>Cambios</h3><span class="lab">03 · Deshacer · Rehacer</span></div>
+    <div class="entry"><div class="old">Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div><div class="new">Sr. Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div><div class="meta"><span class="lab">Lám. 01 · Calibri → Carlito</span><span class="lab">Restaurar</span></div></div>
+    <div class="entry"><div class="old">… inglés avanzado (C1).</div><div class="new">… inglés avanzado (C1), liderazgo técnico.</div><div class="meta"><span class="lab">Lám. 01 · Calibri → Carlito</span><span class="lab">Restaurar</span></div><div class="warn">Letras un poco apretadas para caber</div></div>
+    <div class="entry"><div class="old">Inglés avanzado</div><div class="new">Inglés avanzado (certificado C1, 2024)</div><div class="meta"><span class="lab">Lám. 03 · Calibri → Carlito</span><span class="lab">Restaurar</span></div></div>
+  </aside>
+</main>
+</body></html>

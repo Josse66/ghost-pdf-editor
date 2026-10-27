@@ -1,88 +1,110 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<html lang="es"><head><meta charset="utf-8"><title>Línea de Metro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0}
-body{width:1440px;height:900px;overflow:hidden;font-family:Nunito,system-ui,sans-serif;background:#E9E9E8;color:#1D1D1B}
-.top{height:64px;background:#F47A20;display:flex;align-items:center;padding:0 24px;gap:16px;color:#1D1D1B}
-.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:22px;letter-spacing:-.01em}
-.logo i{width:34px;height:34px;border-radius:50%;background:#fff;display:block;position:relative}
-.logo i:after{content:"";position:absolute;inset:9px;border-radius:50%;border:5px solid #F47A20}
-.file{margin-left:18px;font-weight:700;font-size:15px;opacity:.95}
-.sp{flex:1}
-.btn{height:40px;padding:0 18px;border-radius:20px;font-weight:800;font-size:15px;display:flex;align-items:center;border:2px solid #1D1D1B;color:#1D1D1B}
-.btn.solid{background:#1D1D1B;color:#fff}
-.main{display:grid;grid-template-columns:232px 1fr 300px;height:calc(900px - 64px - 40px)}
-.rail{background:#fff;padding:22px 18px;border-right:1px solid #D4D4D2}
-.rail h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6B6B68;margin-bottom:18px}
-.line{position:relative;padding-left:44px}
-.line:before{content:"";position:absolute;left:16px;top:10px;bottom:10px;width:10px;border-radius:5px;background:#E4007C}
-.st{position:relative;height:74px;display:flex;flex-direction:column;justify-content:center}
-.st b{font-weight:800;font-size:15px}
-.st span{font-size:13px;color:#6B6B68}
-.st:before{content:"";position:absolute;left:-36px;width:22px;height:22px;border-radius:50%;background:#fff;border:5px solid #E4007C}
-.st.edit:before{left:-41px;width:32px;height:32px;border:7px solid #1D1D1B}
-.st.cur b{color:#1D1D1B;text-decoration:underline 3px #F47A20;text-underline-offset:4px}
-.stage{display:flex;justify-content:center;padding:28px 0;overflow:hidden}
-.page{width:560px;height:725px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.18);padding:56px 52px;font-family:Calibri,Carlito,sans-serif;color:#222}
-.page h1{font-size:30px;color:#1f3864;font-weight:700}
-.page .m{font-size:12.5px;color:#666;margin:6px 0 22px}
-.page h2{font-size:16px;color:#2f5496;border-bottom:1px solid #2f5496;margin:18px 0 10px}
-.page p{font-size:12.5px;line-height:1.5;margin-bottom:8px}
-.sel{outline:3px solid #F47A20;outline-offset:3px;border-radius:2px;background:rgba(244,122,32,.07)}
-.caret{display:inline-block;width:2px;height:15px;background:#1D1D1B;vertical-align:-2px}
-.insp{background:#fff;border-left:1px solid #D4D4D2;padding:20px}
-.insp h4{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6B6B68;margin-bottom:12px}
-.row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #EDEDEC;font-size:14px}
-.row em{font-style:normal;color:#6B6B68}
-.tag{font-size:12px;font-weight:800;padding:3px 10px;border-radius:12px;background:#0069B4;color:#fff}
-.sw{width:18px;height:18px;border-radius:4px;background:#222;display:inline-block;vertical-align:middle;margin-right:6px}
-.fit{margin-top:16px;height:10px;border-radius:5px;background:#EDEDEC;position:relative}
-.fit:before{content:"";position:absolute;left:0;top:0;bottom:0;width:86%;border-radius:5px;background:#0069B4}
-.bottom{height:40px;background:#1D1D1B;color:#fff;display:flex;align-items:center;padding:0 24px;gap:12px;font-size:14px;font-weight:700}
-.bottom i{width:16px;height:16px;border-radius:50%;border:3px solid #F47A20;display:block}
+:root{--g0:#fff;--g1:#f7f7f7;--g2:#efefef;--g3:#e2e2e2;--g5:#a9a9a9;--g7:#6b6b6b;--g9:#2e2e2e;--ink:#1a1a1a;--l1:#e6007e;--l1s:#f39bc8;--l2:#0072bc;--amb:#f5a800}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:Figtree,sans-serif;color:var(--ink);background:var(--g1)}
+header{height:60px;background:#fff;display:flex;align-items:center;gap:20px;padding:0 24px;border-bottom:1px solid var(--g3);position:relative}
+header:after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:4px;background:var(--l1)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;letter-spacing:-.01em}
+.brand i{width:22px;height:22px;border-radius:50%;border:5px solid var(--l1);display:block}
+.file{color:var(--g7);font-size:14px;font-weight:500}
+.spacer{flex:1}
+.zoom{display:flex;align-items:center;gap:2px;border:1px solid var(--g3);border-radius:999px;padding:3px}
+.zoom b{font-weight:600;font-size:13px;width:48px;text-align:center;font-variant-numeric:tabular-nums}
+.zoom span{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:var(--g9);font-size:18px}
+.btn{height:38px;padding:0 16px;border-radius:999px;font:600 14px Figtree;display:flex;align-items:center;gap:8px;border:1px solid var(--g3);background:#fff;color:var(--ink)}
+.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn .dot{width:8px;height:8px;border-radius:50%;background:var(--l1)}
+main{display:grid;grid-template-columns:92px 1fr 380px;height:840px;margin-top:4px}
+.rail{background:#fff;border-right:1px solid var(--g3);position:relative;padding:28px 0}
+.rail .line{position:absolute;left:45px;top:40px;bottom:120px;width:6px;background:var(--l1s);border-radius:3px}
+.rail .line .now{position:absolute;left:0;right:0;top:0;height:96px;background:var(--l1);border-radius:3px}
+.st{position:relative;height:72px;display:flex;align-items:center;justify-content:center}
+.st i{width:22px;height:22px;border-radius:50%;background:#fff;border:5px solid var(--l1s);display:block;z-index:1}
+.st.cur i{background:var(--l1);border-color:var(--l1);width:30px;height:30px}
+.st.edit i{border-color:var(--l1);box-shadow:0 0 0 4px #fff,0 0 0 6px var(--ink)}
+.st small{position:absolute;left:62px;font:700 12px Figtree;color:var(--g7);font-variant-numeric:tabular-nums}
+.st.cur small{color:var(--l1)}
+.stage{overflow:hidden;display:flex;flex-direction:column;align-items:center;padding:26px 0}
+.where{width:612px;display:flex;justify-content:space-between;font:600 12px Figtree;color:var(--g7);margin-bottom:10px;letter-spacing:.04em;text-transform:uppercase}
+.where b{color:var(--ink)}
+.sheet{width:612px;height:792px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.08),0 8px 24px rgba(0,0,0,.06);padding:70px 66px;font-family:Carlito,sans-serif;color:#222}
+.sheet h1{font-size:30px;color:#1f3864;margin-bottom:6px}
+.sheet .sub{font-size:12.5px;color:#666;margin-bottom:22px}
+.sheet h2{font-size:15px;color:#2e5597;border-bottom:1px solid #2e5597;padding-bottom:3px;margin:16px 0 10px}
+.sheet p{font-size:12.5px;line-height:1.45;margin-bottom:9px}
+.edited{position:relative;outline:2px solid var(--l1);outline-offset:2px;border-radius:2px}
+.edited:before{content:"";position:absolute;left:-22px;top:3px;width:10px;height:10px;border-radius:50%;background:var(--l1)}
+aside{background:#fff;border-left:1px solid var(--g3);padding:24px 26px;display:flex;flex-direction:column}
+.done{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--g9);padding:12px 14px;background:var(--g1);border-radius:12px;margin-bottom:22px;line-height:1.4}
+.done i{flex:none;width:18px;height:18px;border-radius:50%;background:var(--l2);margin-top:1px}
+.head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.head h3{font-size:20px;font-weight:800;letter-spacing:-.01em}
+.head h3 span{display:inline-grid;place-items:center;min-width:26px;height:26px;border-radius:13px;background:var(--l1);color:#fff;font-size:13px;margin-left:8px;vertical-align:3px}
+.head em{font-style:normal;color:var(--g5);font-size:18px;letter-spacing:6px}
+.entry{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:16px 0;border-top:1px solid var(--g3)}
+.entry .pin{width:28px;height:28px;border-radius:50%;border:5px solid var(--l1);display:grid;place-items:center;font:800 11px Figtree}
+.old{font-size:14px;color:var(--g7);text-decoration:line-through;text-decoration-color:var(--l1);text-decoration-thickness:2px;line-height:1.35}
+.new{font-size:16px;font-weight:700;line-height:1.35;margin-top:4px}
+.meta{display:flex;justify-content:space-between;margin-top:8px;font-size:13px;color:var(--g7)}
+.meta b{font-weight:600;color:var(--ink)}
+.warn{margin-top:6px;font-size:13px;color:#8a5a00;display:flex;gap:6px;align-items:center}
+.warn i{width:10px;height:10px;border-radius:50%;background:var(--amb)}
+.foot{margin-top:auto;font-size:12px;color:var(--g7)}
 </style></head><body>
-<div class="top">
-  <div class="logo"><i></i>Ghost PDF Editor</div>
-  <div class="file">cv-josefina-nunez.pdf · 2 páginas</div>
-  <div class="sp"></div>
-  <div class="btn">Abrir</div>
-  <div class="btn solid">Exportar PDF</div>
-</div>
-<div class="main">
-  <aside class="rail">
-    <h4>Recorrido</h4>
-    <div class="line">
-      <div class="st edit cur"><b>Página 1</b><span>2 ediciones</span></div>
-      <div class="st"><b>Página 2</b><span>Sin cambios</span></div>
-      <div class="st"><b>Exportar</b><span>Terminal</span></div>
-    </div>
-  </aside>
+<header>
+  <div class="brand"><i></i>Ghost PDF Editor</div>
+  <div class="file">cv-calibri.pdf</div>
+  <div class="spacer"></div>
+  <div class="zoom"><span>−</span><b>100%</b><span>+</span></div>
+  <button class="btn">Abrir</button>
+  <button class="btn primary"><span class="dot"></span>Exportar PDF</button>
+</header>
+<main>
+  <nav class="rail">
+    <div class="line"><div class="now"></div></div>
+    <div class="st cur edit"><i></i><small>1</small></div>
+    <div class="st"><i></i><small>2</small></div>
+    <div class="st edit"><i></i><small>3</small></div>
+    <div class="st"><i></i><small>4</small></div>
+    <div class="st"><i></i><small>5</small></div>
+  </nav>
   <section class="stage">
-    <div class="page">
-      <h1>Josefina Núñez Peña</h1>
-      <div class="m">Desarrolladora Full Stack · Monterrey, N.L. · josefina@ejemplo.com</div>
+    <div class="where"><span>Estación <b>Página 1</b> de 5</span><span>2 cambios en esta página</span></div>
+    <div class="sheet">
+      <h1>José Núñez Peña</h1>
+      <div class="sub">Desarrollador Full Stack · Ciudad de México · jose.nunez@ejemplo.com · +52 55 1234 5678</div>
       <h2>Experiencia</h2>
-      <p><span class="sel"><b>Ingeniera de Software Sénior</b><span class="caret"></span></span> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+      <p class="edited"><b>Sr. Ingeniero de Software</b> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
       <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día. Reduje el tiempo de respuesta promedio en un 35% migrando servicios críticos a una arquitectura basada en colas.</p>
       <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
-      <p>Construcción de sitios con React y Node.js para clientes del sector financiero; integración de pagos y accesibilidad.</p>
+      <p>Construcción de sitios con React y Node.js para clientes del sector financiero; integración de pagos y accesibilidad (WCAG 2.1 AA).</p>
       <h2>Educación</h2>
-      <p>Ingeniería en Computación — Universidad Nacional, 2016–2020.</p>
+      <p>Ingeniería en Computación — Universidad Nacional, 2016–2020. Promedio: 9.2</p>
       <h2>Habilidades</h2>
-      <p>TypeScript, React, Node.js, PostgreSQL, Docker, pruebas automatizadas.</p>
+      <p class="edited">TypeScript, React, Node.js, PostgreSQL, Docker, pruebas automatizadas, inglés avanzado (C1), liderazgo técnico.</p>
     </div>
   </section>
-  <aside class="insp">
-    <h4>Bloque seleccionado</h4>
-    <div class="row"><em>Fuente</em><span>Calibri Bold <span class="tag">→ Carlito</span></span></div>
-    <div class="row"><em>Tamaño</em><span>11 pt</span></div>
-    <div class="row"><em>Color</em><span><span class="sw"></span>#222222</span></div>
-    <div class="row"><em>Ancho</em><span>Cabe en la línea</span></div>
-    <div class="fit"></div>
-    <h4 style="margin-top:26px">Al exportar</h4>
-    <div class="row"><em>Texto original</em><span>Se borra del archivo</span></div>
+  <aside>
+    <div class="done"><i></i><span>Se descargó <b>cv-calibri-editado.pdf</b>. El texto anterior se borró del archivo.</span></div>
+    <div class="head"><h3>Cambios<span>3</span></h3><em>↶ ↷</em></div>
+    <div class="entry"><div class="pin">1</div><div>
+      <div class="old">Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div>
+      <div class="new">Sr. Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div>
+      <div class="meta"><span>Calibri → Carlito</span><b>Restaurar</b></div></div></div>
+    <div class="entry"><div class="pin">1</div><div>
+      <div class="old">TypeScript, React, Node.js, PostgreSQL, Docker, pruebas automatizadas, inglés avanzado (C1).</div>
+      <div class="new">TypeScript, React, Node.js, PostgreSQL, Docker, pruebas automatizadas, inglés avanzado (C1), liderazgo técnico.</div>
+      <div class="meta"><span>Calibri → Carlito</span><b>Restaurar</b></div>
+      <div class="warn"><i></i>letras un poco apretadas para caber</div></div></div>
+    <div class="entry"><div class="pin">3</div><div>
+      <div class="old">Inglés avanzado</div>
+      <div class="new">Inglés avanzado (certificado C1, 2024)</div>
+      <div class="meta"><span>Calibri → Carlito</span><b>Restaurar</b></div></div></div>
+    <div class="foot">Tu PDF nunca sale de este dispositivo.</div>
   </aside>
-</div>
-<div class="bottom"><i></i>Tu PDF nunca sale de este dispositivo · 2 ediciones sin exportar</div>
+</main>
 </body></html>

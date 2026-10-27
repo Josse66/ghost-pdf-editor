@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Barra de fichas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--con:#e4e3df;--con0:#f3f2ef;--char:#2a2a28;--mid:#5f5d58;--line:#bdbab4;--blue:#24466b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:Archivo,sans-serif;color:var(--char);background:var(--con)}
+header{height:52px;background:var(--con0);border-bottom:1px solid var(--char);display:flex;align-items:center;gap:10px;padding:0 20px}
+.brand{font-weight:800;font-size:16px;letter-spacing:-.01em;margin-right:8px}
+.tok{height:30px;padding:6px 10px;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--line);color:var(--mid);background:#fff}
+.tok b{color:var(--char)}
+.spacer{flex:1}
+.btn{height:34px;padding:0 14px;font:600 14px Archivo;display:flex;align-items:center;border:1px solid var(--char);background:transparent}
+.btn.primary{background:var(--char);color:#fff}
+main{display:grid;grid-template-columns:84px 1fr 352px;height:848px}
+.wall{padding:22px 14px;display:flex;flex-direction:column;gap:10px;background:var(--con);border-right:1px solid var(--line)}
+.slot{height:56px;background:var(--con0);box-shadow:inset 3px 3px 0 rgba(0,0,0,.10);display:grid;place-items:center;font-weight:700;color:var(--mid)}
+.slot.cur{background:var(--char);color:#fff}
+.plaza{display:flex;justify-content:center;padding-top:28px;overflow:hidden;background-image:linear-gradient(rgba(42,42,40,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(42,42,40,.07) 1px,transparent 1px);background-size:24px 24px}
+.sheet{width:612px;height:792px;background:#fff;padding:70px 66px;font-family:Carlito,sans-serif;color:#222;box-shadow:22px 26px 0 rgba(42,42,40,.16)}
+.sheet h1{font-size:30px;color:#1f3864;margin-bottom:6px}
+.sheet .sub{font-size:12.5px;color:#666;margin-bottom:22px}
+.sheet h2{font-size:15px;color:#2e5597;border-bottom:1px solid #2e5597;padding-bottom:3px;margin:16px 0 10px}
+.sheet p{font-size:12.5px;line-height:1.45;margin-bottom:9px}
+.edited{box-shadow:-9px 0 0 var(--blue)}
+aside{background:var(--con0);border-left:1px solid var(--line);padding:28px;display:flex;flex-direction:column}
+.done{font-size:14px;line-height:1.45;color:var(--mid);margin-bottom:26px}
+.done b{color:var(--char)}
+.head{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:10px;border-bottom:3px solid var(--char)}
+.head h3{font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.head h3 span{font-size:16px;font-weight:600;color:var(--mid);margin-left:6px}
+.head em{font-style:normal;font-size:13px;color:var(--mid)}
+.entry{padding:16px 0;border-bottom:1px solid var(--line)}
+.old{font-size:14px;color:var(--mid);text-decoration:line-through;text-decoration-color:var(--char);line-height:1.35}
+.new{font-size:16px;font-weight:600;line-height:1.35;margin-top:4px}
+.meta{display:flex;justify-content:space-between;margin-top:8px;font-size:13px;color:var(--mid)}
+.meta b{color:var(--blue)}
+.warn{margin-top:6px;font-size:13px;color:#7a4b00}
+</style></head><body>
+<header><div class="brand">Ghost PDF Editor</div><span class="tok">Archivo <b>cv-calibri.pdf</b></span><span class="tok">Página <b>1 / 5</b></span><span class="tok">Zoom <b>100%</b></span><div class="spacer"></div><button class="btn">Abrir</button><button class="btn primary">Exportar PDF</button></header>
+<main>
+  <nav class="wall"><div class="slot cur">1</div><div class="slot">2</div><div class="slot">3</div><div class="slot">4</div><div class="slot">5</div></nav>
+  <section class="plaza"><div class="sheet">
+    <h1>José Núñez Peña</h1>
+    <div class="sub">Desarrollador Full Stack · Ciudad de México · jose.nunez@ejemplo.com · +52 55 1234 5678</div>
+    <h2>Experiencia</h2>
+    <p class="edited"><b>Sr. Ingeniero de Software</b> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+    <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día. Reduje el tiempo de respuesta promedio en un 35% migrando servicios críticos a una arquitectura basada en colas.</p>
+    <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
+    <h2>Educación</h2>
+    <p>Ingeniería en Computación — Universidad Nacional, 2016–2020. Promedio: 9.2</p>
+  </div></section>
+  <aside>
+    <div class="done">Se descargó <b>cv-calibri-editado.pdf</b>. El texto anterior se borró del archivo.</div>
+    <div class="head"><h3>Cambios<span>3</span></h3><em>Deshacer · Rehacer</em></div>
+    <div class="entry"><div class="old">Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div><div class="new">Sr. Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div><div class="meta"><span>Pág. 1 · Calibri → Carlito</span><b>Restaurar</b></div></div>
+    <div class="entry"><div class="old">… inglés avanzado (C1).</div><div class="new">… inglés avanzado (C1), liderazgo técnico.</div><div class="meta"><span>Pág. 1 · Calibri → Carlito</span><b>Restaurar</b></div><div class="warn">Letras un poco apretadas para caber</div></div>
+    <div class="entry"><div class="old">Inglés avanzado</div><div class="new">Inglés avanzado (certificado C1, 2024)</div><div class="meta"><span>Pág. 3 · Calibri → Carlito</span><b>Restaurar</b></div></div>
+  </aside>
+</main>
+</body></html>

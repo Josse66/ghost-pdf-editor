@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Retícula Crouwel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#111;--grid:#ececec;--mute:#555;--red:#d0021b;--line:#d6d6d6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:Lexend,sans-serif;color:var(--ink);background:#fff;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+header{height:72px;display:flex;align-items:center;gap:24px;padding:0 24px;background:#fff;border-bottom:2px solid var(--ink)}
+.brand{font-size:26px;font-weight:700;letter-spacing:-.03em;text-transform:lowercase}
+.file{font-size:14px;color:var(--mute)}
+.spacer{flex:1}
+.zoom{font-size:14px;font-weight:500}
+.btn{height:48px;padding:0 20px;font:500 15px Lexend;display:flex;align-items:center;border:2px solid var(--ink);background:#fff}
+.btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+main{display:grid;grid-template-columns:96px 1fr 384px;height:828px}
+.cells{padding:24px;display:grid;grid-auto-rows:48px;gap:0;align-content:start}
+.c{width:48px;height:48px;border:2px solid var(--ink);margin-top:-2px;display:grid;place-items:center;font-weight:700;font-size:18px;background:#fff}
+.c.cur{background:var(--red);border-color:var(--red);color:#fff;position:relative;z-index:1}
+.c.ed{box-shadow:inset 0 -6px 0 var(--ink)}
+.c.cur.ed{box-shadow:inset 0 -6px 0 #fff}
+.stage{display:flex;justify-content:center;padding-top:24px;overflow:hidden}
+.sheet{width:600px;height:776px;background:#fff;border:2px solid var(--ink);padding:66px 62px;font-family:Carlito,sans-serif;color:#222}
+.sheet h1{font-size:29px;color:#1f3864;margin-bottom:6px}
+.sheet .sub{font-size:12px;color:#666;margin-bottom:20px}
+.sheet h2{font-size:14.5px;color:#2e5597;border-bottom:1px solid #2e5597;padding-bottom:3px;margin:15px 0 9px}
+.sheet p{font-size:12px;line-height:1.45;margin-bottom:9px}
+.edited{outline:2px solid var(--red);outline-offset:2px}
+aside{background:#fff;border-left:2px solid var(--ink);padding:24px;display:flex;flex-direction:column}
+.big{font-size:72px;font-weight:700;letter-spacing:-.05em;line-height:.9;text-transform:lowercase;display:flex;align-items:flex-start;gap:12px}
+.big span{background:var(--red);color:#fff;font-size:24px;letter-spacing:0;width:48px;height:48px;display:grid;place-items:center;margin-top:6px}
+.done{margin:16px 0 20px;font-size:14px;line-height:1.45;color:var(--mute)}
+.done b{color:var(--ink)}
+.entry{padding:14px 0;border-top:2px solid var(--ink)}
+.old{font-size:14px;color:var(--mute);text-decoration:line-through;line-height:1.4}
+.new{font-size:16px;font-weight:500;line-height:1.35;margin-top:4px}
+.meta{display:flex;justify-content:space-between;margin-top:8px;font-size:13px;color:var(--mute)}
+.meta b{color:var(--ink);font-weight:700}
+.warn{margin-top:6px;font-size:13px;color:#8a4b00}
+</style></head><body>
+<header><div class="brand">ghost pdf editor</div><div class="file">cv-calibri.pdf</div><div class="spacer"></div><div class="zoom">página 1 / 5 · 100%</div><button class="btn">abrir</button><button class="btn primary">exportar pdf</button></header>
+<main>
+  <nav class="cells"><div class="c cur ed">1</div><div class="c">2</div><div class="c ed">3</div><div class="c">4</div><div class="c">5</div></nav>
+  <section class="stage"><div class="sheet">
+    <h1>José Núñez Peña</h1>
+    <div class="sub">Desarrollador Full Stack · Ciudad de México · jose.nunez@ejemplo.com · +52 55 1234 5678</div>
+    <h2>Experiencia</h2>
+    <p class="edited"><b>Sr. Ingeniero de Software</b> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+    <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día. Reduje el tiempo de respuesta promedio en un 35% migrando servicios críticos a una arquitectura basada en colas.</p>
+    <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
+    <p>Construcción de sitios con React y Node.js para clientes del sector financiero; integración de pagos y accesibilidad (WCAG 2.1 AA).</p>
+    <h2>Educación</h2>
+    <p>Ingeniería en Computación — Universidad Nacional, 2016–2020. Promedio: 9.2</p>
+    <h2>Habilidades</h2>
+    <p>TypeScript, React, Node.js, PostgreSQL, Docker, pruebas automatizadas, inglés avanzado (C1), liderazgo técnico.</p>
+  </div></section>
+  <aside>
+    <div class="big">cambios<span>3</span></div>
+    <div class="done">Se descargó <b>cv-calibri-editado.pdf</b>. El texto anterior se borró del archivo.</div>
+    <div class="entry"><div class="old">Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div><div class="new">Sr. Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div><div class="meta"><span>pág. 1 · Calibri → Carlito</span><b>restaurar</b></div></div>
+    <div class="entry"><div class="old">… inglés avanzado (C1).</div><div class="new">… inglés avanzado (C1), liderazgo técnico.</div><div class="meta"><span>pág. 1 · Calibri → Carlito</span><b>restaurar</b></div><div class="warn">letras un poco apretadas para caber</div></div>
+    <div class="entry"><div class="old">Inglés avanzado</div><div class="new">Inglés avanzado (certificado C1, 2024)</div><div class="meta"><span>pág. 3 · Calibri → Carlito</span><b>restaurar</b></div></div>
+  </aside>
+</main>
+</body></html>
