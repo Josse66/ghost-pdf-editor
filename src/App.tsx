@@ -38,7 +38,7 @@ export default function App() {
         <aside className="border-rule chiseled min-h-0 border-r">
           {ready && <ThumbIndex numPages={doc.numPages} />}
         </aside>
-        <main className="min-h-0 overflow-hidden">
+        <main className="grid-plaza min-h-0 overflow-hidden">
           {ready ? (
             <Suspense>
               <PageList doc={doc} />

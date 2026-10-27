@@ -25,26 +25,29 @@ export function TopBar() {
   const ready = status === 'ready'
 
   return (
-    // Cabeza carbón: el volumen más oscuro, sobre el que se apoya todo lo demás.
-    <header className="bg-ink-10 box-content grid h-[58px] grid-cols-[1fr_auto] items-center gap-3 px-3 pt-[env(safe-area-inset-top)] sm:px-5 lg:grid-cols-[1fr_auto_1fr]">
-      <div className="flex min-w-0 items-baseline gap-2">
-        <span className="text-[15px] font-bold tracking-tight whitespace-nowrap text-white">
-          {t('appName')}
+    // Barra clara y delgada con una sola regla carbón: lo que describe el documento va en fichas
+    // (archivo, página, zoom) y las acciones a la derecha.
+    <header className="bg-ink-0 border-ink-10 box-content flex h-[52px] items-center gap-2.5 border-b px-3 pt-[env(safe-area-inset-top)] sm:px-5">
+      <span className="mr-1.5 text-[16px] font-extrabold tracking-tight whitespace-nowrap">
+        {t('appName')}
+      </span>
+      {ready && fileName && (
+        <span className="token hidden min-w-0 md:flex">
+          {t('fileToken')}
+          <FileName name={fileName} className="text-ink-10 tracking-normal normal-case" />
         </span>
-        {ready && fileName && (
-          <span className="text-ink-3 hidden min-w-0 items-baseline gap-1 text-sm md:flex">
-            <span aria-hidden>·</span>
-            <FileName name={fileName} />
-          </span>
-        )}
-      </div>
+      )}
+      {ready && <GuideWords />}
+      {ready && <ZoomControls />}
 
-      <GuideWords />
-
-      <div className="flex items-center justify-end gap-1.5 sm:gap-2">
-        {ready && <ZoomControls />}
+      <div className="ml-auto flex items-center justify-end gap-1.5 sm:gap-2">
         {ready && <ChangesSheet />}
-        <Button variant="bar" onClick={pick} aria-label={t('open')} className="h-9 px-2.5 sm:px-3">
+        <Button
+          variant="outline"
+          onClick={pick}
+          aria-label={t('open')}
+          className="border-ink-10 h-9 bg-transparent px-2.5 sm:px-3"
+        >
           <FolderOpen />
           <span className="hidden sm:inline">{t('open')}</span>
         </Button>
@@ -76,7 +79,7 @@ function ExportButton() {
       title={ready && count === 0 ? t('exportNothing') : `${t('exportPdf')} (Ctrl+S)`}
       aria-label={label}
       onClick={() => void run()}
-      className="bg-glass hover:bg-glass/85 h-9 px-2.5 sm:px-3.5"
+      className="bg-ink-10 hover:bg-ink-9 h-9 px-2.5 sm:px-3.5"
     >
       {working ? (
         <LoaderCircle className="animate-spin motion-reduce:animate-none" />
@@ -101,11 +104,8 @@ function GuideWords() {
         : t('pageRange', { a: first, b: last })
 
   return (
-    <p
-      aria-live="polite"
-      className="guide-caps tabular text-ink-2 order-last col-span-2 hidden text-center text-[15px] lg:order-none lg:col-span-1 lg:block"
-    >
-      {label}
+    <p aria-live="polite" className="token tabular hidden lg:flex">
+      <span className="text-ink-10">{label}</span>
     </p>
   )
 }
@@ -118,30 +118,30 @@ function ZoomControls() {
 
   return (
     <div
-      className="mr-1 hidden items-center gap-0.5 md:flex"
+      className="token hidden gap-0 py-0 pr-0.5 md:flex"
       role="group"
       aria-label={t('zoomLevel', { n: toPercent(scale) })}
     >
       <Button
-        variant="bar"
-        size="icon"
+        variant="ghost"
+        size="icon-sm"
         aria-label={t('zoomOut')}
         onClick={() => setZoom(nextStep(scale, -1))}
       >
         <Minus />
       </Button>
-      <span className="tabular text-ink-2 w-11 text-center text-sm">{toPercent(scale)}%</span>
+      <span className="tabular text-ink-10 w-10 text-center">{toPercent(scale)}%</span>
       <Button
-        variant="bar"
-        size="icon"
+        variant="ghost"
+        size="icon-sm"
         aria-label={t('zoomIn')}
         onClick={() => setZoom(nextStep(scale, 1))}
       >
         <Plus />
       </Button>
       <Button
-        variant="bar"
-        size="icon"
+        variant="ghost"
+        size="icon-sm"
         aria-label={t('fitPage')}
         aria-pressed={zoom === 'page'}
         onClick={() => setZoom('page')}
@@ -149,8 +149,8 @@ function ZoomControls() {
         <Maximize />
       </Button>
       <Button
-        variant="bar"
-        size="icon"
+        variant="ghost"
+        size="icon-sm"
         aria-label={t('fitWidth')}
         aria-pressed={zoom === 'width'}
         onClick={() => setZoom('width')}

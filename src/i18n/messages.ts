@@ -3,6 +3,7 @@ export const messages = {
   es: {
     appName: 'Ghost PDF Editor',
     open: 'Abrir',
+    fileToken: 'Archivo',
     choosePdf: 'Elegir PDF',
     chooseAnother: 'Elegir otro PDF',
     exportPdf: 'Exportar PDF',
@@ -90,6 +91,7 @@ export const messages = {
   en: {
     appName: 'Ghost PDF Editor',
     open: 'Open',
+    fileToken: 'File',
     choosePdf: 'Choose PDF',
     chooseAnother: 'Choose another PDF',
     exportPdf: 'Export PDF',
