@@ -1,7 +1,7 @@
 # Estado de Ghost PDF Editor
 
-> **Último guardado:** 2026-10-27 · rama de trabajo `dev` en `75b42db` · producción (`main`) en `acfc64a`
-> (PR #2 de la Fase 3 abierto con auto-merge; al juntarse, `main` queda con la Fase 3).
+> **Último guardado:** 2026-10-27 · producción (`main`) en `13840d1` (Fase 3) · `dev` = `main` + decisiones de la
+> Fase 4 + motor de exportación (`core/writer`).
 > Lo escribe y actualiza la skill `ghosteditor` (modo «guardar»). Si algo de aquí contradice lo que muestran
 > git, GitHub o los archivos, **manda lo vivo**: dilo y actualiza este archivo.
 
@@ -24,8 +24,8 @@ sin romper el formato y exporta un PDF. Sin backend, el archivo nunca sale del d
 | 0 · Investigación y spikes | ✅ Hecha (falta solo corpus de PDFs reales del usuario, en `test-fixtures/privado/`) |
 | 1 · Setup | ✅ Hecha (Vite 8, React 19, TS 6 estricto, Tailwind v4, shadcn, oxlint, Vitest 5, Playwright, CI, Vercel) |
 | 2 · Motor de lectura + visor «Diccionario» | ✅ **En producción** (PR #1, merge `acfc64a`, 2026-10-26) |
-| 3 · Capa de edición | ✅ Terminada y probada en celular real. **PR #2 `dev`→`main` con auto-merge** (2026-10-27) |
-| 4 · Exportación (MVP) | ⏭️ Siguiente. Antes hay decisiones abiertas (sección 5) |
+| 3 · Capa de edición | ✅ **En producción** (PR #2, merge `13840d1`, 2026-10-27; probada en Android real) |
+| 4 · Exportación (MVP) | 🔨 **Motor hecho en `dev`** (`core/writer`, probado en Node). Falta conectarlo a la app (sección 4) |
 | 5 · Pulido, PWA, landing | Pendiente |
 
 ### Qué hace hoy la app (en `dev`)
@@ -42,31 +42,33 @@ sin romper el formato y exporta un PDF. Sin backend, el archivo nunca sale del d
   aviso si la fuente no tiene gemela, Restaurar.
 - Avisos honestos: marca bermellón en lo editado; subrayado bermellón si el texto ya no cabe; escaneado sin texto;
   errores de archivo (vacío, dañado, contraseña, no PDF).
-- **Todavía NO exporta** (Fase 4).
+- **Todavía NO exporta desde la interfaz**: el motor existe (`src/core/writer/export.ts`) pero no hay botón ni worker.
 
 ## 3. Lo último que pasó y la pregunta pendiente
 
-**Lo último:** el usuario probó la Fase 3 en su celular (Android, Chrome) y pidió zoom con pellizco solo en el
-documento; se hizo (`75b42db`) y le encantó («mucho más intuitivo para editar»). Se abrió el **PR #2** `dev`→`main`
-con auto-merge (merge commit). Comentó que el diseño «se ve un poco simple»: **lo dejamos para el final** (Fase 5),
-probando varias direcciones; no es prioridad ahora.
-
-Si el PR #2 ya se juntó y `dev` no está sincronizado: `git checkout dev && git merge --ff-only origin/main && git push`.
-
-Luego el usuario cerró las 4 decisiones de la Fase 4, todas en lo recomendado (sección 6).
+**Lo último:** la Fase 3 (con zoom de pellizco, que al usuario le encantó) se juntó a `main`. El usuario cerró las 4
+decisiones de la Fase 4 en lo recomendado y se construyó el **motor de exportación** en `src/core/writer/`:
+PDFium borra los objetos de texto por posición → `gc.ts` tira el contenido viejo suelto → `fit.ts` acomoda cada
+línea (espacio libre → Tz 85 % → achicar; títulos centrados siguen centrados) → pdf-lib dibuja con la gemela
+recortada → guardado completo sin flujos de objetos. Devuelve un reporte (`notErased`, `squeezed`, `shrunk`,
+`overflow`, `missingGlyphs`) para que la app avise. La prueba `export.test.ts` confirma que ni pdf.js ni PDFium
+recuperan el texto viejo, que el resto queda intacto y que el PDF crece solo ~15 KB. Comentó que el diseño «se ve un
+poco simple»: **lo dejamos para el final** (Fase 5).
 
 **Pregunta pendiente para el usuario (hacerla al retomar):**
-> ¿Empiezo a construir la Fase 4 por el motor (`core/writer` con borrado PDFium + prueba de que el texto viejo no
-> se recupera)?
-> Opciones: «Sí, arranca por el motor» · «Primero documentar la Fase 3 con Impeccable (pendiente 2)».
+> ¿Conecto el motor a la app (botón Exportar, worker, fuentes servidas, avisos del reporte)?
+> Opciones: «Sí, conéctalo» · «Primero documentar la Fase 3 con Impeccable (pendiente 2)».
 
 ## 4. Pendientes concretos (en orden)
 
-1. Confirmar que el PR #2 (Fase 3) se juntó y sincronizar `dev` con `main`.
+1. **Conectar el motor a la app (Fase 4):** worker de exportación (PDFium wasm desde `@embedpdf/pdfium/dist/pdfium.wasm?url`,
+   fuentes WOFF de Fontsource con `import.meta.glob(...?url)`, perezosas), botón Exportar habilitado con progreso,
+   descarga `nombre-editado.pdf`, avisos del reporte en Cambios, e2e de exportar → reabrir. Luego `/impeccable harden`
+   sobre el flujo (errores, archivo grande, cancelar) y probar en el celular.
 2. Refrescar `.impeccable/design.json` (quedó más viejo que `DESIGN.md`) y documentar los
    componentes nuevos de la Fase 3 (capa de edición, hoja de Cambios) con el documentador de Impeccable. Opcional:
    revisión final de Impeccable (`impeccable-finish-reviewer`) sobre la capa de edición.
-3. Construir la **Fase 4** (decisiones ya tomadas; notas en la sección 5).
+3. Fase 4, después: tests visuales por píxeles fuera de la zona editada; corpus real del usuario.
 4. Anotados en `PLAN.md`, sin fecha: autoguardado del log de ediciones en OPFS; orden de lectura por columnas para
    navegar con Tab; OCR (v4) — caso real: PDF escaneado exportado de Notion no se puede editar; modo oscuro, PWA y
    landing (Fase 5); prueba en iPhone real (ya se probó en Android).
@@ -125,6 +127,12 @@ Ninguna para la Fase 4: se cerraron el 2026-10-27 (ver sección 6). Notas para i
 - Contornos de selección pegados a la caja (`outline-offset-0`); separados tapan la línea vecina.
 - iOS hace zoom al enfocar texto < 16px: el editor táctil se pinta a ≥16px y se escala con `transform` (nunca
   `maximum-scale`).
+- Exportación (Spike 4, `docs/fase0-hallazgos.md`): usar los **WOFF** de Fontsource convertidos a TTF
+  (`core/fonts/woff.ts`), nunca WOFF2 (truena al recortar) ni el WOFF sin convertir (los lectores no lo abren).
+  Embeber **sin ligaduras** (`liga/clig/dlig: false`) o el texto copiado sale mal. La raya «–» de Carlito se ve más
+  corta que la de Calibri: es la gemela, no un error. PDFium deja el contenido viejo como objeto suelto → `gc.ts` +
+  guardar con `useObjectStreams: false`. Ver un export: `EXPORT_OUT=ruta.pdf npx vitest run src/core/writer` y
+  `node spikes/render-page.mjs ruta.pdf salida.png`.
 - Zoom con pellizco: el visor lleva `touch-action: pan-x pan-y` (nunca `maximum-scale`); el canvas limita su
   densidad a ~12 M píxeles (iOS no dibuja canvases de más de ~16,7 M). El e2e simula dos dedos con CDP
   (`Input.dispatchTouchEvent`) en el perfil `android`.
