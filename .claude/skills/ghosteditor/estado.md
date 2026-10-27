@@ -1,6 +1,7 @@
 # Estado de Ghost PDF Editor
 
-> **Último guardado:** 2026-10-27 · rama de trabajo `dev` en `289132d` · producción (`main`) en `acfc64a`.
+> **Último guardado:** 2026-10-27 · rama de trabajo `dev` en `75b42db` · producción (`main`) en `acfc64a`
+> (PR #2 de la Fase 3 abierto con auto-merge; al juntarse, `main` queda con la Fase 3).
 > Lo escribe y actualiza la skill `ghosteditor` (modo «guardar»). Si algo de aquí contradice lo que muestran
 > git, GitHub o los archivos, **manda lo vivo**: dilo y actualiza este archivo.
 
@@ -23,7 +24,7 @@ sin romper el formato y exporta un PDF. Sin backend, el archivo nunca sale del d
 | 0 · Investigación y spikes | ✅ Hecha (falta solo corpus de PDFs reales del usuario, en `test-fixtures/privado/`) |
 | 1 · Setup | ✅ Hecha (Vite 8, React 19, TS 6 estricto, Tailwind v4, shadcn, oxlint, Vitest 5, Playwright, CI, Vercel) |
 | 2 · Motor de lectura + visor «Diccionario» | ✅ **En producción** (PR #1, merge `acfc64a`, 2026-10-26) |
-| 3 · Capa de edición | ✅ **Terminada en `dev`, NO en producción todavía** (commits `c5ed081`, `aed5d78`, `289132d`) |
+| 3 · Capa de edición | ✅ Terminada y probada en celular real. **PR #2 `dev`→`main` con auto-merge** (2026-10-27) |
 | 4 · Exportación (MVP) | ⏭️ Siguiente. Antes hay decisiones abiertas (sección 5) |
 | 5 · Pulido, PWA, landing | Pendiente |
 
@@ -34,6 +35,9 @@ sin romper el formato y exporta un PDF. Sin backend, el archivo nunca sale del d
   (Carlito/Calibri, Caladea/Cambria, Arimo/Arial-Helvetica, Tinos/Times, Cousine/Courier, Gelasio/Georgia),
   color de fondo y tinta leídos del render, línea base alineada, negritas/cursivas conservadas.
   Enter confirma, Esc cancela, Shift+Enter salto de línea, Ctrl+Z / Ctrl+Y.
+- **Pellizcar para hacer zoom solo en el documento** (`src/hooks/usePinchZoom.ts`): la cabeza y las columnas no se
+  mueven, un dedo recorre la lámina, el punto bajo los dedos se conserva, cerca de un ajuste vuelve a él. Con zoom
+  manual la lámina puede pasarse del ancho.
 - Columna de Cambios (escritorio) / hoja de Cambios (celular): «tachado → nuevo», «pág. n · Calibri → Carlito»,
   aviso si la fuente no tiene gemela, Restaurar.
 - Avisos honestos: marca bermellón en lo editado; subrayado bermellón si el texto ya no cabe; escaneado sin texto;
@@ -42,28 +46,30 @@ sin romper el formato y exporta un PDF. Sin backend, el archivo nunca sale del d
 
 ## 3. Lo último que pasó y la pregunta pendiente
 
-**Lo último:** se terminó la Fase 3 en `dev` (todo verde: 51 unitarios, 1 navegador, 16 e2e, detector Impeccable en 0)
-y se le pidió al usuario **probarla en su celular real, idealmente un iPhone**, antes de abrir el PR a `main`
-(zoom de iOS, teclado y notch solo se verifican en hardware). Justo después, el usuario pidió crear esta skill.
+**Lo último:** el usuario probó la Fase 3 en su celular (Android, Chrome) y pidió zoom con pellizco solo en el
+documento; se hizo (`75b42db`) y le encantó («mucho más intuitivo para editar»). Se abrió el **PR #2** `dev`→`main`
+con auto-merge (merge commit). Comentó que el diseño «se ve un poco simple»: **lo dejamos para el final** (Fase 5),
+probando varias direcciones; no es prioridad ahora.
+
+Si el PR #2 ya se juntó y `dev` no está sincronizado: `git checkout dev && git merge --ff-only origin/main && git push`.
 
 **Pregunta pendiente para el usuario (hacerla al retomar):**
-> ¿Ya probaste la Fase 3 (editar texto) en tu celular con el preview de `dev`? ¿Cómo se sintió?
-> Opciones: «Funciona, abre el PR a main» · «Encontré algo que ajustar» · «Todavía no lo pruebo».
-
-Si dice que abra el PR: `gh pr create --base main --head dev` (no draft), luego `mcp__ccd_pr__set_auto_merge` con
-`merge_method: merge` (NO squash, para que `dev` y `main` compartan historial). Tras el merge:
-`git checkout dev && git merge --ff-only origin/main && git push`.
+> ¿Arrancamos la Fase 4 (exportar)? Antes hay que cerrar las decisiones de la sección 5, empezando por el borrado
+> real del texto viejo con PDFium.
+> Opciones: «Sí, vamos con las decisiones de la Fase 4» · «Primero documentar la Fase 3 con Impeccable (pendiente 2)».
 
 ## 4. Pendientes concretos (en orden)
 
-1. PR de la Fase 3 `dev` → `main` (cuando el usuario apruebe tras probar).
-2. Antes o junto con el PR: refrescar `.impeccable/design.json` (quedó más viejo que `DESIGN.md`) y documentar los
+1. Confirmar que el PR #2 (Fase 3) se juntó y sincronizar `dev` con `main`.
+2. Refrescar `.impeccable/design.json` (quedó más viejo que `DESIGN.md`) y documentar los
    componentes nuevos de la Fase 3 (capa de edición, hoja de Cambios) con el documentador de Impeccable. Opcional:
    revisión final de Impeccable (`impeccable-finish-reviewer`) sobre la capa de edición.
 3. Arrancar la **Fase 4** (ver sección 5 para lo que hay que decidir primero).
 4. Anotados en `PLAN.md`, sin fecha: autoguardado del log de ediciones en OPFS; orden de lectura por columnas para
    navegar con Tab; OCR (v4) — caso real: PDF escaneado exportado de Notion no se puede editar; modo oscuro, PWA y
-   landing (Fase 5); prueba en iPhone real.
+   landing (Fase 5); prueba en iPhone real (ya se probó en Android).
+5. **Rediseño visual al final (Fase 5):** el usuario siente la UI «un poco simple»; probar varias direcciones de
+   diseño con Impeccable cuando lo funcional esté listo.
 
 ## 5. Decisiones abiertas antes de la Fase 4 (preguntar al usuario)
 
@@ -117,6 +123,9 @@ Si dice que abra el PR: `gh pr create --base main --head dev` (no draft), luego 
 - Contornos de selección pegados a la caja (`outline-offset-0`); separados tapan la línea vecina.
 - iOS hace zoom al enfocar texto < 16px: el editor táctil se pinta a ≥16px y se escala con `transform` (nunca
   `maximum-scale`).
+- Zoom con pellizco: el visor lleva `touch-action: pan-x pan-y` (nunca `maximum-scale`); el canvas limita su
+  densidad a ~12 M píxeles (iOS no dibuja canvases de más de ~16,7 M). El e2e simula dos dedos con CDP
+  (`Input.dispatchTouchEvent`) en el perfil `android`.
 - Playwright: `getByRole('figure', { name: 'Página 1', exact: true })` (sin `exact` choca con «Página 10»).
 - Tests en Node usan `pdfjs-dist/legacy/build/pdf.mjs`; la app usa la build normal con worker `?url`.
 - El detector de Impeccable marca nombres de fuentes en tests y bocetos: se ignoran **por archivo** con
