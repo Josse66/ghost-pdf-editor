@@ -7,6 +7,10 @@ export const messages = {
     chooseAnother: 'Elegir otro PDF',
     exportPdf: 'Exportar PDF',
     exportNothing: 'Aún no hay cambios que exportar.',
+    discardOne:
+      'Tienes 1 cambio sin exportar. Si abres otro PDF se va a perder. ¿Abrir de todos modos?',
+    discardMany:
+      'Tienes {n} cambios sin exportar. Si abres otro PDF se van a perder. ¿Abrir de todos modos?',
     exporting: 'Exportando…',
     exportPreparing: 'Preparando…',
     editedSuffix: 'editado',
@@ -91,6 +95,10 @@ export const messages = {
     chooseAnother: 'Choose another PDF',
     exportPdf: 'Export PDF',
     exportNothing: 'There are no changes to export yet.',
+    discardOne:
+      'You have 1 change that has not been exported. Opening another PDF will lose it. Open anyway?',
+    discardMany:
+      'You have {n} changes that have not been exported. Opening another PDF will lose them. Open anyway?',
     exporting: 'Exporting…',
     exportPreparing: 'Preparing…',
     editedSuffix: 'edited',

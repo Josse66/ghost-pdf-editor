@@ -246,3 +246,51 @@ test('el manifiesto permite instalarla con su ícono', async ({ page, request },
     expect((await request.get(`/${icon.src}`)).ok()).toBe(true)
   }
 })
+
+// Crítica de Impeccable (P1): en celular la pista de edición se ve hasta el primer cambio.
+test('en celular la pista de edición está a la vista hasta el primer cambio', async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== 'android', 'solo sin columna de Cambios')
+  await page.goto('/')
+  const chooser = page.waitForEvent('filechooser')
+  await page.getByRole('button', { name: 'Elegir PDF' }).click()
+  await (await chooser).setFiles('test-fixtures/generated/cv-calibri.pdf')
+  const hint = page
+    .getByRole('main')
+    .getByText('Toca un texto del PDF y vuelve a tocarlo para reescribirlo.')
+  await expect(hint).toBeVisible()
+
+  const block = page.getByRole('button', { name: /^Editar: Ingeniero de Software/ })
+  await block.tap()
+  await block.tap()
+  await page.keyboard.press('End')
+  await page.keyboard.type(' ')
+  await page.keyboard.press('Enter')
+  await expect(hint).toBeHidden()
+})
+
+// Crítica de Impeccable (P1): abrir otro PDF con cambios sin exportar pregunta antes de perderlos.
+test('abrir otro PDF con cambios sin exportar pregunta antes', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'chromium', 'una vez')
+  await page.goto('/')
+  let chooser = page.waitForEvent('filechooser')
+  await page.getByRole('button', { name: 'Elegir PDF' }).click()
+  await (await chooser).setFiles('test-fixtures/generated/cv-calibri.pdf')
+  await page.getByRole('button', { name: /^Editar: Ingeniero de Software/ }).dblclick()
+  await page.keyboard.press('Control+Home')
+  await page.keyboard.type('Sr. ')
+  await page.keyboard.press('Enter')
+
+  let asked = ''
+  page.once('dialog', (dialog) => {
+    asked = dialog.message()
+    void dialog.dismiss()
+  })
+  chooser = page.waitForEvent('filechooser')
+  await page.getByRole('button', { name: 'Abrir' }).click()
+  await (await chooser).setFiles('test-fixtures/generated/factura-color.pdf')
+  await expect.poll(() => asked).toContain('1 cambio sin exportar')
+  // Se canceló: el documento y su cambio siguen ahí.
+  await expect(page.getByRole('complementary').last()).toContainText('Sr. Ingeniero de Software')
+})

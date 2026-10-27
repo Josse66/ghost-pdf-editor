@@ -5,6 +5,7 @@ import { TopBar } from '@/components/shell/TopBar'
 import { ThumbIndex } from '@/components/viewer/ThumbIndex'
 import { useEditShortcuts } from '@/hooks/useEditShortcuts'
 import { useWindowFileDrop } from '@/hooks/useFileOpen'
+import { useUnsavedGuard } from '@/store/unsaved'
 import { useLang } from '@/i18n'
 import { nextStep } from '@/lib/zoom'
 import { selectScale, useDocument } from '@/store/document'
@@ -23,6 +24,7 @@ export default function App() {
   const dragging = useWindowFileDrop()
   useZoomShortcuts()
   useEditShortcuts()
+  useUnsavedGuard()
 
   useEffect(() => {
     document.documentElement.lang = lang

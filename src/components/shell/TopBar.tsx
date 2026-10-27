@@ -50,7 +50,7 @@ export function TopBar() {
             variant="ghost"
             onClick={pick}
             aria-label={t('open')}
-            className="h-9 px-2.5 sm:px-3"
+            className="h-9 px-2.5 sm:px-3 pointer-coarse:h-11 pointer-coarse:min-w-11"
           >
             <FolderOpen />
             <span className="hidden sm:inline">{t('open')}</span>
@@ -84,7 +84,7 @@ function ExportButton() {
       title={ready && count === 0 ? t('exportNothing') : `${t('exportPdf')} (Ctrl+S)`}
       aria-label={label}
       onClick={() => void run()}
-      className="h-9 px-2.5 sm:px-3.5"
+      className="h-9 px-2.5 sm:px-3.5 pointer-coarse:h-11 pointer-coarse:min-w-11"
     >
       {working ? (
         <LoaderCircle className="animate-spin motion-reduce:animate-none" />

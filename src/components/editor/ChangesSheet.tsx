@@ -23,7 +23,7 @@ export function ChangesSheet() {
         variant="ghost"
         onClick={() => dialog.current?.showModal()}
         aria-label={`${t('changes')} · ${format(count)}`}
-        className="h-9 gap-1 px-2.5 lg:hidden"
+        className="h-9 gap-1 px-2.5 lg:hidden pointer-coarse:h-11 pointer-coarse:min-w-11"
       >
         <ScrollText />
         <span className="tabular text-sm">{format(count)}</span>

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDocument } from '@/store/document'
+import { confirmDiscard } from '@/store/unsaved'
 
 /** Abre el selector de archivos del sistema, filtrado a PDF. */
 export function useFilePicker(): () => void {
@@ -10,7 +11,7 @@ export function useFilePicker(): () => void {
     input.accept = 'application/pdf,.pdf'
     input.onchange = () => {
       const file = input.files?.[0]
-      if (file) void openFile(file)
+      if (file && confirmDiscard()) void openFile(file)
     }
     input.click()
   }, [openFile])
@@ -45,7 +46,7 @@ export function useWindowFileDrop(): boolean {
       depth = 0
       setDragging(false)
       const file = e.dataTransfer?.files[0]
-      if (file) void openFile(file)
+      if (file && confirmDiscard()) void openFile(file)
     }
 
     window.addEventListener('dragenter', onEnter)
