@@ -8,6 +8,9 @@ import { useT } from '@/i18n'
 import { useDocument, type DebugMode } from '@/store/document'
 import { useEdits } from '@/store/edits'
 
+/** iOS no dibuja un canvas de más de ~16.7 millones de píxeles; se deja margen. */
+const MAX_CANVAS_PIXELS = 12_000_000
+
 interface PageProps {
   info: PageInfo
   /** Escala del documento; una página más ancha que `maxWidth` se reduce sola para caber. */
@@ -52,7 +55,9 @@ export const Page = memo(function Page({
     const canvas = canvasRef.current
     if (!canvas) return
     const controller = new AbortController()
-    const dpr = Math.min(window.devicePixelRatio || 1, 3)
+    // Con mucho zoom, la densidad baja para no pasar del límite de píxeles por canvas de iOS.
+    const area = info.width * info.height * scale * scale
+    const dpr = Math.min(window.devicePixelRatio || 1, 3, Math.sqrt(MAX_CANVAS_PIXELS / area))
     renderChain.current = renderChain.current.then(async () => {
       if (controller.signal.aborted) return
       if (!near) {
@@ -72,7 +77,7 @@ export const Page = memo(function Page({
       }
     })
     return () => controller.abort()
-  }, [info.page, scale, near])
+  }, [info.page, info.width, info.height, scale, near])
 
   useEffect(() => {
     if (!near || blocks !== null) return
@@ -106,7 +111,7 @@ export const Page = memo(function Page({
         </p>
       )}
       <div className="border-rule bg-ink-0 border-[1.5px] p-2">
-        <div className="relative bg-white" style={{ width, height }}>
+        <div data-sheet className="relative bg-white" style={{ width, height }}>
           <canvas ref={canvasRef} className="block size-full" aria-hidden />
           {near && editable.length > 0 && (
             <EditLayer info={info} scale={scale} blocks={editable} canvasRef={canvasRef} />

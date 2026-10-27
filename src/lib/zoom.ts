@@ -13,6 +13,11 @@ export function nextStep(scale: number, direction: 1 | -1): number {
   return [...STEPS].reverse().find((s) => s < scale - 0.001) ?? MIN
 }
 
+/** Límites al pellizcar: hasta el zoom máximo, y hacia abajo hasta ver la página completa. */
+export function pinchScale(scale: number, fitPage: number): number {
+  return Math.min(MAX, Math.max(Math.min(MIN, fitPage), scale))
+}
+
 /**
  * Límites para una escala de ajuste (a página o al ancho). Puede bajar del zoom mínimo manual:
  * en un celular la página tiene que caber aunque quede chica.

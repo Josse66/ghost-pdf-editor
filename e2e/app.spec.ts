@@ -115,3 +115,45 @@ test('edita una línea, la asienta en Cambios y se deshace', async ({ page }, te
     await expect(changes).not.toContainText('Sr. Ingeniero')
   }
 })
+
+// En celular, pellizcar agranda solo el documento; la cabeza se queda donde estaba.
+test('pellizcar hace zoom solo en el documento', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'android', 'gesto táctil')
+  await page.goto('/')
+  const chooser = page.waitForEvent('filechooser')
+  await page.getByRole('button', { name: 'Elegir PDF' }).click()
+  await (await chooser).setFiles('test-fixtures/generated/cv-calibri.pdf')
+
+  const sheet = page.getByRole('figure', { name: 'Página 1', exact: true }).locator('[data-sheet]')
+  await expect(sheet).toBeVisible()
+  const before = (await sheet.boundingBox())!
+  const header = (await page.getByRole('banner').boundingBox())!
+
+  // Dos dedos que se separan, a la mitad de la lámina.
+  const cdp = await page.context().newCDPSession(page)
+  const cx = before.x + before.width / 2
+  const cy = before.y + before.height / 3
+  const touch = (type: 'touchStart' | 'touchMove' | 'touchEnd', spread: number) =>
+    cdp.send('Input.dispatchTouchEvent', {
+      type,
+      touchPoints:
+        type === 'touchEnd'
+          ? []
+          : [
+              { x: cx - spread, y: cy, id: 0 },
+              { x: cx + spread, y: cy, id: 1 },
+            ],
+    })
+  await touch('touchStart', 20)
+  for (let s = 30; s <= 100; s += 10) await touch('touchMove', s)
+  await touch('touchEnd', 100)
+
+  await expect
+    .poll(async () => (await sheet.boundingBox())!.width)
+    .toBeGreaterThan(before.width * 2)
+  // La página no hizo zoom: la cabeza mide lo mismo y el visor se recorre de lado.
+  expect((await page.getByRole('banner').boundingBox())!.width).toBe(header.width)
+  expect(await page.evaluate('window.visualViewport.scale')).toBe(1)
+  const scroller = page.locator('[data-scroll-root]')
+  expect(await scroller.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true)
+})

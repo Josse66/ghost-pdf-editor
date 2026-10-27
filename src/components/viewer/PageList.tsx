@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import type { LoadedDocument } from '@/core/engine'
+import { usePinchZoom } from '@/hooks/usePinchZoom'
 import { fitScale } from '@/lib/zoom'
 import { selectScale, useDocument } from '@/store/document'
 import { DebugSelect } from './DebugSelect'
@@ -14,7 +15,10 @@ const WIDE_AIR = 48
 
 export function PageList({ doc }: { doc: LoadedDocument }) {
   const scrollRef = useRef<HTMLDivElement>(null)
+  const sheetsRef = useRef<HTMLDivElement>(null)
   const scale = useDocument(selectScale)
+  // Con zoom manual la lámina puede pasarse del ancho y se recorre con el dedo; los ajustes no.
+  const manualZoom = useDocument((s) => typeof s.zoom === 'number')
   const debug = useDocument((s) => s.debug)
   const setFit = useDocument((s) => s.setFit)
   const setVisible = useDocument((s) => s.setVisible)
@@ -92,25 +96,28 @@ export function PageList({ doc }: { doc: LoadedDocument }) {
     }
   }, [doc, setVisible])
 
+  usePinchZoom(scrollRef, sheetsRef)
+
   return (
     <div
       ref={scrollRef}
       tabIndex={-1}
       data-scroll-root
-      className="h-full overflow-auto overscroll-contain px-3 py-6 outline-none sm:px-6"
+      // pan-x pan-y: un dedo desplaza (con la inercia del navegador) y el pellizco es del visor.
+      className="h-full touch-pan-x touch-pan-y overflow-auto overscroll-contain px-3 py-6 outline-none sm:px-6"
     >
       {/* En pantallas sin columna derecha, la revisión de cajas vive arriba de las láminas. */}
       <DebugSelect
         className="mx-auto mb-4 lg:hidden"
         style={{ maxWidth: available + PLATE_CHROME }}
       />
-      <div className="flex flex-col gap-8 pb-[30vh]">
+      <div ref={sheetsRef} className="flex w-fit min-w-full flex-col gap-8 pb-[30vh]">
         {doc.pages.map((info) => (
           <Page
             key={info.page}
             info={info}
             scale={scale}
-            maxWidth={available}
+            maxWidth={manualZoom ? Number.POSITIVE_INFINITY : available}
             near={near.has(info.page)}
             fileName={info.page === 1 ? (fileName ?? undefined) : undefined}
             debug={debug}
