@@ -188,9 +188,17 @@ Objetivo: eliminar incertidumbre antes de construir.
 - [x] ~~`core/color`: muestreo de fondo del canvas alrededor del bloque.~~ *(Ya no hace falta: el texto viejo se borra, no se tapa, y el color de la tinta lo da PDFium del objeto borrado.)*
 - [x] `core/writer`: por cada edición → **borrar los glifos viejos con PDFium** (no tapar; guardado completo) → dibujar texto nuevo con fuente/tamaño/color correctos → ajuste si no cabe. *(`erase.ts` borra por posición; `gc.ts` tira los objetos sueltos del contenido viejo; `fit.ts` hace la escalera espacio libre → Tz 85 % → achicar y conserva títulos centrados; `fonts.ts` parte el texto por alfabeto de Fontsource y embebe recortado, sin ligaduras para que el texto se copie bien; `export.ts` lo orquesta y devuelve un reporte de lo que hay que avisar. Prueba de ida y vuelta: ni pdf.js ni PDFium recuperan el texto viejo, el resto de la página queda intacto, +15 KB.)*
 - [x] Export en un Web Worker, descarga con nombre `original-editado.pdf`. *(`src/workers/export.worker.ts`: PDFium y las gemelas se piden al propio origen solo al exportar; botón con estado «Exportando…»; avisos del reporte en Cambios y sobre la lámina en celular; e2e que descarga y relee el PDF.)*
-- [ ] Tests visuales: renderizar PDF exportado vs original y comparar píxeles (Playwright screenshots / pixelmatch) fuera de la zona editada.
+- [x] Tests visuales: renderizar PDF exportado vs original y comparar píxeles fuera de la zona editada. *(`src/core/writer/test-utils.ts` renderiza con pdf.js + @napi-rs/canvas en Node; `export.test.ts` exige 0 cambios fuera de lo editado, con controles de que la comparación sí mira la página.)*
+- [ ] Corpus real: `npm run test:corpus` corre la ida y vuelta (texto viejo fuera, nuevo copiable, píxeles intactos) sobre cada PDF de `test-fixtures/privado/`. *(Prueba lista y validada con el corpus sintético; **faltan los PDFs reales del usuario**.)*
 - 🧰 **Skills:** casi ninguna de diseño — esta fase es motor puro. Solo `/impeccable harden` sobre el flujo de exportar (errores, progreso, archivo grande, cancelar). Plugin **Playwright** (si lo activaste) o el navegador de la app para los tests e2e.
 - **Entregable: MVP v1.** Editar y exportar un CV/factura y que no se note.
+
+### Fase 4.1 — Exploración de diseño (rama `design`)
+El usuario siente la UI «un poco simple». Antes de pulir (Fase 5), se prueban **varias direcciones visuales completas** sin tocar `dev` ni producción.
+- Rama `design` salida de `dev`; su preview de Vercel tiene URL fija de rama para verla en el celular. Nada de `design` llega a `main` sin pasar por `dev`.
+- Ronda de direcciones de Impeccable (`new-work` → `concept-seed --mode operate`): la app es una superficie **Operate** (se usa para hacer una tarea), así que manda la claridad; las direcciones cambian el «mundo» (paleta, tipos, materiales, firma), no el flujo.
+- El usuario elige en la página de decisión de Impeccable (tarjetas, otra tirada, más segura / más atrevida). La dirección elegida se construye en `design`, se revisa con `impeccable-finish-reviewer` y se documenta en `DESIGN.md`; si convence, `design` → `dev` → `main`.
+- 🧰 **Skills:** Impeccable (`new-work`, luego `critique`/`polish`), `emil-design-eng` para el detalle de interacción, `mobile-native` en celular. Taste solo si se toca la landing.
 
 ### Fase 5 — Pulido y PWA (1 semana)
 - [ ] UI final (toolbar, miniaturas de páginas, atajos de teclado, modo oscuro).
@@ -274,6 +282,7 @@ Cada fase se mide: "¿cuántos del corpus funcionan bien?"
 
 - **Git:** dos ramas fijas.
   - `main` = **producción** (`ghost-pdf-editor.vercel.app`). Solo recibe merges desde `dev`, ya verificados.
+  - `design` = **exploración visual** (Fase 4.1): ramas de prueba de diseño; lo elegido entra a `dev` como cualquier cambio.
   - `dev` = **integración**. Ahí se trabaja (o en ramas cortas `feat/…` / `fix/…` que se unen a `dev`). Cada push a `dev` genera un preview en Vercel con URL fija de rama, para probarlo en el celular.
   - Cuando `dev` funciona en el preview → PR `dev` → `main` con **auto-merge** (merge commit, no squash, para que `dev` y `main` compartan historial). `main` está **protegida**: exige el check `check` del CI en verde, así que el PR se junta solo cuando pasa y Vercel despliega a producción. Después, `git merge --ff-only origin/main` en `dev` para traer el commit del merge.
   - Previews de Vercel **sin login** (Vercel Authentication desactivada; la protección de forks sigue activa).
