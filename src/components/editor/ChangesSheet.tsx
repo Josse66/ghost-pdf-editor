@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { useFormatNumber, useT } from '@/i18n'
 import { useEdits } from '@/store/edits'
 import { ChangesList } from './ChangesPanel'
+import { DebugSelect } from '@/components/viewer/DebugSelect'
 import { ExportNotice } from './ExportNotice'
 
 /**
@@ -46,6 +47,8 @@ export function ChangesSheet() {
           <div className="overflow-y-auto overscroll-contain px-5 pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))]">
             <ExportNotice className="mb-5" />
             <ChangesList onNavigate={close} />
+            {/* Revisión de cajas: herramienta de consulta, al fondo de la hoja y no sobre la lámina. */}
+            <DebugSelect className="border-rule mt-6 justify-between border-t pt-4" />
           </div>
         </div>
       </dialog>

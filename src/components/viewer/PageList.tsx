@@ -5,7 +5,6 @@ import { fitScale } from '@/lib/zoom'
 import { selectScale, useDocument } from '@/store/document'
 import { EditHint } from '@/components/editor/EditHint'
 import { ExportNotice } from '@/components/editor/ExportNotice'
-import { DebugSelect } from './DebugSelect'
 import { Page } from './Page'
 
 /** Aire que se reserva a los lados de la lámina para que su sombra larga quepa al ajustar. */
@@ -108,14 +107,10 @@ export function PageList({ doc }: { doc: LoadedDocument }) {
       // pan-x pan-y: un dedo desplaza (con la inercia del navegador) y el pellizco es del visor.
       className="h-full touch-pan-x touch-pan-y overflow-auto overscroll-contain px-3 py-6 outline-none sm:px-6"
     >
-      {/* Sin columna derecha, el resultado de exportar y la revisión de cajas van arriba de las láminas. */}
+      {/* Sin columna derecha, la pista de edición y el resultado de exportar van arriba de las láminas. */}
       <EditHint className="mx-auto mb-4 lg:hidden" style={{ maxWidth: available + PLATE_CHROME }} />
       <ExportNotice
         touch
-        className="mx-auto mb-4 lg:hidden"
-        style={{ maxWidth: available + PLATE_CHROME }}
-      />
-      <DebugSelect
         className="mx-auto mb-4 lg:hidden"
         style={{ maxWidth: available + PLATE_CHROME }}
       />

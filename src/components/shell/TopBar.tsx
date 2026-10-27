@@ -82,7 +82,8 @@ function ExportButton() {
       disabled={!ready || count === 0 || working}
       aria-busy={working}
       title={ready && count === 0 ? t('exportNothing') : `${t('exportPdf')} (Ctrl+S)`}
-      aria-label={label}
+      // Deshabilitado sin cambios: el lector de pantalla también oye por qué.
+      aria-label={ready && count === 0 ? `${label}. ${t('exportNothing')}` : label}
       onClick={() => void run()}
       className="h-9 px-2.5 sm:px-3.5 pointer-coarse:h-11 pointer-coarse:min-w-11"
     >

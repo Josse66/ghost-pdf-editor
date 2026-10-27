@@ -5,8 +5,8 @@ import { useT } from '@/i18n'
 import { useDocument, type DebugMode } from '@/store/document'
 import { DEBUG_MODES } from './debug-modes'
 
-/** Revisión de cajas en pantallas sin columna derecha: un select nativo, el control que el
- * celular ya sabe usar. */
+/** Revisión de cajas en pantallas sin columna derecha (al fondo de la hoja de Cambios): un select
+ * nativo, el control que el celular ya sabe usar. */
 export function DebugSelect({ className, style }: { className?: string; style?: CSSProperties }) {
   const t = useT()
   const id = useId()
