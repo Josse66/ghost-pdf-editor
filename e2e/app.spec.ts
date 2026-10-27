@@ -84,3 +84,34 @@ test('un escaneo avisa a la vista que la página no tiene texto', async ({ page 
   await expect(note).toBeInViewport()
   await expect(page.getByRole('note')).toHaveCount(1)
 })
+
+// Fase 3: editar en el lugar, asentar el cambio y deshacerlo.
+test('edita una línea, la asienta en Cambios y se deshace', async ({ page }, testInfo) => {
+  await page.goto('/')
+  const chooser = page.waitForEvent('filechooser')
+  await page.getByRole('button', { name: 'Elegir PDF' }).click()
+  await (await chooser).setFiles('test-fixtures/generated/cv-calibri.pdf')
+
+  const hit = page.getByRole('button', { name: /^Editar: Ingeniero de Software/ })
+  if (testInfo.project.name === 'android') {
+    // En táctil: un toque selecciona y el segundo edita.
+    await hit.tap()
+    await hit.tap()
+  } else {
+    await hit.dblclick()
+  }
+  const editor = page.getByRole('textbox', { name: 'Editando texto del PDF' })
+  await expect(editor).toBeFocused()
+  await page.keyboard.press('Control+Home')
+  await page.keyboard.type('Sr. ')
+  await page.keyboard.press('Enter')
+  await expect(editor).toBeHidden()
+
+  if (testInfo.project.name === 'chromium') {
+    const changes = page.getByRole('complementary').last()
+    await expect(changes).toContainText('Sr. Ingeniero de Software')
+    await expect(changes).toContainText('Calibri → Carlito')
+    await page.keyboard.press('Control+z')
+    await expect(changes).not.toContainText('Sr. Ingeniero')
+  }
+})

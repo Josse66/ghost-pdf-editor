@@ -443,6 +443,15 @@
         ],
         "createdAt": "2026-10-26T16:27:53.754Z",
         "reason": "Claude: decision-round sketch (closed 2026-10-26), never built or shipped"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "src/core/edits/runs.test.ts"
+        ],
+        "createdAt": "2026-10-27T13:33:40.273Z",
+        "reason": "Claude: test fixture names the PDF's font family, not UI type"
       }
     ]
   }

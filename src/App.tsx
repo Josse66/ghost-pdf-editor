@@ -3,6 +3,7 @@ import { ChangesPanel } from '@/components/editor/ChangesPanel'
 import { Definitions, EntryPlate } from '@/components/entry/EntryPlate'
 import { TopBar } from '@/components/shell/TopBar'
 import { ThumbIndex } from '@/components/viewer/ThumbIndex'
+import { useEditShortcuts } from '@/hooks/useEditShortcuts'
 import { useWindowFileDrop } from '@/hooks/useFileOpen'
 import { useLang } from '@/i18n'
 import { nextStep } from '@/lib/zoom'
@@ -21,6 +22,7 @@ export default function App() {
   const status = useDocument((s) => s.status)
   const dragging = useWindowFileDrop()
   useZoomShortcuts()
+  useEditShortcuts()
 
   useEffect(() => {
     document.documentElement.lang = lang

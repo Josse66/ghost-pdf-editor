@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import type { LoadedDocument } from '@/core/engine'
+import { useEdits } from './edits'
 
 export type OpenError = 'empty' | 'password' | 'invalid' | 'not-pdf' | 'unknown'
 export type DebugMode = 'off' | 'line' | 'paragraph'
@@ -46,6 +47,8 @@ export const useDocument = create<DocumentState>((set, get) => ({
 
   async openFile(file) {
     const seq = ++openSeq
+    // Otro documento: las ediciones del anterior no aplican.
+    useEdits.getState().reset()
     set({
       status: 'loading',
       fileName: file.name,

@@ -141,3 +141,25 @@
   font-variant-caps: all-small-caps;
   letter-spacing: 0.08em;
 }
+
+/*
+ * Una corrección recién asentada aparece subiendo 8px (ease-out fuerte, 200ms): dice dónde quedó.
+ * Es ocasional, así que se anima; deshacer y rehacer, que son de teclado, no.
+ */
+.entry-enter {
+  transition:
+    opacity 200ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+  @starting-style {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .entry-enter {
+    transition: opacity 150ms ease;
+    @starting-style {
+      transform: none;
+    }
+  }
+}
