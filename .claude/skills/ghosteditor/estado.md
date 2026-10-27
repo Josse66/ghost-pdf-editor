@@ -25,7 +25,7 @@ sin romper el formato y exporta un PDF. Sin backend, el archivo nunca sale del d
 | 1 · Setup | ✅ Hecha (Vite 8, React 19, TS 6 estricto, Tailwind v4, shadcn, oxlint, Vitest 5, Playwright, CI, Vercel) |
 | 2 · Motor de lectura + visor «Diccionario» | ✅ **En producción** (PR #1, merge `acfc64a`, 2026-10-26) |
 | 3 · Capa de edición | ✅ **En producción** (PR #2, merge `13840d1`, 2026-10-27; probada en Android real) |
-| 4 · Exportación (MVP) | 🔨 **Motor hecho en `dev`** (`core/writer`, probado en Node). Falta conectarlo a la app (sección 4) |
+| 4 · Exportación (MVP) | 🔨 **Exporta en `dev`** (motor + worker + botón + avisos). Falta probar en celular, `/impeccable harden` y PR |
 | 5 · Pulido, PWA, landing | Pendiente |
 
 ### Qué hace hoy la app (en `dev`)
@@ -42,7 +42,10 @@ sin romper el formato y exporta un PDF. Sin backend, el archivo nunca sale del d
   aviso si la fuente no tiene gemela, Restaurar.
 - Avisos honestos: marca bermellón en lo editado; subrayado bermellón si el texto ya no cabe; escaneado sin texto;
   errores de archivo (vacío, dañado, contraseña, no PDF).
-- **Todavía NO exporta desde la interfaz**: el motor existe (`src/core/writer/export.ts`) pero no hay botón ni worker.
+- **Exportar** (solo en `dev`): el botón se habilita con el primer cambio, muestra «Exportando…» y descarga
+  `nombre-editado.pdf`. Corre en `src/workers/export.worker.ts` (PDFium wasm y gemelas se piden al propio origen
+  solo al exportar). El resultado se avisa arriba de Cambios (y sobre la lámina en celular): línea de estado si salió
+  igual, aviso bermellón si hubo avisos o error; cada entrada dice su aviso («letras un poco apretadas…»).
 
 ## 3. Lo último que pasó y la pregunta pendiente
 
@@ -55,16 +58,17 @@ recortada → guardado completo sin flujos de objetos. Devuelve un reporte (`not
 recuperan el texto viejo, que el resto queda intacto y que el PDF crece solo ~15 KB. Comentó que el diseño «se ve un
 poco simple»: **lo dejamos para el final** (Fase 5).
 
+Después se **conectó a la app** (worker, botón, avisos, e2e que descarga y relee el PDF) y se verificó en el navegador
+de escritorio y en vista móvil.
+
 **Pregunta pendiente para el usuario (hacerla al retomar):**
-> ¿Conecto el motor a la app (botón Exportar, worker, fuentes servidas, avisos del reporte)?
-> Opciones: «Sí, conéctalo» · «Primero documentar la Fase 3 con Impeccable (pendiente 2)».
+> ¿Ya probaste exportar desde el preview de `dev` en tu celular (abrir un PDF, editar, Exportar, abrir el descargado)?
+> Opciones: «Funciona» (→ `/impeccable harden` sobre el flujo y luego PR a `main`) · «Encontré algo».
 
 ## 4. Pendientes concretos (en orden)
 
-1. **Conectar el motor a la app (Fase 4):** worker de exportación (PDFium wasm desde `@embedpdf/pdfium/dist/pdfium.wasm?url`,
-   fuentes WOFF de Fontsource con `import.meta.glob(...?url)`, perezosas), botón Exportar habilitado con progreso,
-   descarga `nombre-editado.pdf`, avisos del reporte en Cambios, e2e de exportar → reabrir. Luego `/impeccable harden`
-   sobre el flujo (errores, archivo grande, cancelar) y probar en el celular.
+1. **Cerrar la Fase 4:** que el usuario pruebe exportar en su celular; `/impeccable harden` sobre el flujo (archivo
+   grande, cancelar, sin red la primera vez que se baja el wasm, PDF que PDFium no abre); PR `dev`→`main`.
 2. Refrescar `.impeccable/design.json` (quedó más viejo que `DESIGN.md`) y documentar los
    componentes nuevos de la Fase 3 (capa de edición, hoja de Cambios) con el documentador de Impeccable. Opcional:
    revisión final de Impeccable (`impeccable-finish-reviewer`) sobre la capa de edición.
@@ -133,6 +137,9 @@ Ninguna para la Fase 4: se cerraron el 2026-10-27 (ver sección 6). Notas para i
   corta que la de Calibri: es la gemela, no un error. PDFium deja el contenido viejo como objeto suelto → `gc.ts` +
   guardar con `useObjectStreams: false`. Ver un export: `EXPORT_OUT=ruta.pdf npx vitest run src/core/writer` y
   `node spikes/render-page.mjs ruta.pdf salida.png`.
+- El wasm de PDFium se importa como `@embedpdf/pdfium/pdfium.wasm?url` (la ruta `dist/…` no está en los `exports`
+  del paquete). Siempre pasarle `wasmBinary`: si no, PDFium lo baja de jsDelivr (rompe la promesa de privacidad).
+  La primera exportación en `npm run dev` recarga la página porque Vite optimiza deps nuevas: es solo en desarrollo.
 - Zoom con pellizco: el visor lleva `touch-action: pan-x pan-y` (nunca `maximum-scale`); el canvas limita su
   densidad a ~12 M píxeles (iOS no dibuja canvases de más de ~16,7 M). El e2e simula dos dedos con CDP
   (`Input.dispatchTouchEvent`) en el perfil `android`.

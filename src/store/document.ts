@@ -11,6 +11,8 @@ interface DocumentState {
   status: 'empty' | 'loading' | 'ready' | 'error'
   fileName: string | null
   doc: LoadedDocument | null
+  /** Bytes del PDF tal como se abrió: la exportación parte de aquí, nunca del render. */
+  original: Uint8Array | null
   error: OpenError | null
   progress: { read: number; total: number }
   zoom: Zoom
@@ -36,6 +38,7 @@ export const useDocument = create<DocumentState>((set, get) => ({
   status: 'empty',
   fileName: null,
   doc: null,
+  original: null,
   error: null,
   progress: { read: 0, total: 0 },
   zoom: 'page',
@@ -60,11 +63,11 @@ export const useDocument = create<DocumentState>((set, get) => ({
       // El archivo se lee en memoria; nunca se sube a ningún lado.
       const data = await file.arrayBuffer()
       if (data.byteLength === 0) {
-        set({ status: 'error', error: 'empty', doc: null })
+        set({ status: 'error', error: 'empty', doc: null, original: null })
         return
       }
       if (!looksLikePdf(data)) {
-        set({ status: 'error', error: 'not-pdf', doc: null })
+        set({ status: 'error', error: 'not-pdf', doc: null, original: null })
         return
       }
       // pdf.js (~700 KB) se descarga hasta que hay un PDF que abrir: la entrada carga ligera.
@@ -73,9 +76,16 @@ export const useDocument = create<DocumentState>((set, get) => ({
       // Si mientras tanto se abrió otro archivo, este resultado ya no importa.
       if (seq !== openSeq) return
       // Se abre viendo la primera lámina completa; ajustar al ancho queda a un clic.
-      set({ status: 'ready', doc, zoom: 'page', visible: { first: 1, last: 1 }, current: 1 })
+      set({
+        status: 'ready',
+        doc,
+        original: new Uint8Array(data),
+        zoom: 'page',
+        visible: { first: 1, last: 1 },
+        current: 1,
+      })
     } catch (error) {
-      set({ status: 'error', error: classifyError(error), doc: null })
+      set({ status: 'error', error: classifyError(error), doc: null, original: null })
     }
   },
 

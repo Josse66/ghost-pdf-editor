@@ -184,10 +184,10 @@ Objetivo: eliminar incertidumbre antes de construir.
 - **Entregable:** puedes editar varios bloques y ver el resultado en pantalla.
 
 ### Fase 4 — Motor de exportación (1–2 semanas) ← **aquí se gana o se pierde**
-- [ ] `core/fonts`: tabla de equivalencias + carga de fuentes libres. *(Tabla hecha en la Fase 3. En la exportación se usan los WOFF de Fontsource —los mismos que pinta el editor—, convertidos a TTF por `core/fonts/woff.ts`; falta servirlos desde la app y cachearlos.)*
+- [x] `core/fonts`: tabla de equivalencias + carga de fuentes libres. *(Tabla hecha en la Fase 3. En la exportación se usan los WOFF de Fontsource —los mismos que pinta el editor—, convertidos a TTF por `core/fonts/woff.ts`; el worker los pide al propio origen y el navegador los cachea.)*
 - [x] ~~`core/color`: muestreo de fondo del canvas alrededor del bloque.~~ *(Ya no hace falta: el texto viejo se borra, no se tapa, y el color de la tinta lo da PDFium del objeto borrado.)*
 - [x] `core/writer`: por cada edición → **borrar los glifos viejos con PDFium** (no tapar; guardado completo) → dibujar texto nuevo con fuente/tamaño/color correctos → ajuste si no cabe. *(`erase.ts` borra por posición; `gc.ts` tira los objetos sueltos del contenido viejo; `fit.ts` hace la escalera espacio libre → Tz 85 % → achicar y conserva títulos centrados; `fonts.ts` parte el texto por alfabeto de Fontsource y embebe recortado, sin ligaduras para que el texto se copie bien; `export.ts` lo orquesta y devuelve un reporte de lo que hay que avisar. Prueba de ida y vuelta: ni pdf.js ni PDFium recuperan el texto viejo, el resto de la página queda intacto, +15 KB.)*
-- [ ] Export en un Web Worker, descarga con nombre `original-editado.pdf`.
+- [x] Export en un Web Worker, descarga con nombre `original-editado.pdf`. *(`src/workers/export.worker.ts`: PDFium y las gemelas se piden al propio origen solo al exportar; botón con estado «Exportando…»; avisos del reporte en Cambios y sobre la lámina en celular; e2e que descarga y relee el PDF.)*
 - [ ] Tests visuales: renderizar PDF exportado vs original y comparar píxeles (Playwright screenshots / pixelmatch) fuera de la zona editada.
 - 🧰 **Skills:** casi ninguna de diseño — esta fase es motor puro. Solo `/impeccable harden` sobre el flujo de exportar (errores, progreso, archivo grande, cancelar). Plugin **Playwright** (si lo activaste) o el navegador de la app para los tests e2e.
 - **Entregable: MVP v1.** Editar y exportar un CV/factura y que no se note.
