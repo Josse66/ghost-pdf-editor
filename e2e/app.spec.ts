@@ -84,3 +84,76 @@ test('un escaneo avisa a la vista que la página no tiene texto', async ({ page 
   await expect(note).toBeInViewport()
   await expect(page.getByRole('note')).toHaveCount(1)
 })
+
+// Fase 3: editar en el lugar, asentar el cambio y deshacerlo.
+test('edita una línea, la asienta en Cambios y se deshace', async ({ page }, testInfo) => {
+  await page.goto('/')
+  const chooser = page.waitForEvent('filechooser')
+  await page.getByRole('button', { name: 'Elegir PDF' }).click()
+  await (await chooser).setFiles('test-fixtures/generated/cv-calibri.pdf')
+
+  const hit = page.getByRole('button', { name: /^Editar: Ingeniero de Software/ })
+  if (testInfo.project.name === 'android') {
+    // En táctil: un toque selecciona y el segundo edita.
+    await hit.tap()
+    await hit.tap()
+  } else {
+    await hit.dblclick()
+  }
+  const editor = page.getByRole('textbox', { name: 'Editando texto del PDF' })
+  await expect(editor).toBeFocused()
+  await page.keyboard.press('Control+Home')
+  await page.keyboard.type('Sr. ')
+  await page.keyboard.press('Enter')
+  await expect(editor).toBeHidden()
+
+  if (testInfo.project.name === 'chromium') {
+    const changes = page.getByRole('complementary').last()
+    await expect(changes).toContainText('Sr. Ingeniero de Software')
+    await expect(changes).toContainText('Calibri → Carlito')
+    await page.keyboard.press('Control+z')
+    await expect(changes).not.toContainText('Sr. Ingeniero')
+  }
+})
+
+// En celular, pellizcar agranda solo el documento; la cabeza se queda donde estaba.
+test('pellizcar hace zoom solo en el documento', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'android', 'gesto táctil')
+  await page.goto('/')
+  const chooser = page.waitForEvent('filechooser')
+  await page.getByRole('button', { name: 'Elegir PDF' }).click()
+  await (await chooser).setFiles('test-fixtures/generated/cv-calibri.pdf')
+
+  const sheet = page.getByRole('figure', { name: 'Página 1', exact: true }).locator('[data-sheet]')
+  await expect(sheet).toBeVisible()
+  const before = (await sheet.boundingBox())!
+  const header = (await page.getByRole('banner').boundingBox())!
+
+  // Dos dedos que se separan, a la mitad de la lámina.
+  const cdp = await page.context().newCDPSession(page)
+  const cx = before.x + before.width / 2
+  const cy = before.y + before.height / 3
+  const touch = (type: 'touchStart' | 'touchMove' | 'touchEnd', spread: number) =>
+    cdp.send('Input.dispatchTouchEvent', {
+      type,
+      touchPoints:
+        type === 'touchEnd'
+          ? []
+          : [
+              { x: cx - spread, y: cy, id: 0 },
+              { x: cx + spread, y: cy, id: 1 },
+            ],
+    })
+  await touch('touchStart', 20)
+  for (let s = 30; s <= 100; s += 10) await touch('touchMove', s)
+  await touch('touchEnd', 100)
+
+  await expect
+    .poll(async () => (await sheet.boundingBox())!.width)
+    .toBeGreaterThan(before.width * 2)
+  // La página no hizo zoom: la cabeza mide lo mismo y el visor se recorre de lado.
+  expect((await page.getByRole('banner').boundingBox())!.width).toBe(header.width)
+  expect(await page.evaluate('window.visualViewport.scale')).toBe(1)
+  const scroller = page.locator('[data-scroll-root]')
+  expect(await scroller.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(true)
+})

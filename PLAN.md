@@ -171,13 +171,15 @@ Objetivo: eliminar incertidumbre antes de construir.
 - [x] `break-ui` sobre el visor: 10 peores casos (nombre largo, 300 págs, tamaños mezclados, rotada, escaneado, 0 bytes, truncado, no PDF, contraseña, inglés) en 4 anchos; 8 arreglos aplicados y 4 regresiones e2e. *(`npm run fixtures:break` + interruptor `?fixture=` solo en dev.)*
 - [x] Carga ligera: pdf.js y el visor se descargan al abrir el primer PDF (JS inicial 716 KB → 276 KB).
 - [x] Revisión final de Impeccable (veredicto `ship`) y `DESIGN.md` + `.impeccable/design.json` generados desde el build.
-- **Entregable:** ✅ subes un PDF y ves los bloques de texto resaltados correctamente (en `dev`; a `main` tras verificar el preview).
+- **Entregable:** ✅ subes un PDF y ves los bloques de texto resaltados correctamente. En producción desde el PR #1 (2026-10-26).
 
 ### Fase 3 — Capa de edición (1–2 semanas)
-- [ ] Doble clic en bloque → `contenteditable` posicionado exacto, con fuente/tamaño/color aproximados (CSS).
-- [ ] Store de ediciones + undo/redo (Ctrl+Z / Ctrl+Y).
-- [ ] Indicador visual de bloques editados.
-- [ ] Soporte táctil (celular).
+- [x] Doble clic en bloque → `contenteditable` posicionado exacto, con fuente/tamaño/color aproximados (CSS). *(Fuente gemela real de Fontsource —Carlito, Caladea, Arimo, Tinos, Cousine, Gelasio—, color de fondo y de tinta leídos del render, línea base alineada; se conservan negritas y cursivas; al confirmar se guardan las líneas tal como se cortaron en pantalla para la Fase 4.)*
+- [x] Store de ediciones + undo/redo (Ctrl+Z / Ctrl+Y). *(`core/edits/history`, inmutable; Restaurar por bloque.)*
+- [x] Indicador visual de bloques editados. *(Marca bermellón al margen; subrayado bermellón si el texto ya no cabe; entradas «tachado → nuevo» en Cambios.)*
+- [x] Soporte táctil (celular). *(Dos toques para editar; editor a ≥16px escalado para que iOS no haga zoom; teclado no tapa el editor; hoja de Cambios; dvh, zonas seguras, sin destello al tocar. **Falta probar en un iPhone real.**)*
+- [ ] Autoguardado del log de ediciones en OPFS (recomendado por la investigación; pendiente).
+- [ ] Orden de lectura por columnas para navegar bloques con Tab (pendiente desde la Fase 2).
 - 🧰 **Skills:** `emil-design-eng` (la capa de edición ES la experiencia: hover, foco, selección, feedback al editar). `prototype` para probar 2–3 variantes del overlay de edición y elegir. `mobile-native` para el soporte táctil (zoom en inputs, long-press, tap highlight). `apple-design` si haces pinch-zoom / gestos.
 - **Entregable:** puedes editar varios bloques y ver el resultado en pantalla.
 
@@ -273,7 +275,8 @@ Cada fase se mide: "¿cuántos del corpus funcionan bien?"
 - **Git:** dos ramas fijas.
   - `main` = **producción** (`ghost-pdf-editor.vercel.app`). Solo recibe merges desde `dev`, ya verificados.
   - `dev` = **integración**. Ahí se trabaja (o en ramas cortas `feat/…` / `fix/…` que se unen a `dev`). Cada push a `dev` genera un preview en Vercel con URL fija de rama, para probarlo en el celular.
-  - Cuando `dev` funciona en el preview y el CI está en verde → PR `dev` → `main` → merge = deploy a producción.
+  - Cuando `dev` funciona en el preview → PR `dev` → `main` con **auto-merge** (merge commit, no squash, para que `dev` y `main` compartan historial). `main` está **protegida**: exige el check `check` del CI en verde, así que el PR se junta solo cuando pasa y Vercel despliega a producción. Después, `git merge --ff-only origin/main` en `dev` para traer el commit del merge.
+  - Previews de Vercel **sin login** (Vercel Authentication desactivada; la protección de forks sigue activa).
 - **Commits:** Conventional Commits (`feat:`, `fix:`, `refactor:`, `test:`).
 - **Issues:** cada checkbox de las fases = un issue en GitHub; un Project board (Kanban) con columnas Todo / Doing / Done.
 - **Definición de "terminado":** funciona en el corpus, tiene test, está desplegado.

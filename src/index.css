@@ -109,6 +109,31 @@
     @apply font-sans;
     scrollbar-color: var(--ink-4) transparent;
     scrollbar-width: thin;
+    /* Celular: sin el destello gris al tocar, sin inflar la letra en horizontal, y sin
+       pull-to-refresh (la app tiene sus propios contenedores con scroll). */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    overscroll-behavior: none;
+  }
+  body {
+    overscroll-behavior: none;
+  }
+  /* Controles: responden al toque sin la espera del doble toque, y su texto no se selecciona
+     con un toque largo. El texto de contenido sí se puede seleccionar. */
+  button,
+  a,
+  [role='button'],
+  label {
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+  /* iOS hace zoom al enfocar un campo con letra menor a 16px. */
+  input,
+  textarea,
+  select {
+    font-size: max(16px, 1em);
   }
   body {
     @apply bg-background text-foreground antialiased;
@@ -140,4 +165,79 @@
   font-family: var(--font-serif);
   font-variant-caps: all-small-caps;
   letter-spacing: 0.08em;
+}
+
+/*
+ * Una corrección recién asentada aparece subiendo 8px (ease-out fuerte, 200ms): dice dónde quedó.
+ * Es ocasional, así que se anima; deshacer y rehacer, que son de teclado, no.
+ */
+.entry-enter {
+  transition:
+    opacity 200ms cubic-bezier(0.23, 1, 0.32, 1),
+    transform 200ms cubic-bezier(0.23, 1, 0.32, 1);
+  @starting-style {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .entry-enter {
+    transition: opacity 150ms ease;
+    @starting-style {
+      transform: none;
+    }
+  }
+}
+
+/*
+ * Hoja de cambios en celular: <dialog> pegado abajo, con zona segura. Sube con la curva tipo iOS
+ * (280ms) y baja más rápido (200ms): lento donde el usuario mira, rápido donde el sistema responde.
+ */
+.sheet {
+  margin: auto 0 0;
+  width: 100%;
+  max-width: 100%;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  border-top: 3px double var(--rule);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--ink-0);
+  color: var(--ink-10);
+  transform: translateY(100%);
+  transition:
+    transform 200ms cubic-bezier(0.32, 0.72, 0, 1),
+    overlay 200ms allow-discrete,
+    display 200ms allow-discrete;
+}
+.sheet[open] {
+  transform: translateY(0);
+  transition-duration: 280ms;
+  @starting-style {
+    transform: translateY(100%);
+  }
+}
+.sheet::backdrop {
+  background: rgb(22 20 18 / 0);
+  transition:
+    background 200ms ease,
+    overlay 200ms allow-discrete,
+    display 200ms allow-discrete;
+}
+.sheet[open]::backdrop {
+  background: rgb(22 20 18 / 0.28);
+  @starting-style {
+    background: rgb(22 20 18 / 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sheet,
+  .sheet[open] {
+    transform: none;
+    transition-property: opacity, overlay, display;
+    @starting-style {
+      transform: none;
+      opacity: 0;
+    }
+  }
 }

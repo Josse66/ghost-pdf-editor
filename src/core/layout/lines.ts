@@ -125,6 +125,7 @@ function toLine(
         text: frag.text,
         fontName: frag.fontName,
         fontFamily: frag.fontFamily,
+        generic: frag.generic,
         bold: frag.bold,
         italic: frag.italic,
         fontSize: frag.fontSize,

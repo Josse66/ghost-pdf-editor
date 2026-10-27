@@ -1,10 +1,17 @@
+import { Redo2, Undo2 } from 'lucide-react'
 import { useId } from 'react'
+import { Button } from '@/components/ui/button'
 import { DEBUG_MODES } from '@/components/viewer/debug-modes'
+import type { BlockEdit } from '@/core/edits/history'
+import { substituteFor } from '@/core/fonts/substitutes'
+import { useFinePointer } from '@/hooks/usePointer'
+import { scrollToBlock } from '@/lib/scroll'
 import { cn } from '@/lib/utils'
-import { useT, type Translate } from '@/i18n'
+import { useFormatNumber, useT, type Translate } from '@/i18n'
 import { useDocument } from '@/store/document'
+import { useEdits } from '@/store/edits'
 
-/** Columna derecha: los cambios asentados como entradas de diccionario (llegan en la Fase 3). */
+/** Columna derecha (escritorio): los cambios asentados como entradas de diccionario. */
 export function ChangesPanel() {
   const t = useT()
   const pageCount = useDocument((s) => s.doc?.numPages ?? 0)
@@ -22,13 +29,7 @@ export function ChangesPanel() {
             <p className="text-ink-8 mt-1 text-[15px] leading-relaxed">{t('noTextPage')}</p>
           </div>
         )}
-        <h2 className="border-rule guide-caps flex items-baseline justify-between border-b pb-2 text-[15px] font-semibold">
-          {t('changes')}
-          <span className="tabular text-muted-foreground font-normal">0</span>
-        </h2>
-        <p className="text-muted-foreground mt-4 font-serif text-[15px] leading-relaxed">
-          {t('changesEmpty')}
-        </p>
+        <ChangesList />
         <p className="tabular text-muted-foreground mt-6 text-xs">
           {pageCount === 1 ? t('pageCountOne') : t('pageCount', { n: pageCount })}
         </p>
@@ -36,6 +37,137 @@ export function ChangesPanel() {
       <DebugSwitch t={t} />
     </div>
   )
+}
+
+/**
+ * Encabezado «Cambios · n» con deshacer/rehacer y las entradas. Lo comparten la columna de
+ * escritorio y la hoja del celular; `onNavigate` avisa antes de ir al bloque (la hoja se cierra).
+ */
+export function ChangesList({ onNavigate }: { onNavigate?: () => void }) {
+  const t = useT()
+  const format = useFormatNumber()
+  const finePointer = useFinePointer()
+  const present = useEdits((s) => s.history.present)
+  const canUndo = useEdits((s) => s.history.past.length > 0)
+  const canRedo = useEdits((s) => s.history.future.length > 0)
+  const undo = useEdits((s) => s.undo)
+  const redo = useEdits((s) => s.redo)
+  const entries = [...present.values()].sort(documentOrder)
+
+  return (
+    <>
+      <div className="border-rule flex items-center justify-between gap-2 border-b pb-1.5">
+        <h2 className="guide-caps text-[15px] font-semibold">
+          {t('changes')}{' '}
+          <span className="tabular text-muted-foreground font-normal">
+            · {format(entries.length)}
+          </span>
+        </h2>
+        <div className="flex gap-0.5">
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            disabled={!canUndo}
+            onClick={undo}
+            aria-label={t('undo')}
+            title={`${t('undo')} (Ctrl+Z)`}
+          >
+            <Undo2 />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            disabled={!canRedo}
+            onClick={redo}
+            aria-label={t('redo')}
+            title={`${t('redo')} (Ctrl+Y)`}
+          >
+            <Redo2 />
+          </Button>
+        </div>
+      </div>
+      {entries.length === 0 ? (
+        <>
+          <p className="text-muted-foreground mt-4 font-serif text-[15px] leading-relaxed">
+            {t('changesEmpty')}
+          </p>
+          <p className="text-ink-8 mt-3 text-sm leading-snug">
+            {finePointer ? t('changesHintMouse') : t('changesHintTouch')}
+          </p>
+        </>
+      ) : (
+        <ol className="mt-1">
+          {entries.map((edit) => (
+            <ChangeEntry key={edit.blockId} edit={edit} t={t} onNavigate={onNavigate} />
+          ))}
+        </ol>
+      )}
+    </>
+  )
+}
+
+/** Una corrección asentada: lo viejo tachado, lo nuevo, y su «letra chiquita». */
+function ChangeEntry({
+  edit,
+  t,
+  onNavigate,
+}: {
+  edit: BlockEdit
+  t: Translate
+  onNavigate?: () => void
+}) {
+  const block = useEdits((s) => s.blocks.get(edit.blockId))
+  const revert = useEdits((s) => s.revert)
+  const style = block?.runs[0]
+  const substitute = style ? substituteFor(style.fontFamily, style.generic) : null
+
+  return (
+    <li className="entry-enter border-ink-3 border-b py-3.5 last:border-b-0">
+      <button
+        type="button"
+        onClick={() => {
+          onNavigate?.()
+          scrollToBlock(edit.page, edit.blockId)
+        }}
+        className="block w-full rounded-sm text-left font-serif"
+      >
+        <span className="text-ink-7 decoration-vermilion line-clamp-2 text-[15px] line-through decoration-2">
+          {edit.before}
+        </span>
+        <span className="mt-0.5 line-clamp-3 text-[17px] leading-snug font-semibold">
+          {edit.after || '—'}
+        </span>
+      </button>
+      <div className="mt-1.5 flex items-baseline justify-between gap-3">
+        <p className="text-ink-7 font-serif text-sm italic">
+          {style && substitute
+            ? t('entryApparatus', {
+                page: edit.page,
+                from: style.fontFamily,
+                to: substitute.family,
+              })
+            : t('page', { n: edit.page })}
+          {substitute && !substitute.metricCompatible && (
+            <span className="text-vermilion"> · {t('notTwin')}</span>
+          )}
+        </p>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => revert(edit.blockId)}
+          className="text-ink-8 shrink-0"
+        >
+          {t('restore')}
+        </Button>
+      </div>
+    </li>
+  )
+}
+
+/** Orden de lectura del documento: página y luego el orden de los bloques en ella. */
+function documentOrder(a: BlockEdit, b: BlockEdit): number {
+  const index = (id: string) => Number(id.split('-b')[1] ?? 0)
+  return a.page - b.page || index(a.blockId) - index(b.blockId)
 }
 
 function DebugSwitch({ t }: { t: Translate }) {

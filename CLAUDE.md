@@ -2,6 +2,8 @@
 
 Editor de PDF 100% en el navegador (Vite + React + TS, pdf.js + pdf-lib). El plan completo, las fases y el mapa de skills están en [PLAN.md](PLAN.md); léelo antes de proponer trabajo.
 
+**Para retomar en una sesión nueva:** ejecuta la skill `/ghosteditor` (lee `.claude/skills/ghosteditor/estado.md`, verifica git, PRs y CI, y hace la pregunta pendiente). Al cerrar una sesión o terminar una fase: `/ghosteditor guardar`.
+
 ## Reglas de trabajo
 
 - Responde en español, tono casual.

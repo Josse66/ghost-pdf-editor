@@ -4,6 +4,7 @@ import { useFilePicker } from '@/hooks/useFileOpen'
 import { useT } from '@/i18n'
 import { nextStep, toPercent } from '@/lib/zoom'
 import { selectScale, useDocument } from '@/store/document'
+import { ChangesSheet } from '@/components/editor/ChangesSheet'
 import { FileName } from './FileName'
 
 export function TopBar() {
@@ -15,7 +16,7 @@ export function TopBar() {
 
   return (
     // Regla doble bajo la cabeza, como la que separa la cabeza de página de un léxico.
-    <header className="border-rule grid h-[58px] grid-cols-[1fr_auto] items-center gap-3 border-b-[3px] border-double px-3 sm:px-5 lg:grid-cols-[1fr_auto_1fr]">
+    <header className="border-rule box-content grid h-[58px] grid-cols-[1fr_auto] items-center gap-3 border-b-[3px] border-double px-3 pt-[env(safe-area-inset-top)] sm:px-5 lg:grid-cols-[1fr_auto_1fr]">
       <div className="flex min-w-0 items-baseline gap-2">
         <span className="text-[15px] font-semibold tracking-tight whitespace-nowrap">
           {t('appName')}
@@ -32,6 +33,7 @@ export function TopBar() {
 
       <div className="flex items-center justify-end gap-1.5 sm:gap-2">
         {ready && <ZoomControls />}
+        {ready && <ChangesSheet />}
         <Button
           variant="ghost"
           onClick={pick}

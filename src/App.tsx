@@ -3,6 +3,7 @@ import { ChangesPanel } from '@/components/editor/ChangesPanel'
 import { Definitions, EntryPlate } from '@/components/entry/EntryPlate'
 import { TopBar } from '@/components/shell/TopBar'
 import { ThumbIndex } from '@/components/viewer/ThumbIndex'
+import { useEditShortcuts } from '@/hooks/useEditShortcuts'
 import { useWindowFileDrop } from '@/hooks/useFileOpen'
 import { useLang } from '@/i18n'
 import { nextStep } from '@/lib/zoom'
@@ -21,6 +22,7 @@ export default function App() {
   const status = useDocument((s) => s.status)
   const dragging = useWindowFileDrop()
   useZoomShortcuts()
+  useEditShortcuts()
 
   useEffect(() => {
     document.documentElement.lang = lang
@@ -29,7 +31,8 @@ export default function App() {
   const ready = status === 'ready' && doc
 
   return (
-    <div className="grid h-svh grid-rows-[auto_1fr] overflow-hidden">
+    // dvh sigue a la barra del navegador y al teclado; las zonas seguras dejan libre el notch.
+    <div className="grid h-dvh grid-rows-[auto_1fr] overflow-hidden pr-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)]">
       <TopBar />
       <div className="grid min-h-0 grid-cols-[2.75rem_1fr] lg:grid-cols-[5.5rem_1fr_22rem]">
         <aside className="border-rule min-h-0 border-r">

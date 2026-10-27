@@ -1,6 +1,7 @@
 // Contrato del motor PDF. La UI y el store solo hablan con esta interfaz, nunca con
 // pdf.js, @cantoo/pdf-lib o PDFium directamente, para poder cambiar de motor sin tocar React.
 // TypeScript puro: nada de React aquí (ver CLAUDE.md).
+import type { GenericFamily } from './fonts/substitutes'
 
 /** Color RGB con canales de 0 a 1, como los usa PDF. */
 export type Rgb = readonly [r: number, g: number, b: number]
@@ -19,6 +20,8 @@ export interface TextStyle {
   fontName: string
   /** Familia normalizada, p. ej. "Calibri". */
   fontFamily: string
+  /** Clase de respaldo que reporta pdf.js; decide la sustituta cuando no hay gemela. */
+  generic: GenericFamily
   bold: boolean
   italic: boolean
   fontSize: number
