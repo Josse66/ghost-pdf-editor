@@ -1,7 +1,7 @@
 # Estado de Ghost PDF Editor
 
-> **Último guardado:** 2026-10-27 · producción (`main`) en `13840d1` (Fase 3) · `dev` = `main` + decisiones de la
-> Fase 4 + motor de exportación (`core/writer`).
+> **Último guardado:** 2026-10-27 · producción (`main`) en `3193b44` (Fase 4) · `dev` = `design` en `9665aca`
+> (rediseño «Concreto» + pruebas de píxeles y corpus), con **PR #4 `dev`→`main` en auto-merge**.
 > Lo escribe y actualiza la skill `ghosteditor` (modo «guardar»). Si algo de aquí contradice lo que muestran
 > git, GitHub o los archivos, **manda lo vivo**: dilo y actualiza este archivo.
 
@@ -25,7 +25,8 @@ sin romper el formato y exporta un PDF. Sin backend, el archivo nunca sale del d
 | 1 · Setup | ✅ Hecha (Vite 8, React 19, TS 6 estricto, Tailwind v4, shadcn, oxlint, Vitest 5, Playwright, CI, Vercel) |
 | 2 · Motor de lectura + visor «Diccionario» | ✅ **En producción** (PR #1, merge `acfc64a`, 2026-10-26) |
 | 3 · Capa de edición | ✅ **En producción** (PR #2, merge `13840d1`, 2026-10-27; probada en Android real) |
-| 4 · Exportación (MVP) | ✅ Probada en celular real y endurecida (`/impeccable harden`). **PR #3 `dev`→`main` con auto-merge** (2026-10-27). Pendiente menor: tests por píxeles |
+| 4 · Exportación (MVP) | ✅ **En producción** (PR #3, merge `3193b44`). Pruebas por píxeles hechas; corpus real: falta que el usuario ponga sus PDFs |
+| 4.1 · Exploración de diseño | ✅ Gana **«Concreto» con losa flotante** (ramas `design`, `design-losa`, `design-fichas`). **PR #4 a `main`** |
 | 5 · Pulido, PWA, landing | Pendiente |
 
 ### Qué hace hoy la app (en `dev`)
@@ -68,24 +69,27 @@ El usuario preguntó por qué Chrome decía que accedía a su ubicación: la app
 código, build y preview); lo más probable es el indicador de Android sobre la app Chrome. En los previews Vercel
 inyecta su barra de comentarios (`vercel.live`), que tampoco la usa; se puede apagar en Vercel si molesta.
 
+Luego: pruebas por píxeles (`export.test.ts`, 0 cambios fuera de lo editado) y corpus privado (`npm run test:corpus`,
+se salta solo sin PDFs). **Fase 4.1 en la rama `design`**: tres rondas de direcciones de Impeccable (bocetos en
+`.impeccable/mocks/decision/`); el usuario eligió **Concreto** (arquitectura de González de León) y luego pidió otra
+cabeza: se compararon «Losa flotante» y «Barra de fichas» en su celular y **ganó la Losa** (cabeza flotando sobre una
+plaza con retícula, con la misma sombra larga que la hoja). Revisión final de Impeccable: ship. `DESIGN.md` reescrito.
+Se juntó `design` en `dev` y se abrió el PR #4 a `main`.
+
 **Pregunta pendiente para el usuario (hacerla al retomar):**
-> La Fase 4 (MVP) está en producción si el PR #3 se juntó. ¿Seguimos con la Fase 5 (pulido, PWA/offline, rediseño
-> visual con varias direcciones) o primero los pendientes de la Fase 4 (tests por píxeles, corpus real)?
-> Opciones: «Fase 5» · «Cerrar pendientes de la Fase 4».
+> El rediseño está en producción si el PR #4 se juntó. ¿Seguimos con la Fase 5 (PWA/offline, autoguardado, pulido)
+> o pruebas tus PDFs reales con `npm run test:corpus` primero?
+> Opciones: «Fase 5» · «Probar mis PDFs».
 
 ## 4. Pendientes concretos (en orden)
 
-1. Confirmar que el PR #3 (Fase 4) se juntó y sincronizar `dev` con `main` (`git rebase origin/main` si hay commits
-   locales sin subir; si no, `git merge --ff-only origin/main`). Sin cancelar exportación todavía (tarda segundos).
-2. Refrescar `.impeccable/design.json` (quedó más viejo que `DESIGN.md`) y documentar los
-   componentes nuevos de la Fase 3 (capa de edición, hoja de Cambios) con el documentador de Impeccable. Opcional:
-   revisión final de Impeccable (`impeccable-finish-reviewer`) sobre la capa de edición.
-3. Fase 4, después: tests visuales por píxeles fuera de la zona editada; corpus real del usuario.
+1. Confirmar que el PR #4 se juntó y sincronizar `dev` (`git merge --ff-only origin/main`). Las ramas `design-losa` y
+   `design-fichas` se pueden borrar cuando el usuario lo apruebe.
+2. Corpus real: el usuario pone sus PDFs en `test-fixtures/privado/` y corre `npm run test:corpus`.
+3. Sin cancelar exportación todavía (tarda segundos).
 4. Anotados en `PLAN.md`, sin fecha: autoguardado del log de ediciones en OPFS; orden de lectura por columnas para
    navegar con Tab; OCR (v4) — caso real: PDF escaneado exportado de Notion no se puede editar; modo oscuro, PWA y
    landing (Fase 5); prueba en iPhone real (ya se probó en Android).
-5. **Rediseño visual al final (Fase 5):** el usuario siente la UI «un poco simple»; probar varias direcciones de
-   diseño con Impeccable cuando lo funcional esté listo.
 
 ## 5. Decisiones abiertas
 
@@ -107,10 +111,10 @@ Ninguna para la Fase 4: se cerraron el 2026-10-27 (ver sección 6). Notas para i
   espacio libre a la derecha → Tz/Tc hasta ~85 % → reflujo → reducir tamaño al final. Sin gemela: la más parecida
   + aviso.
 - Unidad de edición: **párrafo/línea**, no fragmento (editar fragmentos encima el texto siguiente).
-- Dirección visual **«Diccionario»**: papel biblia `#F6F6F3` (nunca crema), tinta `#161412`, bermellón `#B8321F`
-  (tachado, edición activa, avisos, uñero actual), ultramar `#2C4F9E` (enlaces, selección, foco, cajas debug).
-  **Serif (Source Serif 4) solo en palabras guía, «Cambios», entradas de cambios, nombre tachado y definiciones**;
-  todo lo demás en Hanken Grotesk. Uñeros de media luna como firma. Ver `DESIGN.md`.
+- Dirección visual **«Concreto»** (Fase 4.1, reemplaza al «Diccionario»): rampa de concreto `#F3F2EF`…`#2A2A28`,
+  azul `#24466B` solo para lo activo, rojo `#A8322A` solo para avisos, Archivo como única letra, aristas a 90°, plaza
+  con retícula de 24 px y **sombra larga y recta** (elegida por el usuario) solo en la hoja, la losa y el uñero
+  actual. La cabeza es una **losa flotante**. Ver `DESIGN.md` y el contrato en `.impeccable/surfaces/src-app-tsx.md`.
 - Flujo git: trabajar en `dev` → preview → PR `dev`→`main` con auto-merge (merge commit). `main` protegida: exige el
   check `check` del CI. Previews de Vercel sin login (protección de forks activa).
 - i18n español (base) + inglés desde el inicio. Interfaz para usuario ocasional y frecuente, celular y escritorio
