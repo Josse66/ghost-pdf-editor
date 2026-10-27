@@ -1,7 +1,7 @@
 # Estado de Ghost PDF Editor
 
-> **Último guardado:** 2026-10-27 · producción (`main`) en `3193b44` (Fase 4) · `dev` = `design` en `9665aca`
-> (rediseño «Concreto» + pruebas de píxeles y corpus), con **PR #4 `dev`→`main` en auto-merge**.
+> **Último guardado:** 2026-10-27 (fin de sesión) · producción (`main`) en `557a3b4` (rediseño «Concreto», PR #4)
+> · `dev` en `147ac9c` = `main` + PWA + arreglos de la crítica de Impeccable (CI en verde, **sin PR todavía**).
 > Lo escribe y actualiza la skill `ghosteditor` (modo «guardar»). Si algo de aquí contradice lo que muestran
 > git, GitHub o los archivos, **manda lo vivo**: dilo y actualiza este archivo.
 
@@ -26,8 +26,8 @@ sin romper el formato y exporta un PDF. Sin backend, el archivo nunca sale del d
 | 2 · Motor de lectura + visor «Diccionario» | ✅ **En producción** (PR #1, merge `acfc64a`, 2026-10-26) |
 | 3 · Capa de edición | ✅ **En producción** (PR #2, merge `13840d1`, 2026-10-27; probada en Android real) |
 | 4 · Exportación (MVP) | ✅ **En producción** (PR #3, merge `3193b44`). Pruebas por píxeles hechas; corpus real: falta que el usuario ponga sus PDFs |
-| 4.1 · Exploración de diseño | ✅ Gana **«Concreto» con losa flotante** (ramas `design`, `design-losa`, `design-fichas`). **PR #4 a `main`** |
-| 5 · Pulido, PWA, landing | Pendiente |
+| 4.1 · Exploración de diseño | ✅ **En producción**: «Concreto» con losa flotante (PR #4, merge `557a3b4`) |
+| 5 · Pulido, PWA, landing | 🔨 En curso en `dev`: PWA hecha; crítica + auditoría de Impeccable hechas (28/40 y 15/20) y sus 3 P1 + 2 P2 corregidos |
 
 ### Qué hace hoy la app (en `dev`)
 - Abrir PDF (selector o arrastrar), render perezoso, abre en «ajustar a la página», zoom y Ctrl +/−/0.
@@ -43,7 +43,13 @@ sin romper el formato y exporta un PDF. Sin backend, el archivo nunca sale del d
   aviso si la fuente no tiene gemela, Restaurar.
 - Avisos honestos: marca bermellón en lo editado; subrayado bermellón si el texto ya no cabe; escaneado sin texto;
   errores de archivo (vacío, dañado, contraseña, no PDF).
-- **Exportar** (solo en `dev`): el botón se habilita con el primer cambio, muestra «Exportando…» y descarga
+- **PWA** (solo en `dev`): instalable, abre sin conexión desde la segunda visita; la app y el visor se precachean, el
+  motor de exportación y las fuentes se guardan al primer uso (`vite.config.ts`). Ícono propio desde
+  `public/favicon.svg` (`scripts/make-icons.mjs`).
+- **Sin perder cambios** (solo en `dev`): abrir otro PDF con cambios sin exportar pregunta antes, y el navegador avisa
+  al recargar o cerrar (`src/store/unsaved.ts`). En celular, la pista de edición va sobre la hoja hasta el primer
+  cambio; la revisión de cajas vive al fondo de la hoja de Cambios; botones de la losa a 44 px en táctil.
+- **Exportar**: el botón se habilita con el primer cambio, muestra «Exportando…» y descarga
   `nombre-editado.pdf`. Corre en `src/workers/export.worker.ts` (PDFium wasm y gemelas se piden al propio origen
   solo al exportar). El resultado se avisa arriba de Cambios (y sobre la lámina en celular): línea de estado si salió
   igual, aviso bermellón si hubo avisos o error; cada entrada dice su aviso («letras un poco apretadas…»).
@@ -76,20 +82,38 @@ cabeza: se compararon «Losa flotante» y «Barra de fichas» en su celular y **
 plaza con retícula, con la misma sombra larga que la hoja). Revisión final de Impeccable: ship. `DESIGN.md` reescrito.
 Se juntó `design` en `dev` y se abrió el PR #4 a `main`.
 
+El PR #4 se juntó: **Concreto está en producción**. Se arrancó la Fase 5 en `dev`: PWA instalable y sin conexión
+(el usuario la instaló desde el preview de `dev` y funciona), luego `/impeccable critique` + `audit` (corridos en un
+solo contexto, sin subagentes; reporte en `.impeccable/critique/`) y se corrigieron sus 5 hallazgos (ver «Qué hace hoy
+la app»).
+
+**Al cerrar la sesión, el usuario reportó (pendiente 1):** al hacer zoom con pellizco y recorrer la hoja de lado, lo
+que rodea la hoja (pista de edición, aviso «Se descargó…», pie «PÁGINA n · archivo») se mueve con ella y si se va muy a
+la derecha **se pierde de vista**. Quiere que se quede visible.
+
 **Pregunta pendiente para el usuario (hacerla al retomar):**
-> El rediseño está en producción si el PR #4 se juntó. ¿Seguimos con la Fase 5 (PWA/offline, autoguardado, pulido)
-> o pruebas tus PDFs reales con `npm run test:corpus` primero?
-> Opciones: «Fase 5» · «Probar mis PDFs».
+> Arreglo lo que se pierde al hacer zoom (pendiente 1) y, cuando lo pruebes en el celular, ¿abro el PR de `dev` a
+> producción con la PWA y los arreglos?
+> Opciones: «Sí, arréglalo y luego PR» · «Arréglalo, pero el PR después».
 
 ## 4. Pendientes concretos (en orden)
 
-1. Confirmar que el PR #4 se juntó y sincronizar `dev` (`git merge --ff-only origin/main`). Las ramas `design-losa` y
-   `design-fichas` se pueden borrar cuando el usuario lo apruebe.
-2. Corpus real: el usuario pone sus PDFs en `test-fixtures/privado/` y corre `npm run test:corpus`.
-3. Sin cancelar exportación todavía (tarda segundos).
-4. Anotados en `PLAN.md`, sin fecha: autoguardado del log de ediciones en OPFS; orden de lectura por columnas para
+1. **Lo que rodea la hoja no debe perderse al hacer zoom.** En `src/components/viewer/PageList.tsx` la pista
+   (`EditHint`), el aviso de exportación (`ExportNotice`) y el pie de cada hoja (`figcaption` en `Page.tsx`) viven
+   dentro del contenedor que se desplaza de lado. Idea: hacerlos `sticky` al borde izquierdo visible (`sticky left-*`)
+   con ancho del visor, y el pie `sticky` dentro de su `figure`. Verificar con el e2e de pellizco (perfil `android`)
+   que sigan a la vista tras recorrer a la derecha, y en el celular del usuario.
+2. PR `dev`→`main` (PWA + arreglos de la crítica) con auto-merge, cuando el usuario lo pruebe.
+3. El usuario borrará la PWA instalada desde el preview de `dev` y se quedará con la de producción cuando la PWA
+   llegue a `main` (cada dirección es una app distinta).
+4. Fase 5, siguientes skills según `PLAN.md` §8: `find-animation-opportunities` → `animate`, `review-animations` +
+   `animation-performance`, landing con `design-taste-frontend` (requiere al usuario), `break-ui` final. Modo oscuro.
+5. Corpus real: el usuario pone sus PDFs en `test-fixtures/privado/` y corre `npm run test:corpus`.
+6. Las ramas `design`, `design-losa` y `design-fichas` se pueden borrar cuando el usuario lo apruebe.
+7. Sin cancelar exportación todavía (tarda segundos).
+8. Anotados en `PLAN.md`, sin fecha: autoguardado del log de ediciones en OPFS; orden de lectura por columnas para
    navegar con Tab; OCR (v4) — caso real: PDF escaneado exportado de Notion no se puede editar; modo oscuro, PWA y
-   landing (Fase 5); prueba en iPhone real (ya se probó en Android).
+   landing; prueba en iPhone real (ya se probó en Android).
 
 ## 5. Decisiones abiertas
 
@@ -167,3 +191,7 @@ Ninguna para la Fase 4: se cerraron el 2026-10-27 (ver sección 6). Notas para i
 - Quiere investigación profunda que incluya **tecnología nueva o subutilizada**, no solo lo que ya existe.
 - Prueba en el preview antes de pasar a producción. Aprueba explícitamente cambios de configuración (repo, Vercel).
 - Idea de producto: código abierto ahora; quizá un costo muy bajo más adelante.
+- En diseño decide **viendo las opciones funcionando en su celular** (ramas separadas con preview) y le gusta
+  **combinar** lo mejor de varias. Las páginas de decisión de Impeccable a veces se le cierran: si `--wait` devuelve
+  `PAGE CLOSED`, preguntarle por chat; y la página solo muestra bocetos guardados después de `--start`.
+- Cuando dice «termina» o «continúa», quiere que se avance sin más preguntas de las necesarias.
