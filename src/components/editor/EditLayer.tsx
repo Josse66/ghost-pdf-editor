@@ -188,7 +188,7 @@ function BlockSlot({
         // Marca de corrección al margen, como en una prueba de imprenta.
         <span
           aria-hidden
-          className="bg-vermilion pointer-events-none absolute"
+          className="bg-ultramar pointer-events-none absolute"
           style={{ left: rect.left - 7, top: rect.top, width: 2, height: rect.height }}
         />
       )}
@@ -363,7 +363,7 @@ function BlockText({
       spellCheck={editing ? true : undefined}
       className={cn(
         'absolute [overflow-wrap:anywhere] outline-offset-2',
-        editing ? 'outline-vermilion z-10 outline-[1.5px] outline-solid' : 'pointer-events-none',
+        editing ? 'outline-ultramar z-10 outline-[1.5px] outline-solid' : 'pointer-events-none',
       )}
       style={style}
       title={editing ? undefined : t('edited')}

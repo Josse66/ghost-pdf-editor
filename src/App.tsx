@@ -35,7 +35,7 @@ export default function App() {
     <div className="grid h-dvh grid-rows-[auto_1fr] overflow-hidden pr-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)]">
       <TopBar />
       <div className="grid min-h-0 grid-cols-[2.75rem_1fr] lg:grid-cols-[5.5rem_1fr_22rem]">
-        <aside className="border-rule min-h-0 border-r">
+        <aside className="border-rule chiseled min-h-0 border-r">
           {ready && <ThumbIndex numPages={doc.numPages} />}
         </aside>
         <main className="min-h-0 overflow-hidden">
@@ -49,7 +49,7 @@ export default function App() {
             </div>
           )}
         </main>
-        <aside className="border-rule hidden min-h-0 border-l lg:block">
+        <aside className="border-rule bg-ink-0 hidden min-h-0 border-l lg:block">
           {ready ? <ChangesPanel /> : <Definitions />}
         </aside>
       </div>

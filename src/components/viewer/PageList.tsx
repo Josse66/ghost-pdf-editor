@@ -7,8 +7,8 @@ import { ExportNotice } from '@/components/editor/ExportNotice'
 import { DebugSelect } from './DebugSelect'
 import { Page } from './Page'
 
-/** Borde y relleno de la lámina a cada lado. */
-const PLATE_CHROME = 2 * (1.5 + 8)
+/** Aire que se reserva a los lados de la lámina para que su sombra larga quepa al ajustar. */
+const PLATE_CHROME = 2 * 12
 /** Alto del pie de lámina («Página n») con su margen, para que ajustar a página lo incluya. */
 const CAPTION = 28
 /** Aire extra a los lados en pantallas anchas, para que la lámina no toque las columnas. */

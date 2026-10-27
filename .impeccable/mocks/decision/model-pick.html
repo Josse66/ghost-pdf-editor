@@ -1,57 +1,93 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+<html lang="es"><head><meta charset="utf-8"><title>Muro Barragán</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0}
-body{width:1440px;height:900px;overflow:hidden;font-family:"Public Sans",system-ui,sans-serif;color:#111827;background:#F3F5F8}
-.top{height:60px;background:#2E3A59;color:#fff;display:flex;align-items:center;padding:0 24px;gap:14px}
-.logo{font-weight:800;font-size:20px}
-.file{font-size:14px;opacity:.8;margin-left:16px}
-.sp{flex:1}
-.btn{height:38px;padding:0 16px;border-radius:6px;font-weight:700;font-size:14px;display:flex;align-items:center;border:1px solid rgba(255,255,255,.5)}
-.btn.solid{background:#fff;color:#2E3A59;border-color:#fff}
-.main{display:grid;grid-template-columns:1fr 300px;height:840px}
-.stage{position:relative;display:flex;justify-content:center;padding:32px 0;overflow:hidden;
- background:#E6EAF1 repeating-linear-gradient(45deg,rgba(46,58,89,.10) 0 2px,transparent 2px 7px),
- repeating-linear-gradient(-45deg,rgba(46,58,89,.07) 0 1px,transparent 1px 9px)}
-.page{width:560px;height:760px;background:#fff;box-shadow:0 2px 10px rgba(17,24,39,.18);padding:56px 52px;font-family:Calibri,Carlito,sans-serif;color:#222}
-.page h1{font-size:30px;color:#1f3864}
-.page .m{font-size:12.5px;color:#666;margin:6px 0 22px}
-.page h2{font-size:16px;color:#2f5496;border-bottom:1px solid #2f5496;margin:18px 0 10px}
-.page p{font-size:12.5px;line-height:1.5;margin-bottom:8px}
-.sel{outline:2px solid #2E3A59;outline-offset:3px}
-.seal{position:absolute;right:48px;bottom:40px;width:150px;height:150px;border-radius:50%;border:4px solid #14653F;color:#14653F;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:800;font-size:15px;line-height:1.2;background:rgba(255,255,255,.85);transform:rotate(-8deg)}
-.side{background:#fff;border-left:1px solid #D5DBE5;padding:22px}
-.side h4{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#5B6B8C;margin-bottom:12px}
-.row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #EEF1F5;font-size:14px}
-.row em{font-style:normal;color:#5B6B8C}
-.ok{margin-top:22px;padding:14px;border-radius:8px;background:#E8F6EF;color:#14653F;font-size:14px;font-weight:700}
+:root{--wall:#eef0f0;--ink:#2b2530;--rosa:#c22f69;--rosa2:#b8325f;--lav:#e6dff0;--lav2:#6a4b8e;--sun:#e9b23a;--mute:#5d5562}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:"Albert Sans",sans-serif;color:var(--ink);background:var(--wall)}
+header{height:64px;background:var(--rosa);color:#fff;display:flex;align-items:center;gap:18px;padding:0 28px}
+.brand{font-weight:700;font-size:18px;letter-spacing:-.01em}
+.file{font-size:14px}
+.spacer{flex:1}
+.zoom{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600}
+.zoom span{width:30px;height:30px;display:grid;place-items:center;background:rgba(255,255,255,.16)}
+.btn{height:40px;padding:0 18px;font:600 14px "Albert Sans";border:0;display:flex;align-items:center}
+.btn.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}
+.btn.primary{background:#fff;color:var(--rosa2)}
+main{display:grid;grid-template-columns:76px 1fr 400px;height:836px}
+.rail{background:var(--sun);padding:22px 0;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.tab{width:56px;height:58px;background:#f3c96a;display:grid;place-items:center;font:700 15px "Albert Sans";color:#5a3d00}
+.tab.cur{width:76px;background:var(--ink);color:#fff}
+.tab.ed{position:relative}
+.tab.ed:after{content:"";position:absolute;right:6px;top:6px;width:8px;height:8px;background:var(--rosa)}
+.patio{position:relative;overflow:hidden;display:flex;justify-content:center;padding-top:34px}
+.patio:before{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;background:#e3e6e6}
+.sheet{position:relative;width:612px;height:792px;background:#fff;padding:70px 66px;font-family:Carlito,sans-serif;color:#222;box-shadow:28px 28px 0 rgba(43,37,48,.10)}
+.sheet h1{font-size:30px;color:#1f3864;margin-bottom:6px}
+.sheet .sub{font-size:12.5px;color:#666;margin-bottom:22px}
+.sheet h2{font-size:15px;color:#2e5597;border-bottom:1px solid #2e5597;padding-bottom:3px;margin:16px 0 10px}
+.sheet p{font-size:12.5px;line-height:1.45;margin-bottom:9px}
+.edited{background:linear-gradient(transparent 0,transparent 100%);box-shadow:-10px 0 0 var(--rosa)}
+aside{background:var(--lav);padding:30px 30px;display:flex;flex-direction:column}
+.done{background:#fff;padding:14px 16px;font-size:14px;line-height:1.45;margin-bottom:26px;border-left:0}
+.done b{color:var(--rosa2)}
+.head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.head h3{font-size:22px;font-weight:700;letter-spacing:-.01em}
+.head h3 span{color:var(--lav2);font-weight:600;margin-left:6px}
+.head em{font-style:normal;font-size:14px;color:var(--mute);font-weight:600}
+.entry{padding:16px 0;border-bottom:1px solid #cfc3e0}
+.old{font-size:14px;color:var(--mute);text-decoration:line-through;text-decoration-color:var(--rosa);text-decoration-thickness:2px;line-height:1.35}
+.new{font-size:16px;font-weight:600;line-height:1.35;margin-top:4px}
+.meta{display:flex;justify-content:space-between;margin-top:8px;font-size:13px;color:var(--mute)}
+.meta b{color:var(--ink)}
+.warn{margin-top:6px;font-size:13px;color:#7a4b00;font-weight:600}
+.foot{margin-top:auto;font-size:12.5px;color:var(--mute)}
 </style></head><body>
-<div class="top"><div class="logo">Ghost PDF Editor</div><div class="file">cv-josefina-nunez.pdf · página 1 de 2</div><div class="sp"></div><div class="btn">Abrir</div><div class="btn solid">Exportar PDF</div></div>
-<div class="main">
-  <section class="stage">
-    <div class="page">
-      <h1>Josefina Núñez Peña</h1>
-      <div class="m">Desarrolladora Full Stack · Monterrey, N.L. · josefina@ejemplo.com</div>
+<header>
+  <div class="brand">Ghost PDF Editor</div>
+  <div class="file">cv-calibri.pdf</div>
+  <div class="spacer"></div>
+  <div class="zoom"><span>−</span>100%<span>+</span></div>
+  <button class="btn ghost">Abrir</button>
+  <button class="btn primary">Exportar PDF</button>
+</header>
+<main>
+  <nav class="rail">
+    <div class="tab cur ed">1</div><div class="tab">2</div><div class="tab ed">3</div><div class="tab">4</div><div class="tab">5</div>
+  </nav>
+  <section class="patio">
+    <div class="sheet">
+      <h1>José Núñez Peña</h1>
+      <div class="sub">Desarrollador Full Stack · Ciudad de México · jose.nunez@ejemplo.com · +52 55 1234 5678</div>
       <h2>Experiencia</h2>
-      <p><span class="sel"><b>Ingeniera de Software Sénior</b></span> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
-      <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día. Reduje el tiempo de respuesta promedio en un 35%.</p>
+      <p class="edited"><b>Sr. Ingeniero de Software</b> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+      <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día. Reduje el tiempo de respuesta promedio en un 35% migrando servicios críticos a una arquitectura basada en colas.</p>
       <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
-      <p>Construcción de sitios con React y Node.js para clientes del sector financiero.</p>
+      <p>Construcción de sitios con React y Node.js para clientes del sector financiero; integración de pagos y accesibilidad (WCAG 2.1 AA).</p>
       <h2>Educación</h2>
-      <p>Ingeniería en Computación — Universidad Nacional, 2016–2020.</p>
+      <p>Ingeniería en Computación — Universidad Nacional, 2016–2020. Promedio: 9.2</p>
+      <h2>Habilidades</h2>
+      <p class="edited">TypeScript, React, Node.js, PostgreSQL, Docker, pruebas automatizadas, inglés avanzado (C1), liderazgo técnico.</p>
     </div>
-    <div class="seal">Verificado<br>sin texto<br>original</div>
   </section>
-  <aside class="side">
-    <h4>Bloque seleccionado</h4>
-    <div class="row"><em>Fuente</em><span>Calibri Bold → Carlito</span></div>
-    <div class="row"><em>Tamaño</em><span>11 pt</span></div>
-    <div class="row"><em>Color</em><span>#222222</span></div>
-    <h4 style="margin-top:24px">Privacidad</h4>
-    <div class="row"><em>Subido a servidores</em><span>Nada</span></div>
-    <div class="row"><em>Texto anterior</em><span>Borrado</span></div>
-    <div class="ok">El texto «Ingeniero de Software» ya no existe dentro del archivo.</div>
+  <aside>
+    <div class="done">Se descargó <b>cv-calibri-editado.pdf</b>. El texto anterior se borró del archivo.</div>
+    <div class="head"><h3>Cambios<span>3</span></h3><em>Deshacer · Rehacer</em></div>
+    <div class="entry">
+      <div class="old">Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div>
+      <div class="new">Sr. Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div>
+      <div class="meta"><span>pág. 1 · Calibri → Carlito</span><b>Restaurar</b></div></div>
+    <div class="entry">
+      <div class="old">TypeScript, React, Node.js, PostgreSQL, Docker, pruebas automatizadas, inglés avanzado (C1).</div>
+      <div class="new">TypeScript, React, Node.js, PostgreSQL, Docker, pruebas automatizadas, inglés avanzado (C1), liderazgo técnico.</div>
+      <div class="meta"><span>pág. 1 · Calibri → Carlito</span><b>Restaurar</b></div>
+      <div class="warn">Letras un poco apretadas para caber</div></div>
+    <div class="entry">
+      <div class="old">Inglés avanzado</div>
+      <div class="new">Inglés avanzado (certificado C1, 2024)</div>
+      <div class="meta"><span>pág. 3 · Calibri → Carlito</span><b>Restaurar</b></div></div>
+    <div class="foot">Tu PDF nunca sale de este dispositivo.</div>
   </aside>
-</div>
+</main>
 </body></html>

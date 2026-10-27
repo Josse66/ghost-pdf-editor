@@ -20,7 +20,7 @@ export function ChangesSheet() {
   return (
     <>
       <Button
-        variant="ghost"
+        variant="bar"
         onClick={() => dialog.current?.showModal()}
         aria-label={`${t('changes')} · ${format(count)}`}
         className="h-9 gap-1 px-2.5 lg:hidden"

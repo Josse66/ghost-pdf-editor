@@ -29,8 +29,10 @@ export function EntryPlate({ dragging }: { dragging: boolean }) {
         className={cn(
           // Desde sm la lámina tiene proporción de hoja sin rebasar la altura disponible; en un
           // celular angosto esa proporción la haría más ancha que la columna, así que crece natural.
-          'w-full border-[1.5px] p-2 transition-colors duration-150 sm:max-w-[min(34rem,calc((100svh-8.5rem)/1.18))]',
-          dragging ? 'border-ultramar bg-ultramar/5' : 'border-rule',
+          // La hoja sola sobre la plaza, con la misma sombra larga que las páginas del PDF.
+          'w-full shadow-[10px_12px_0_rgb(42_42_40/0.14)] transition-shadow duration-150 sm:max-w-[min(34rem,calc((100svh-8.5rem)/1.18))] lg:shadow-[22px_26px_0_rgb(42_42_40/0.16)]',
+          dragging &&
+            'shadow-[10px_12px_0_var(--ultramar)] lg:shadow-[22px_26px_0_var(--ultramar)]',
         )}
       >
         <div
@@ -46,7 +48,7 @@ export function EntryPlate({ dragging }: { dragging: boolean }) {
               {status === 'error' && error && (
                 <div role="alert">
                   {/* El nombre tachado es una entrada corregida: va en la serif de los cambios. */}
-                  <p className="text-ink-7 decoration-vermilion font-serif text-lg [overflow-wrap:anywhere] line-through decoration-2">
+                  <p className="text-ink-7 decoration-ink-10 font-serif text-lg [overflow-wrap:anywhere] line-through decoration-2">
                     {fileName}
                   </p>
                   <p className="mt-1 text-[15px] leading-snug">{t(ERROR_TEXT[error])}</p>

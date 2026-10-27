@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Papel de seguridad</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f3f6f4;--tint:#dde8e3;--ink:#12302b;--ink7:#3f5a54;--green:#1f6f63;--rule:#b9cbc4;--red:#b3261e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:"Schibsted Grotesk",sans-serif;color:var(--ink);background:var(--paper);font-variant-numeric:tabular-nums}
+header{height:60px;background:var(--ink);color:#fff;display:flex;align-items:center;gap:18px;padding:0 24px}
+.brand{font-weight:700;font-size:16px;letter-spacing:.01em}
+.file{color:#b9d3cb;font-size:14px}
+.spacer{flex:1}
+.zoom{display:flex;align-items:center;border:1px solid #3d5f58;font-size:13px}
+.zoom span{width:32px;height:32px;display:grid;place-items:center;color:#cfe3dc}
+.zoom b{width:56px;text-align:center;font-weight:600}
+.btn{height:36px;padding:0 16px;font:600 14px "Schibsted Grotesk";display:flex;align-items:center;gap:8px;border:1px solid #3d5f58;background:transparent;color:#fff}
+.btn.primary{background:#fff;color:var(--ink);border-color:#fff}
+main{display:grid;grid-template-columns:96px 1fr 392px;height:840px}
+.folios{border-right:1px solid var(--rule);background:repeating-linear-gradient(115deg,transparent 0 5px,rgba(31,111,99,.07) 5px 6px),var(--tint);padding:20px 12px;display:flex;flex-direction:column;gap:8px}
+.f{height:56px;background:#fff;border:1px solid var(--rule);display:flex;flex-direction:column;justify-content:center;padding:8px 10px}
+.f small{font-size:10px;letter-spacing:.12em;color:var(--ink7)}
+.f b{font-size:18px;font-weight:600}
+.f.cur{background:var(--green);border-color:var(--green);color:#fff}
+.f.cur small{color:#cfe8e1}
+.f.ed b:after{content:" •";color:var(--green)}
+.f.cur.ed b:after{color:#fff}
+.stage{display:flex;flex-direction:column;align-items:center;padding:22px 0;overflow:hidden}
+.bar{width:612px;display:flex;justify-content:space-between;font-size:12px;color:var(--ink7);margin-bottom:10px;letter-spacing:.06em;text-transform:uppercase}
+.sheet{width:612px;height:792px;background:#fff;border:1px solid var(--rule);padding:70px 66px;font-family:Carlito,sans-serif;color:#222}
+.sheet h1{font-size:30px;color:#1f3864;margin-bottom:6px}
+.sheet .sub{font-size:12.5px;color:#666;margin-bottom:22px}
+.sheet h2{font-size:15px;color:#2e5597;border-bottom:1px solid #2e5597;padding-bottom:3px;margin:16px 0 10px}
+.sheet p{font-size:12.5px;line-height:1.45;margin-bottom:9px}
+.edited{outline:1.5px solid var(--green);outline-offset:3px;position:relative}
+.edited:after{content:"queda 12 %";position:absolute;right:-4px;top:-20px;font:600 10px "Schibsted Grotesk";color:var(--green);letter-spacing:.04em}
+aside{background:#fff;border-left:1px solid var(--rule);padding:22px 24px;display:flex;flex-direction:column}
+.seal{display:flex;gap:14px;align-items:center;padding-bottom:18px;margin-bottom:16px;border-bottom:1px solid var(--rule)}
+.ros{flex:none;width:64px;height:64px;border-radius:50%;background:repeating-radial-gradient(circle,var(--green) 0 .6px,transparent .6px 3px),repeating-conic-gradient(from 0deg,rgba(31,111,99,.55) 0 2deg,transparent 2deg 9deg);border:1.5px solid var(--green)}
+.seal p{font-size:13px;line-height:1.4;color:var(--ink7)}
+.seal p b{display:block;font-size:15px;color:var(--ink);margin-bottom:2px}
+.head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.head h3{font-size:18px;font-weight:700;letter-spacing:.01em}
+.head h3 span{font-weight:500;color:var(--ink7);margin-left:6px}
+.head em{font-style:normal;font-size:13px;color:var(--ink7)}
+.entry{padding:14px 0;border-top:1px solid var(--rule);display:grid;grid-template-columns:44px 1fr;gap:10px}
+.no{font-size:11px;color:var(--ink7);letter-spacing:.08em;padding-top:2px}
+.old{font-size:14px;color:var(--ink7);text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:1.5px;line-height:1.35}
+.new{font-size:15.5px;font-weight:600;line-height:1.35;margin-top:4px}
+.meta{display:flex;justify-content:space-between;margin-top:7px;font-size:12.5px;color:var(--ink7)}
+.meta b{color:var(--green);font-weight:600}
+.warn{margin-top:5px;font-size:12.5px;color:#7a4b00}
+.micro{margin-top:auto;font-size:10px;letter-spacing:.2em;color:var(--ink7);text-transform:uppercase;border-top:1px solid var(--rule);padding-top:8px}
+</style></head><body>
+<header>
+  <div class="brand">GHOST PDF EDITOR</div><div class="file">cv-calibri.pdf</div>
+  <div class="spacer"></div>
+  <div class="zoom"><span>−</span><b>100%</b><span>+</span></div>
+  <button class="btn">Abrir</button><button class="btn primary">Exportar PDF</button>
+</header>
+<main>
+  <nav class="folios">
+    <div class="f cur ed"><small>FOLIO</small><b>01</b></div><div class="f"><small>FOLIO</small><b>02</b></div>
+    <div class="f ed"><small>FOLIO</small><b>03</b></div><div class="f"><small>FOLIO</small><b>04</b></div><div class="f"><small>FOLIO</small><b>05</b></div>
+  </nav>
+  <section class="stage">
+    <div class="bar"><span>Folio 01 de 05</span><span>2 cambios en este folio</span></div>
+    <div class="sheet">
+      <h1>José Núñez Peña</h1>
+      <div class="sub">Desarrollador Full Stack · Ciudad de México · jose.nunez@ejemplo.com · +52 55 1234 5678</div>
+      <h2>Experiencia</h2>
+      <p class="edited"><b>Sr. Ingeniero de Software</b> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+      <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día. Reduje el tiempo de respuesta promedio en un 35% migrando servicios críticos a una arquitectura basada en colas.</p>
+      <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
+      <p>Construcción de sitios con React y Node.js para clientes del sector financiero; integración de pagos y accesibilidad (WCAG 2.1 AA).</p>
+      <h2>Educación</h2>
+      <p>Ingeniería en Computación — Universidad Nacional, 2016–2020. Promedio: 9.2</p>
+      <h2>Habilidades</h2>
+      <p>TypeScript, React, Node.js, PostgreSQL, Docker, pruebas automatizadas, inglés avanzado (C1), liderazgo técnico.</p>
+    </div>
+  </section>
+  <aside>
+    <div class="seal"><div class="ros"></div><p><b>Texto anterior borrado</b>Se descargó cv-calibri-editado.pdf. Lo tachado ya no existe en el archivo.</p></div>
+    <div class="head"><h3>Cambios<span>3</span></h3><em>Deshacer · Rehacer</em></div>
+    <div class="entry"><div class="no">Nº 001</div><div>
+      <div class="old">Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div>
+      <div class="new">Sr. Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div>
+      <div class="meta"><span>Folio 01 · Calibri → Carlito</span><b>Restaurar</b></div></div></div>
+    <div class="entry"><div class="no">Nº 002</div><div>
+      <div class="old">… inglés avanzado (C1).</div>
+      <div class="new">… inglés avanzado (C1), liderazgo técnico.</div>
+      <div class="meta"><span>Folio 01 · Calibri → Carlito</span><b>Restaurar</b></div>
+      <div class="warn">Letras un poco apretadas para caber</div></div></div>
+    <div class="entry"><div class="no">Nº 003</div><div>
+      <div class="old">Inglés avanzado</div>
+      <div class="new">Inglés avanzado (certificado C1, 2024)</div>
+      <div class="meta"><span>Folio 03 · Calibri → Carlito</span><b>Restaurar</b></div></div></div>
+    <div class="micro">Tu PDF nunca sale de este dispositivo · Tu PDF nunca sale de este dispositivo</div>
+  </aside>
+</main>
+</body></html>

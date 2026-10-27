@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Tipografía como interfaz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#111;--panel:#1b1b1b;--ink:#fff;--mute:#b5b5b5;--cyan:#1ba1e2;--red:#ff6b5b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:"Open Sans",sans-serif;color:var(--ink);background:var(--bg)}
+header{height:64px;display:flex;align-items:center;gap:22px;padding:0 32px}
+.brand{font-weight:300;font-size:26px;letter-spacing:-.01em}
+.brand b{font-weight:600}
+.file{color:var(--mute);font-size:14px}
+.spacer{flex:1}
+.zoom{font-size:14px;color:var(--mute)}
+.zoom b{color:var(--ink);font-weight:600}
+.btn{height:40px;padding:0 20px;font:600 14px "Open Sans";border:0;display:flex;align-items:center}
+.btn.ghost{background:var(--panel);color:var(--ink)}
+.btn.primary{background:var(--cyan);color:#001b29}
+main{display:grid;grid-template-columns:96px 1fr 440px;height:836px}
+.rail{padding:18px 0 0 24px;display:flex;flex-direction:column;gap:4px}
+.p{width:56px;height:56px;background:var(--panel);display:grid;place-items:center;font-size:18px;font-weight:300}
+.p.cur{background:var(--cyan);color:#001b29;font-weight:600}
+.p.ed{box-shadow:inset 0 -4px 0 var(--cyan)}
+.stage{display:flex;justify-content:center;padding-top:22px;overflow:hidden}
+.sheet{width:612px;height:792px;background:#fff;padding:70px 66px;font-family:Carlito,sans-serif;color:#222}
+.sheet h1{font-size:30px;color:#1f3864;margin-bottom:6px}
+.sheet .sub{font-size:12.5px;color:#666;margin-bottom:22px}
+.sheet h2{font-size:15px;color:#2e5597;border-bottom:1px solid #2e5597;padding-bottom:3px;margin:16px 0 10px}
+.sheet p{font-size:12.5px;line-height:1.45;margin-bottom:9px}
+.edited{box-shadow:-8px 0 0 var(--cyan)}
+aside{padding:6px 32px 0 28px;display:flex;flex-direction:column;overflow:hidden}
+.big{font-size:84px;font-weight:300;letter-spacing:-.04em;line-height:1;margin-left:-4px;white-space:nowrap}
+.big span{color:var(--cyan);font-size:44px;margin-left:12px;vertical-align:28px}
+.done{margin:14px 0 18px;font-size:14px;color:var(--mute)}
+.done b{color:var(--ink);font-weight:600}
+.entry{padding:14px 0;border-top:1px solid #2c2c2c}
+.old{font-size:14px;color:var(--mute);text-decoration:line-through;text-decoration-color:var(--red);line-height:1.4}
+.new{font-size:17px;font-weight:600;line-height:1.35;margin-top:4px}
+.meta{display:flex;justify-content:space-between;margin-top:8px;font-size:13px;color:var(--mute)}
+.meta b{color:var(--cyan);font-weight:600}
+.warn{margin-top:6px;font-size:13px;color:#ffcc66}
+</style></head><body>
+<header>
+  <div class="brand"><b>ghost</b> pdf editor</div>
+  <div class="file">cv-calibri.pdf</div>
+  <div class="spacer"></div>
+  <div class="zoom">zoom <b>100%</b></div>
+  <button class="btn ghost">abrir</button>
+  <button class="btn primary">exportar pdf</button>
+</header>
+<main>
+  <nav class="rail"><div class="p cur ed">1</div><div class="p">2</div><div class="p ed">3</div><div class="p">4</div><div class="p">5</div></nav>
+  <section class="stage">
+    <div class="sheet">
+      <h1>José Núñez Peña</h1>
+      <div class="sub">Desarrollador Full Stack · Ciudad de México · jose.nunez@ejemplo.com · +52 55 1234 5678</div>
+      <h2>Experiencia</h2>
+      <p class="edited"><b>Sr. Ingeniero de Software</b> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+      <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día. Reduje el tiempo de respuesta promedio en un 35% migrando servicios críticos a una arquitectura basada en colas.</p>
+      <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
+      <p>Construcción de sitios con React y Node.js para clientes del sector financiero; integración de pagos y accesibilidad (WCAG 2.1 AA).</p>
+      <h2>Educación</h2>
+      <p>Ingeniería en Computación — Universidad Nacional, 2016–2020. Promedio: 9.2</p>
+      <h2>Habilidades</h2>
+      <p class="edited">TypeScript, React, Node.js, PostgreSQL, Docker, pruebas automatizadas, inglés avanzado (C1), liderazgo técnico.</p>
+    </div>
+  </section>
+  <aside>
+    <div class="big">cambios<span>3</span></div>
+    <div class="done">se descargó <b>cv-calibri-editado.pdf</b>; el texto anterior se borró del archivo.</div>
+    <div class="entry">
+      <div class="old">Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div>
+      <div class="new">Sr. Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div>
+      <div class="meta"><span>pág. 1 · Calibri → Carlito</span><b>restaurar</b></div></div>
+    <div class="entry">
+      <div class="old">TypeScript, React, Node.js, PostgreSQL, Docker, pruebas automatizadas, inglés avanzado (C1).</div>
+      <div class="new">… inglés avanzado (C1), liderazgo técnico.</div>
+      <div class="meta"><span>pág. 1 · Calibri → Carlito</span><b>restaurar</b></div>
+      <div class="warn">letras un poco apretadas para caber</div></div>
+    <div class="entry">
+      <div class="old">Inglés avanzado</div>
+      <div class="new">Inglés avanzado (certificado C1, 2024)</div>
+      <div class="meta"><span>pág. 3 · Calibri → Carlito</span><b>restaurar</b></div></div>
+  </aside>
+</main>
+</body></html>
