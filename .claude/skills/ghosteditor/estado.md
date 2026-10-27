@@ -25,7 +25,7 @@ sin romper el formato y exporta un PDF. Sin backend, el archivo nunca sale del d
 | 1 · Setup | ✅ Hecha (Vite 8, React 19, TS 6 estricto, Tailwind v4, shadcn, oxlint, Vitest 5, Playwright, CI, Vercel) |
 | 2 · Motor de lectura + visor «Diccionario» | ✅ **En producción** (PR #1, merge `acfc64a`, 2026-10-26) |
 | 3 · Capa de edición | ✅ **En producción** (PR #2, merge `13840d1`, 2026-10-27; probada en Android real) |
-| 4 · Exportación (MVP) | 🔨 **Exporta en `dev`** (motor + worker + botón + avisos). Falta probar en celular, `/impeccable harden` y PR |
+| 4 · Exportación (MVP) | ✅ Probada en celular real y endurecida (`/impeccable harden`). **PR #3 `dev`→`main` con auto-merge** (2026-10-27). Pendiente menor: tests por píxeles |
 | 5 · Pulido, PWA, landing | Pendiente |
 
 ### Qué hace hoy la app (en `dev`)
@@ -61,14 +61,22 @@ poco simple»: **lo dejamos para el final** (Fase 5).
 Después se **conectó a la app** (worker, botón, avisos, e2e que descarga y relee el PDF) y se verificó en el navegador
 de escritorio y en vista móvil.
 
+El usuario exportó desde su celular y funcionó. Se pasó `/impeccable harden` por el flujo: «Preparando…» mientras
+baja el motor la primera vez, aviso específico sin conexión (con Reintentar en el aviso), nombres larguísimos que
+se parten, Ctrl/⌘ S exporta; e2e de sin-red → reintentar. Se abrió el **PR #3** `dev`→`main` con auto-merge.
+El usuario preguntó por qué Chrome decía que accedía a su ubicación: la app no usa geolocalización (verificado en
+código, build y preview); lo más probable es el indicador de Android sobre la app Chrome. En los previews Vercel
+inyecta su barra de comentarios (`vercel.live`), que tampoco la usa; se puede apagar en Vercel si molesta.
+
 **Pregunta pendiente para el usuario (hacerla al retomar):**
-> ¿Ya probaste exportar desde el preview de `dev` en tu celular (abrir un PDF, editar, Exportar, abrir el descargado)?
-> Opciones: «Funciona» (→ `/impeccable harden` sobre el flujo y luego PR a `main`) · «Encontré algo».
+> La Fase 4 (MVP) está en producción si el PR #3 se juntó. ¿Seguimos con la Fase 5 (pulido, PWA/offline, rediseño
+> visual con varias direcciones) o primero los pendientes de la Fase 4 (tests por píxeles, corpus real)?
+> Opciones: «Fase 5» · «Cerrar pendientes de la Fase 4».
 
 ## 4. Pendientes concretos (en orden)
 
-1. **Cerrar la Fase 4:** que el usuario pruebe exportar en su celular; `/impeccable harden` sobre el flujo (archivo
-   grande, cancelar, sin red la primera vez que se baja el wasm, PDF que PDFium no abre); PR `dev`→`main`.
+1. Confirmar que el PR #3 (Fase 4) se juntó y sincronizar `dev` con `main` (`git rebase origin/main` si hay commits
+   locales sin subir; si no, `git merge --ff-only origin/main`). Sin cancelar exportación todavía (tarda segundos).
 2. Refrescar `.impeccable/design.json` (quedó más viejo que `DESIGN.md`) y documentar los
    componentes nuevos de la Fase 3 (capa de edición, hoja de Cambios) con el documentador de Impeccable. Opcional:
    revisión final de Impeccable (`impeccable-finish-reviewer`) sobre la capa de edición.

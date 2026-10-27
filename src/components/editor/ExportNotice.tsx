@@ -1,7 +1,11 @@
 import type { CSSProperties } from 'react'
+import { Button } from '@/components/ui/button'
 import { useT } from '@/i18n'
 import { cn } from '@/lib/utils'
-import { useCurrentExport, warningsFor } from '@/store/export'
+import { useCurrentExport, useExport, warningsFor } from '@/store/export'
+
+/** Cuerpo de aviso: los nombres de archivo sin espacios se parten antes que desbordar la columna. */
+const BODY = 'text-ink-8 mt-1 text-[15px] leading-relaxed [overflow-wrap:anywhere]'
 
 /**
  * Resultado de la última exportación, mientras siga describiendo las ediciones de ahora. Con
@@ -19,6 +23,7 @@ export function ExportNotice({
 }) {
   const t = useT()
   const result = useCurrentExport()
+  const retry = useExport((s) => s.run)
   if (!result || result.status === 'idle' || result.status === 'working') return null
   const name = result.fileName ?? ''
 
@@ -26,7 +31,12 @@ export function ExportNotice({
     return (
       <div role="alert" className={cn('border-vermilion border-b pb-4', className)} style={style}>
         <p className="text-vermilion text-[17px] font-semibold">{t('exportFailedTitle')}</p>
-        <p className="text-ink-8 mt-1 text-[15px] leading-relaxed">{t('exportFailedBody')}</p>
+        <p className={BODY}>
+          {t(result.failure === 'network' ? 'exportOfflineBody' : 'exportFailedBody')}
+        </p>
+        <Button variant="outline" size="sm" onClick={() => void retry()} className="mt-3">
+          {t('retry')}
+        </Button>
       </div>
     )
   }
@@ -37,11 +47,7 @@ export function ExportNotice({
 
   if (!warned && !missing) {
     return (
-      <p
-        role="status"
-        className={cn('text-ink-8 text-[15px] leading-relaxed', className)}
-        style={style}
-      >
+      <p role="status" className={cn(BODY, 'mt-0', className)} style={style}>
         {t('exportDone', { name })}
       </p>
     )
@@ -51,15 +57,9 @@ export function ExportNotice({
     <div role="status" className={cn('border-vermilion border-b pb-4', className)} style={style}>
       <p className="text-vermilion text-[17px] font-semibold">{t('exportWarnTitle')}</p>
       {warned && (
-        <p className="text-ink-8 mt-1 text-[15px] leading-relaxed">
-          {t(touch ? 'exportWarnBodyTouch' : 'exportWarnBody', { name })}
-        </p>
+        <p className={BODY}>{t(touch ? 'exportWarnBodyTouch' : 'exportWarnBody', { name })}</p>
       )}
-      {missing && (
-        <p className="text-ink-8 mt-1 text-[15px] leading-relaxed">
-          {t('exportMissing', { chars: missing })}
-        </p>
-      )}
+      {missing && <p className={BODY}>{t('exportMissing', { chars: missing })}</p>}
     </div>
   )
 }

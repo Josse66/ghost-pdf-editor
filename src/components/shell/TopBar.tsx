@@ -13,7 +13,7 @@ import { useT } from '@/i18n'
 import { nextStep, toPercent } from '@/lib/zoom'
 import { selectScale, useDocument } from '@/store/document'
 import { useEdits } from '@/store/edits'
-import { editedFileName, useExport } from '@/store/export'
+import { useExport } from '@/store/export'
 import { ChangesSheet } from '@/components/editor/ChangesSheet'
 import { FileName } from './FileName'
 
@@ -63,19 +63,24 @@ export function TopBar() {
 function ExportButton() {
   const t = useT()
   const ready = useDocument((s) => s.status === 'ready')
-  const fileName = useDocument((s) => s.fileName)
   const count = useEdits((s) => s.history.present.size)
   const working = useExport((s) => s.status === 'working')
+  const stage = useExport((s) => s.stage)
   const run = useExport((s) => s.run)
-  const label = working ? t('exporting') : t('exportPdf')
+  // La primera vez se baja el motor: decirlo explica la espera en una conexión lenta.
+  const label = !working
+    ? t('exportPdf')
+    : stage === 'engine'
+      ? t('exportPreparing')
+      : t('exporting')
 
   return (
     <Button
       disabled={!ready || count === 0 || working}
       aria-busy={working}
-      title={ready && count === 0 ? t('exportNothing') : undefined}
+      title={ready && count === 0 ? t('exportNothing') : `${t('exportPdf')} (Ctrl+S)`}
       aria-label={label}
-      onClick={() => run(editedFileName(fileName ?? 'documento.pdf', t('editedSuffix')))}
+      onClick={() => void run()}
       className="h-9 px-2.5 sm:px-3.5"
     >
       {working ? (

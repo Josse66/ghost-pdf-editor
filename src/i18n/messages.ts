@@ -8,6 +8,7 @@ export const messages = {
     exportPdf: 'Exportar PDF',
     exportNothing: 'Aún no hay cambios que exportar.',
     exporting: 'Exportando…',
+    exportPreparing: 'Preparando…',
     editedSuffix: 'editado',
     exportDone: 'Se descargó {name}.',
     exportWarnTitle: 'Exportado, con avisos',
@@ -18,7 +19,10 @@ export const messages = {
     exportMissing: 'La letra sustituta no tiene estos caracteres y salen como cuadritos: {chars}',
     exportFailedTitle: 'No se pudo exportar',
     exportFailedBody:
-      'Tus cambios siguen aquí. Prueba de nuevo; si vuelve a fallar, este PDF tiene algo que aún no sabemos reescribir.',
+      'Tus cambios siguen aquí. Este PDF tiene algo que aún no sabemos reescribir; si vuelve a fallar, restaura el último cambio y exporta sin él.',
+    exportOfflineBody:
+      'La primera exportación descarga el motor (unos 2 MB) y hace falta conexión. Tus cambios siguen aquí; conéctate y vuelve a intentarlo. Después funciona sin internet.',
+    retry: 'Reintentar',
     warnNotErased: 'el texto original no se pudo borrar del archivo',
     warnSqueezed: 'letras un poco apretadas para caber',
     warnShrunk: 'letra más chica para caber',
@@ -91,6 +95,7 @@ export const messages = {
     exportPdf: 'Export PDF',
     exportNothing: 'There are no changes to export yet.',
     exporting: 'Exporting…',
+    exportPreparing: 'Preparing…',
     editedSuffix: 'edited',
     exportDone: 'Downloaded {name}.',
     exportWarnTitle: 'Exported, with warnings',
@@ -101,7 +106,10 @@ export const messages = {
     exportMissing: 'The substitute font lacks these characters, so they show as boxes: {chars}',
     exportFailedTitle: 'Export failed',
     exportFailedBody:
-      'Your changes are still here. Try again; if it fails again, this PDF has something we cannot rewrite yet.',
+      'Your changes are still here. This PDF has something we cannot rewrite yet; if it fails again, restore the last change and export without it.',
+    exportOfflineBody:
+      'The first export downloads the engine (about 2 MB) and needs a connection. Your changes are still here; get online and try again. After that it works offline.',
+    retry: 'Try again',
     warnNotErased: 'the original text could not be erased from the file',
     warnSqueezed: 'letters slightly condensed to fit',
     warnShrunk: 'smaller type to fit',
