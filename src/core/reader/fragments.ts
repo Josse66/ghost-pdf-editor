@@ -2,6 +2,7 @@
 // Solo describe la forma mínima que usamos de pdf.js, para no atar el núcleo a su API interna.
 import type { TextStyle } from '../engine'
 import { parseFontName } from '../fonts/font-name'
+import { toGeneric } from '../fonts/substitutes'
 import { isEmptyFragment, normalizeText } from './normalize'
 
 /** Lo que usamos de un item de texto de pdf.js. */
@@ -63,6 +64,7 @@ export function toFragments(
       rotation: normalizeAngle((Math.atan2(b, a) * 180) / Math.PI),
       fontName: realName,
       fontFamily: parsed.family,
+      generic: toGeneric(style?.fontFamily),
       bold: parsed.bold,
       italic: parsed.italic,
     })
