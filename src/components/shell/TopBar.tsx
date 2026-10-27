@@ -25,30 +25,38 @@ export function TopBar() {
   const ready = status === 'ready'
 
   return (
-    // Cabeza carbón: el volumen más oscuro, sobre el que se apoya todo lo demás.
-    <header className="bg-ink-10 box-content grid h-[58px] grid-cols-[1fr_auto] items-center gap-3 px-3 pt-[env(safe-area-inset-top)] sm:px-5 lg:grid-cols-[1fr_auto_1fr]">
-      <div className="flex min-w-0 items-baseline gap-2">
-        <span className="text-[15px] font-bold tracking-tight whitespace-nowrap text-white">
-          {t('appName')}
-        </span>
-        {ready && fileName && (
-          <span className="text-ink-3 hidden min-w-0 items-baseline gap-1 text-sm md:flex">
-            <span aria-hidden>·</span>
-            <FileName name={fileName} />
+    // La cabeza es una losa de concreto claro que flota sobre la plaza, con la misma sombra larga
+    // que la hoja del PDF. Ocupa las columnas de uñeros y lámina; en escritorio Cambios va a un lado.
+    <header className="col-span-2 px-2 pt-[calc(env(safe-area-inset-top)+8px)] pb-1.5 sm:px-4 lg:px-5 lg:pt-4 lg:pb-3">
+      <div className="bg-ink-0 grid h-14 grid-cols-[1fr_auto] items-center gap-3 px-3 shadow-[7px_8px_0_rgb(42_42_40/0.14)] sm:px-4 lg:grid-cols-[1fr_auto_1fr] lg:shadow-[12px_14px_0_rgb(42_42_40/0.14)]">
+        <div className="flex min-w-0 items-baseline gap-2">
+          <span className="text-[16px] font-extrabold tracking-tight whitespace-nowrap">
+            {t('appName')}
           </span>
-        )}
-      </div>
+          {ready && fileName && (
+            <span className="text-ink-7 hidden min-w-0 items-baseline gap-1 text-sm md:flex">
+              <span aria-hidden>·</span>
+              <FileName name={fileName} />
+            </span>
+          )}
+        </div>
 
-      <GuideWords />
+        <GuideWords />
 
-      <div className="flex items-center justify-end gap-1.5 sm:gap-2">
-        {ready && <ZoomControls />}
-        {ready && <ChangesSheet />}
-        <Button variant="bar" onClick={pick} aria-label={t('open')} className="h-9 px-2.5 sm:px-3">
-          <FolderOpen />
-          <span className="hidden sm:inline">{t('open')}</span>
-        </Button>
-        <ExportButton />
+        <div className="flex items-center justify-end gap-1.5 sm:gap-2">
+          {ready && <ZoomControls />}
+          {ready && <ChangesSheet />}
+          <Button
+            variant="ghost"
+            onClick={pick}
+            aria-label={t('open')}
+            className="h-9 px-2.5 sm:px-3"
+          >
+            <FolderOpen />
+            <span className="hidden sm:inline">{t('open')}</span>
+          </Button>
+          <ExportButton />
+        </div>
       </div>
     </header>
   )
@@ -76,7 +84,7 @@ function ExportButton() {
       title={ready && count === 0 ? t('exportNothing') : `${t('exportPdf')} (Ctrl+S)`}
       aria-label={label}
       onClick={() => void run()}
-      className="bg-glass hover:bg-glass/85 h-9 px-2.5 sm:px-3.5"
+      className="h-9 px-2.5 sm:px-3.5"
     >
       {working ? (
         <LoaderCircle className="animate-spin motion-reduce:animate-none" />
@@ -103,7 +111,7 @@ function GuideWords() {
   return (
     <p
       aria-live="polite"
-      className="guide-caps tabular text-ink-2 order-last col-span-2 hidden text-center text-[15px] lg:order-none lg:col-span-1 lg:block"
+      className="guide-caps tabular text-ink-7 order-last col-span-2 hidden text-center text-[15px] lg:order-none lg:col-span-1 lg:block"
     >
       {label}
     </p>
@@ -123,16 +131,16 @@ function ZoomControls() {
       aria-label={t('zoomLevel', { n: toPercent(scale) })}
     >
       <Button
-        variant="bar"
+        variant="ghost"
         size="icon"
         aria-label={t('zoomOut')}
         onClick={() => setZoom(nextStep(scale, -1))}
       >
         <Minus />
       </Button>
-      <span className="tabular text-ink-2 w-11 text-center text-sm">{toPercent(scale)}%</span>
+      <span className="tabular text-ink-8 w-11 text-center text-sm">{toPercent(scale)}%</span>
       <Button
-        variant="bar"
+        variant="ghost"
         size="icon"
         aria-label={t('zoomIn')}
         onClick={() => setZoom(nextStep(scale, 1))}
@@ -140,7 +148,7 @@ function ZoomControls() {
         <Plus />
       </Button>
       <Button
-        variant="bar"
+        variant="ghost"
         size="icon"
         aria-label={t('fitPage')}
         aria-pressed={zoom === 'page'}
@@ -149,7 +157,7 @@ function ZoomControls() {
         <Maximize />
       </Button>
       <Button
-        variant="bar"
+        variant="ghost"
         size="icon"
         aria-label={t('fitWidth')}
         aria-pressed={zoom === 'width'}

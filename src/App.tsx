@@ -32,27 +32,24 @@ export default function App() {
 
   return (
     // dvh sigue a la barra del navegador y al teclado; las zonas seguras dejan libre el notch.
-    <div className="grid h-dvh grid-rows-[auto_1fr] overflow-hidden pr-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)]">
+    // La losa (cabeza) flota sobre la plaza a la izquierda; en escritorio Cambios sube hasta arriba.
+    <div className="grid-plaza grid h-dvh grid-cols-[2.75rem_1fr] grid-rows-[auto_1fr] overflow-hidden pr-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)] lg:grid-cols-[5.5rem_1fr_22rem]">
       <TopBar />
-      <div className="grid min-h-0 grid-cols-[2.75rem_1fr] lg:grid-cols-[5.5rem_1fr_22rem]">
-        <aside className="border-rule chiseled min-h-0 border-r">
-          {ready && <ThumbIndex numPages={doc.numPages} />}
-        </aside>
-        <main className="min-h-0 overflow-hidden">
-          {ready ? (
-            <Suspense>
-              <PageList doc={doc} />
-            </Suspense>
-          ) : (
-            <div className="h-full overflow-auto">
-              <EntryPlate dragging={dragging} />
-            </div>
-          )}
-        </main>
-        <aside className="border-rule bg-ink-0 hidden min-h-0 border-l lg:block">
-          {ready ? <ChangesPanel /> : <Definitions />}
-        </aside>
-      </div>
+      <aside className="min-h-0">{ready && <ThumbIndex numPages={doc.numPages} />}</aside>
+      <main className="min-h-0 overflow-hidden">
+        {ready ? (
+          <Suspense>
+            <PageList doc={doc} />
+          </Suspense>
+        ) : (
+          <div className="h-full overflow-auto">
+            <EntryPlate dragging={dragging} />
+          </div>
+        )}
+      </main>
+      <aside className="border-rule bg-ink-0 hidden min-h-0 border-l lg:col-start-3 lg:row-span-2 lg:row-start-1 lg:block">
+        {ready ? <ChangesPanel /> : <Definitions />}
+      </aside>
     </div>
   )
 }

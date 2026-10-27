@@ -175,6 +175,15 @@
   font-weight: 600;
 }
 
+/* Plaza con retícula: la cuadrícula tenue de 24px sobre la que se apoyan la losa, los uñeros y la hoja. */
+@utility grid-plaza {
+  background-color: var(--ink-1);
+  background-image:
+    linear-gradient(rgb(42 42 40 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(42 42 40 / 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
 /* Muro cincelado: estrías verticales de 1px, solo en la franja de uñeros. */
 @utility chiseled {
   background-color: var(--ink-2);

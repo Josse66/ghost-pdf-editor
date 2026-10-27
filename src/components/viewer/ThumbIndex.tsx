@@ -6,7 +6,7 @@ import { useDocument } from '@/store/document'
 /** Hasta este número de páginas cada uñero es una página; arriba de eso, un rango. */
 const MAX_SINGLE_TABS = 16
 
-/** Uñeros: ranuras talladas en el muro de concreto, una por página (o por rango), para saltar. */
+/** Uñeros: bloques de concreto sobre la plaza, uno por página (o por rango), para saltar. */
 export function ThumbIndex({ numPages }: { numPages: number }) {
   const t = useT()
   const current = useDocument((s) => s.current)
@@ -28,12 +28,12 @@ export function ThumbIndex({ numPages }: { numPages: number }) {
           aria-current={active ? 'page' : undefined}
           aria-label={single ? t('goToPage', { n: first }) : t('goToRange', { a: first, b: last })}
           className={cn(
-            // Ranura tallada: sombra interior recta arriba-izquierda; la actual es un bloque carbón.
+            // Bloque claro con un leve hundido; el actual es carbón y proyecta la misma sombra larga.
             'tabular flex h-11 w-full items-center justify-center leading-none font-bold transition-colors duration-150 ease-out lg:h-14',
             digits >= 4 ? 'text-[11px]' : digits === 3 ? 'text-[12.5px]' : 'text-[15px]',
             active
-              ? 'bg-ink-10 text-white'
-              : 'bg-ink-1 text-ink-8 hover:bg-ink-0 shadow-[inset_3px_3px_0_rgb(0_0_0/0.12)]',
+              ? 'bg-ink-10 text-white shadow-[5px_6px_0_rgb(42_42_40/0.18)]'
+              : 'bg-ink-0 text-ink-8 hover:bg-white shadow-[inset_2px_2px_0_rgb(0_0_0/0.08)]',
           )}
         >
           {format(active ? current : first)}
