@@ -33,7 +33,7 @@ export function ThumbIndex({ numPages }: { numPages: number }) {
             digits >= 4 ? 'text-[11px]' : digits === 3 ? 'text-[12.5px]' : 'text-[15px]',
             active
               ? 'bg-ink-10 text-white shadow-[5px_6px_0_rgb(42_42_40/0.18)]'
-              : 'bg-ink-0 text-ink-8 hover:bg-white shadow-[inset_2px_2px_0_rgb(0_0_0/0.08)]',
+              : 'bg-ink-0 text-ink-8 shadow-[inset_2px_2px_0_rgb(0_0_0/0.08)] hover:bg-white',
           )}
         >
           {format(active ? current : first)}

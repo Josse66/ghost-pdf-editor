@@ -1,50 +1,55 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-26T00:00:00Z",
+  "generatedAt": "2026-10-27T00:00:00Z",
   "title": "Design System: Ghost PDF Editor",
   "extensions": {
     "colorMeta": {
-      "ink-0": { "role": "neutral", "displayName": "Papel biblia", "canonical": "#f6f6f3", "tonalRamp": ["#161412", "#2c2925", "#423f39", "#5a564f", "#8e8a83", "#c7c5bf", "#eae9e5", "#f6f6f3"] },
-      "ink-1": { "role": "neutral", "displayName": "Gris de hover", "canonical": "#eae9e5", "tonalRamp": ["#161412", "#2c2925", "#423f39", "#5a564f", "#8e8a83", "#c7c5bf", "#eae9e5", "#f6f6f3"] },
-      "ink-2": { "role": "neutral", "displayName": "Pista", "canonical": "#dcdbd6", "tonalRamp": ["#161412", "#2c2925", "#423f39", "#5a564f", "#8e8a83", "#c7c5bf", "#eae9e5", "#f6f6f3"] },
-      "ink-3": { "role": "neutral", "displayName": "Filete", "canonical": "#c7c5bf", "tonalRamp": ["#161412", "#2c2925", "#423f39", "#5a564f", "#8e8a83", "#c7c5bf", "#eae9e5", "#f6f6f3"] },
-      "ink-4": { "role": "neutral", "displayName": "Contorno de campo", "canonical": "#aba8a1", "tonalRamp": ["#161412", "#2c2925", "#423f39", "#5a564f", "#8e8a83", "#c7c5bf", "#eae9e5", "#f6f6f3"] },
-      "ink-5": { "role": "neutral", "displayName": "Ramp 5", "canonical": "#8e8a83", "tonalRamp": ["#161412", "#2c2925", "#423f39", "#5a564f", "#8e8a83", "#c7c5bf", "#eae9e5", "#f6f6f3"] },
-      "ink-6": { "role": "neutral", "displayName": "Ramp 6", "canonical": "#726e67", "tonalRamp": ["#161412", "#2c2925", "#423f39", "#5a564f", "#8e8a83", "#c7c5bf", "#eae9e5", "#f6f6f3"] },
-      "ink-7": { "role": "neutral", "displayName": "Texto secundario", "canonical": "#5a564f", "tonalRamp": ["#161412", "#2c2925", "#423f39", "#5a564f", "#8e8a83", "#c7c5bf", "#eae9e5", "#f6f6f3"] },
-      "ink-8": { "role": "neutral", "displayName": "Texto de apoyo", "canonical": "#423f39", "tonalRamp": ["#161412", "#2c2925", "#423f39", "#5a564f", "#8e8a83", "#c7c5bf", "#eae9e5", "#f6f6f3"] },
-      "ink-9": { "role": "neutral", "displayName": "Palabras guía", "canonical": "#2c2925", "tonalRamp": ["#161412", "#2c2925", "#423f39", "#5a564f", "#8e8a83", "#c7c5bf", "#eae9e5", "#f6f6f3"] },
-      "ink-10": { "role": "primary", "displayName": "Tinta de grabado", "canonical": "#161412", "tonalRamp": ["#161412", "#2c2925", "#423f39", "#5a564f", "#8e8a83", "#c7c5bf", "#eae9e5", "#f6f6f3"] },
-      "vermilion": { "role": "secondary", "displayName": "Bermellón", "canonical": "#b8321f", "tonalRamp": ["#3d0f08", "#5e170c", "#812112", "#b8321f", "#d4523d", "#e5846f", "#f0b6a8", "#f9e4de"] },
-      "ultramar": { "role": "tertiary", "displayName": "Ultramar", "canonical": "#2c4f9e", "tonalRamp": ["#0f1a36", "#172a57", "#213b7a", "#2c4f9e", "#4a6dbd", "#7a95d2", "#afc0e5", "#e1e8f6"] },
-      "sheet-white": { "role": "neutral", "displayName": "Papel de hoja", "canonical": "#ffffff", "tonalRamp": ["#262626", "#474747", "#6b6b6b", "#919191", "#b8b8b8", "#dbdbdb", "#f2f2f2", "#ffffff"] }
+      "ink-0": { "role": "neutral", "displayName": "Concreto claro", "canonical": "#f3f2ef", "tonalRamp": ["#2a2a28", "#3a3a37", "#4a4844", "#5f5d58", "#8a8781", "#bdbab4", "#e4e3df", "#f3f2ef"] },
+      "ink-1": { "role": "neutral", "displayName": "Plaza", "canonical": "#e4e3df", "tonalRamp": ["#2a2a28", "#3a3a37", "#4a4844", "#5f5d58", "#8a8781", "#bdbab4", "#e4e3df", "#f3f2ef"] },
+      "ink-2": { "role": "neutral", "displayName": "Concreto 2", "canonical": "#d3d1cc", "tonalRamp": ["#2a2a28", "#3a3a37", "#4a4844", "#5f5d58", "#8a8781", "#bdbab4", "#e4e3df", "#f3f2ef"] },
+      "ink-3": { "role": "neutral", "displayName": "Junta", "canonical": "#bdbab4", "tonalRamp": ["#2a2a28", "#3a3a37", "#4a4844", "#5f5d58", "#8a8781", "#bdbab4", "#e4e3df", "#f3f2ef"] },
+      "ink-4": { "role": "neutral", "displayName": "Contorno de campo", "canonical": "#a4a19b", "tonalRamp": ["#2a2a28", "#3a3a37", "#4a4844", "#5f5d58", "#8a8781", "#bdbab4", "#e4e3df", "#f3f2ef"] },
+      "ink-5": { "role": "neutral", "displayName": "Concreto 5", "canonical": "#8a8781", "tonalRamp": ["#2a2a28", "#3a3a37", "#4a4844", "#5f5d58", "#8a8781", "#bdbab4", "#e4e3df", "#f3f2ef"] },
+      "ink-6": { "role": "neutral", "displayName": "Concreto 6", "canonical": "#716e69", "tonalRamp": ["#2a2a28", "#3a3a37", "#4a4844", "#5f5d58", "#8a8781", "#bdbab4", "#e4e3df", "#f3f2ef"] },
+      "ink-7": { "role": "neutral", "displayName": "Texto secundario", "canonical": "#5f5d58", "tonalRamp": ["#2a2a28", "#3a3a37", "#4a4844", "#5f5d58", "#8a8781", "#bdbab4", "#e4e3df", "#f3f2ef"] },
+      "ink-8": { "role": "neutral", "displayName": "Texto de apoyo", "canonical": "#4a4844", "tonalRamp": ["#2a2a28", "#3a3a37", "#4a4844", "#5f5d58", "#8a8781", "#bdbab4", "#e4e3df", "#f3f2ef"] },
+      "ink-9": { "role": "neutral", "displayName": "Carbón claro", "canonical": "#3a3a37", "tonalRamp": ["#2a2a28", "#3a3a37", "#4a4844", "#5f5d58", "#8a8781", "#bdbab4", "#e4e3df", "#f3f2ef"] },
+      "ink-10": { "role": "neutral", "displayName": "Carbón", "canonical": "#2a2a28", "tonalRamp": ["#2a2a28", "#3a3a37", "#4a4844", "#5f5d58", "#8a8781", "#bdbab4", "#e4e3df", "#f3f2ef"] },
+      "ultramar": { "role": "primary", "displayName": "Azul de cristal", "canonical": "#24466b", "tonalRamp": ["#0d1928", "#152a40", "#1c3855", "#24466b", "#3e6690", "#6f90b5", "#a9c0da", "#e2eaf3"] },
+      "vermilion": { "role": "secondary", "displayName": "Rojo de aviso", "canonical": "#a8322a", "tonalRamp": ["#3a110e", "#5a1a15", "#7e241e", "#a8322a", "#c55348", "#da8279", "#ebb6b0", "#f8e5e3"] },
+      "sheet-white": { "role": "neutral", "displayName": "Hoja", "canonical": "#ffffff", "tonalRamp": ["#262626", "#474747", "#6b6b6b", "#919191", "#b8b8b8", "#dbdbdb", "#f2f2f2", "#ffffff"] }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Título de la lámina de entrada (2rem en celular, 2.4rem desde sm)." },
-      "headline": { "displayName": "Headline", "purpose": "Título del estado de carga." },
-      "title": { "displayName": "Title", "purpose": "Título de aviso en la columna de cambios, en bermellón." },
-      "brand": { "displayName": "Marca", "purpose": "Nombre de la app en la barra superior." },
-      "body": { "displayName": "Body", "purpose": "Mensajes, pistas y cuerpos de aviso en la sans." },
-      "label": { "displayName": "Label", "purpose": "Botones, opciones y controles." },
-      "caption": { "displayName": "Caption", "purpose": "Pies, conteos y leyendas." },
-      "guide": { "displayName": "Palabras guía", "purpose": "Versalitas serif: rango de páginas de la cabeza, cabecera «Cambios», pie «Página n», etiqueta «Pág.». 12px en etiquetas de columna." },
-      "entry": { "displayName": "Entrada", "purpose": "Entradas de cambios y cuerpos de definiciones, en la serif." },
-      "entry-term": { "displayName": "Término", "purpose": "Término de cada definición en la columna de entrada." },
-      "tab-numeral": { "displayName": "Número de uñero", "purpose": "Números de los uñeros; baja a 12.5px con 3 cifras y 11px con 4 o más." }
+      "display": { "displayName": "Display", "purpose": "«Abre tu PDF» en la lámina de entrada (2.4rem desde sm)." },
+      "display-compact": { "displayName": "Display compacto", "purpose": "La misma lámina en celular (2rem)." },
+      "headline": { "displayName": "Headline", "purpose": "«Cambios» sobre la regla carbón de 3px." },
+      "title": { "displayName": "Title", "purpose": "Términos de la columna de entrada; títulos de aviso a 17px 600 en rojo." },
+      "brand": { "displayName": "Marca", "purpose": "Nombre de la app en la losa." },
+      "entry": { "displayName": "Entrada", "purpose": "Texto nuevo de cada cambio; lo anterior va a 15px tachado en ink-7." },
+      "body": { "displayName": "Body", "purpose": "Avisos, pistas y definiciones." },
+      "label": { "displayName": "Label", "purpose": "Botones y controles." },
+      "caption": { "displayName": "Caption", "purpose": "Letra chiquita de cada cambio (página, fuente, avisos)." },
+      "guide": { "displayName": "Rótulo", "purpose": "Versalitas espaciadas: «PÁG.», «PÁGINA n» en la cabeza y al pie de la hoja." },
+      "tab-numeral": { "displayName": "Número de uñero", "purpose": "Baja a 12.5px con 3 cifras y 11px con 4 o más." }
     },
-    "shadows": [],
+    "shadows": [
+      { "name": "sheet", "value": "22px 26px 0 rgb(42 42 40 / 0.16)", "mobile": "10px 12px 0 rgb(42 42 40 / 0.14)", "purpose": "Hoja del PDF y lámina de entrada: la luz de mediodía." },
+      { "name": "slab", "value": "12px 14px 0 rgb(42 42 40 / 0.14)", "mobile": "7px 8px 0 rgb(42 42 40 / 0.14)", "purpose": "La losa de la cabeza flotando sobre la plaza." },
+      { "name": "thumb-current", "value": "5px 6px 0 rgb(42 42 40 / 0.18)", "purpose": "El uñero de la página actual." },
+      { "name": "thumb-inset", "value": "inset 2px 2px 0 rgb(0 0 0 / 0.08)", "purpose": "Leve hundido de los uñeros inactivos." }
+    ],
     "rules": [
-      { "name": "rule", "value": "1px solid var(--ink-10)", "purpose": "Separador estructural entre columnas y bajo cabeceras." },
-      { "name": "rule-double", "value": "3px double var(--ink-10)", "purpose": "Solo bajo la barra superior, como la cabeza de un léxico." },
-      { "name": "hairline", "value": "1px solid var(--ink-3)", "purpose": "Entre entradas dentro de una columna." },
-      { "name": "plate-frame", "value": "1.5px solid var(--ink-10)", "purpose": "Marco de la lámina y de la zona de entrada." },
+      { "name": "joint", "value": "1px solid var(--ink-3)", "purpose": "Entre columnas y entre entradas." },
+      { "name": "heavy", "value": "3px solid var(--ink-10)", "purpose": "Bajo «Cambios» y sobre la hoja inferior del celular." },
+      { "name": "notice", "value": "1px solid var(--vermilion)", "purpose": "Cierre de un aviso." },
+      { "name": "grid", "value": "24px; líneas de 1px al 7% de ink-10 sobre ink-1", "purpose": "La plaza (utilidad grid-plaza)." },
       { "name": "focus", "value": "outline: 2px solid var(--ultramar); outline-offset: 2px", "purpose": "Foco visible global." },
       { "name": "selection", "value": "color-mix(in srgb, var(--ultramar) 22%, transparent)", "purpose": "Fondo de selección de texto." }
     ],
     "motion": [
-      { "name": "drop-zone", "value": "150ms ease (colors)", "purpose": "Cambio de borde y fondo de la lámina de entrada al arrastrar." },
-      { "name": "thumb-tab", "value": "200ms ease-out (width, background-color)", "purpose": "El uñero actual se ensancha y pasa a bermellón." },
-      { "name": "progress", "value": "200ms ease-out (transform: scaleX)", "purpose": "Barra de carga por páginas." },
+      { "name": "entry-enter", "value": "200ms cubic-bezier(0.23, 1, 0.32, 1) (opacity, translateY 8px)", "purpose": "Un cambio recién asentado aparece en la columna." },
+      { "name": "sheet", "value": "280ms entrar / 200ms salir, cubic-bezier(0.32, 0.72, 0, 1)", "purpose": "Hoja de Cambios en celular." },
+      { "name": "thumb", "value": "150ms ease-out (colors)", "purpose": "Uñeros al pasar el puntero." },
       { "name": "button-press", "value": "translateY(1px) on :active", "purpose": "Respuesta táctil de los botones." }
     ],
     "breakpoints": [
@@ -53,117 +58,93 @@
       { "name": "lg", "value": "1024px" }
     ],
     "layout": {
-      "topBarHeight": "58px",
-      "shoulderColumn": "2.75rem (celular) / 5.5rem (lg)",
-      "changesColumn": "22rem (solo lg)",
+      "slabHeight": "56px, flotando con 8px (celular) a 20px (lg) de margen",
+      "thumbColumn": "2.75rem (celular) / 5.5rem (lg)",
+      "changesColumn": "22rem (solo lg), de arriba abajo",
       "zoomSteps": "50, 67, 80, 100, 125, 150, 200, 300% (100% = 96/72 px CSS por pt)"
     }
   },
   "components": [
     {
+      "name": "Losa",
+      "kind": "nav",
+      "refersTo": "slab",
+      "description": "La cabeza: losa clara que flota sobre la plaza con sombra larga.",
+      "html": "<div class=\"ds-plaza\"><header class=\"ds-slab\"><b>Ghost PDF Editor</b><span class=\"ds-slab-file\">cv-calibri.pdf</span><span class=\"ds-slab-page\">PÁGINA 1</span><button class=\"ds-btn-primary\">Exportar PDF</button></header></div>",
+      "css": ".ds-plaza { padding: 16px 28px 28px 16px; background: #e4e3df; background-image: linear-gradient(rgb(42 42 40 / .07) 1px, transparent 1px), linear-gradient(90deg, rgb(42 42 40 / .07) 1px, transparent 1px); background-size: 24px 24px; } .ds-slab { display: flex; align-items: center; gap: 16px; height: 56px; padding: 0 16px; background: #f3f2ef; box-shadow: 12px 14px 0 rgb(42 42 40 / .14); font-family: 'Archivo Variable', system-ui, sans-serif; color: #2a2a28; } .ds-slab b { font-weight: 800; font-size: 16px; letter-spacing: -.025em; } .ds-slab-file { color: #5f5d58; font-size: 14px; } .ds-slab-page { margin-left: auto; font-size: 12px; font-weight: 600; letter-spacing: .1em; color: #5f5d58; } .ds-btn-primary { height: 36px; padding: 0 14px; border: 0; background: #24466b; color: #fff; font: 500 14px 'Archivo Variable', system-ui, sans-serif; }"
+    },
+    {
       "name": "Botón primario",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Acción primaria en tinta sólida; una por vista (Exportar PDF, Elegir PDF).",
-      "html": "<button class=\"ds-btn-primary\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><polyline points=\"7 10 12 15 17 10\"/><line x1=\"12\" x2=\"12\" y1=\"15\" y2=\"3\"/></svg>Exportar PDF</button>",
-      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px; background: var(--ink-10); color: var(--ink-0); border: 1px solid transparent; border-radius: 4px; font-family: 'Hanken Grotesk Variable', system-ui, sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 150ms; } .ds-btn-primary:hover { background: color-mix(in srgb, var(--ink-10) 80%, transparent); } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:focus-visible { outline: none; border-color: var(--ultramar); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ultramar) 50%, transparent); } .ds-btn-primary:disabled { opacity: 0.5; pointer-events: none; }"
-    },
-    {
-      "name": "Botón ghost",
-      "kind": "button",
-      "refersTo": "button-ghost",
-      "description": "Acciones secundarias de la cabeza (Abrir).",
-      "html": "<button class=\"ds-btn-ghost\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2\"/></svg>Abrir</button>",
-      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; background: transparent; color: var(--ink-10); border: 1px solid transparent; border-radius: 4px; font-family: 'Hanken Grotesk Variable', system-ui, sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 150ms; } .ds-btn-ghost:hover { background: var(--ink-1); } .ds-btn-ghost:active { transform: translateY(1px); } .ds-btn-ghost:focus-visible { outline: none; border-color: var(--ultramar); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ultramar) 50%, transparent); }"
+      "description": "Acción primaria en azul de cristal, arista exacta (Exportar PDF, Elegir PDF).",
+      "html": "<button class=\"ds-btn-primary\">Exportar PDF</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; height: 36px; padding: 0 14px; border: 0; border-radius: 0; background: #24466b; color: #fff; font: 500 14px 'Archivo Variable', system-ui, sans-serif; cursor: pointer; } .ds-btn-primary:hover { background: rgb(36 70 107 / .85); } .ds-btn-primary:disabled { opacity: .5; }"
     },
     {
       "name": "Uñeros",
       "kind": "nav",
-      "refersTo": "thumb-tab",
-      "description": "Firma del sistema: pestañas de media luna en el hombro; la actual en bermellón y al ancho completo.",
-      "html": "<ol class=\"ds-thumbs\"><li><button class=\"ds-thumb\">1</button></li><li><button class=\"ds-thumb ds-thumb-current\" aria-current=\"page\">2</button></li><li><button class=\"ds-thumb\">3</button></li></ol>",
-      "css": ".ds-thumbs { list-style: none; margin: 0; padding: 16px 0 16px 16px; width: 88px; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; border-right: 1px solid var(--ink-10); } .ds-thumbs li { display: flex; width: 100%; justify-content: flex-end; } .ds-thumb { width: 78%; height: 44px; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 9999px 0 0 9999px; background: var(--ink-10); color: var(--ink-0); font-family: 'Source Serif 4 Variable', Georgia, serif; font-size: 15px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; cursor: pointer; transition: width 200ms ease-out, background-color 200ms ease-out; } .ds-thumb:hover { background: var(--ink-8); } .ds-thumb:focus-visible { outline: 2px solid var(--ultramar); outline-offset: 2px; } .ds-thumb-current, .ds-thumb-current:hover { width: 100%; background: var(--vermilion); color: #ffffff; }"
+      "refersTo": "thumb-block",
+      "description": "Bloques sueltos sobre la plaza; el actual carbón con sombra larga.",
+      "html": "<ol class=\"ds-thumbs\"><li><button class=\"ds-thumb ds-thumb-current\" aria-current=\"page\">1</button></li><li><button class=\"ds-thumb\">2</button></li><li><button class=\"ds-thumb\">3</button></li></ol>",
+      "css": ".ds-thumbs { list-style: none; margin: 0; padding: 16px 20px; width: 88px; display: flex; flex-direction: column; gap: 8px; background: #e4e3df; } .ds-thumb { width: 100%; height: 56px; border: 0; border-radius: 0; background: #f3f2ef; color: #4a4844; box-shadow: inset 2px 2px 0 rgb(0 0 0 / .08); font: 700 15px 'Archivo Variable', system-ui, sans-serif; } .ds-thumb-current { background: #2a2a28; color: #fff; box-shadow: 5px 6px 0 rgb(42 42 40 / .18); }"
     },
     {
-      "name": "Palabras guía",
-      "kind": "nav",
-      "refersTo": "guide",
-      "description": "Cabeza de 58px con regla doble: marca a la izquierda, rango de páginas centrado en versalitas serif.",
-      "html": "<header class=\"ds-head\"><span class=\"ds-head-brand\">Ghost PDF Editor</span><p class=\"ds-guide\">Página 1 — Página 2</p><span></span></header>",
-      "css": ".ds-head { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 58px; padding: 0 20px; border-bottom: 3px double var(--ink-10); background: var(--ink-0); } .ds-head-brand { font-family: 'Hanken Grotesk Variable', system-ui, sans-serif; font-size: 15px; font-weight: 600; letter-spacing: -0.025em; color: var(--ink-10); } .ds-guide { margin: 0; font-family: 'Source Serif 4 Variable', Georgia, serif; font-variant-caps: all-small-caps; font-variant-numeric: tabular-nums; letter-spacing: 0.08em; font-size: 15px; color: var(--ink-9); text-align: center; }"
-    },
-    {
-      "name": "Lámina",
+      "name": "Hoja",
       "kind": "card",
-      "refersTo": "plate",
-      "description": "Cada página del PDF enmarcada: 1.5px de tinta, 8px de papel biblia, hoja blanca; pie en versalitas.",
-      "html": "<figure class=\"ds-plate\"><div class=\"ds-plate-frame\"><div class=\"ds-plate-sheet\"></div></div><figcaption class=\"ds-plate-cap\">Página 1</figcaption></figure>",
-      "css": ".ds-plate { margin: 0; width: fit-content; } .ds-plate-frame { border: 1.5px solid var(--ink-10); background: var(--ink-0); padding: 8px; } .ds-plate-sheet { width: 170px; height: 220px; background: #ffffff; } .ds-plate-cap { margin-top: 8px; font-family: 'Source Serif 4 Variable', Georgia, serif; font-variant-caps: all-small-caps; letter-spacing: 0.08em; font-size: 12px; color: var(--ink-8); }"
+      "refersTo": "sheet",
+      "description": "La página del PDF sin marco, con la sombra larga de mediodía.",
+      "html": "<div class=\"ds-plaza-sheet\"><div class=\"ds-sheet\"></div><p class=\"ds-sheet-cap\">PÁGINA 1</p></div>",
+      "css": ".ds-plaza-sheet { padding: 24px 48px 40px 24px; background: #e4e3df; } .ds-sheet { width: 170px; height: 220px; background: #fff; box-shadow: 22px 26px 0 rgb(42 42 40 / .16); } .ds-sheet-cap { margin: 34px 0 0; font: 600 12px 'Archivo Variable', system-ui, sans-serif; letter-spacing: .1em; color: #4a4844; }"
     },
     {
-      "name": "Control segmentado",
-      "kind": "input",
-      "refersTo": "segmented",
-      "description": "Revisión de cajas en escritorio; la opción activa en tinta sólida.",
-      "html": "<div class=\"ds-seg\" role=\"radiogroup\"><label class=\"ds-seg-opt ds-seg-on\"><input type=\"radio\" name=\"ds-seg\" checked>Sin cajas</label><label class=\"ds-seg-opt\"><input type=\"radio\" name=\"ds-seg\">Líneas</label><label class=\"ds-seg-opt\"><input type=\"radio\" name=\"ds-seg\">Párrafos</label></div>",
-      "css": ".ds-seg { display: grid; grid-template-columns: repeat(3, 1fr); padding: 2px; border: 1px solid var(--ink-4); border-radius: 3.2px; width: 300px; } .ds-seg-opt { padding: 6px 8px; border-radius: 3px; text-align: center; font-family: 'Hanken Grotesk Variable', system-ui, sans-serif; font-size: 14px; color: var(--ink-8); cursor: pointer; } .ds-seg-opt input { position: absolute; opacity: 0; width: 1px; height: 1px; } .ds-seg-opt:hover { background: var(--ink-1); } .ds-seg-opt:has(input:focus-visible) { outline: 2px solid var(--ultramar); } .ds-seg-on, .ds-seg-on:hover { background: var(--ink-10); color: var(--ink-0); }"
-    },
-    {
-      "name": "Entrada de cambios",
+      "name": "Cambios",
       "kind": "custom",
-      "refersTo": "entry",
-      "description": "Cabecera «Cambios» en versalitas sobre regla de tinta y entrada en serif con tachado bermellón.",
-      "html": "<section class=\"ds-changes\"><h2 class=\"ds-changes-head\">Cambios<span>1</span></h2><p class=\"ds-entry\"><s>Ciudad de México</s> Guadalajara</p></section>",
-      "css": ".ds-changes { width: 304px; padding: 20px 24px; background: var(--ink-0); } .ds-changes-head { display: flex; justify-content: space-between; align-items: baseline; margin: 0; padding-bottom: 8px; border-bottom: 1px solid var(--ink-10); font-family: 'Source Serif 4 Variable', Georgia, serif; font-variant-caps: all-small-caps; letter-spacing: 0.08em; font-size: 15px; font-weight: 600; color: var(--ink-10); } .ds-changes-head span { font-weight: 400; color: var(--ink-7); font-variant-numeric: tabular-nums; } .ds-entry { margin: 16px 0 0; font-family: 'Source Serif 4 Variable', Georgia, serif; font-size: 15px; line-height: 1.625; color: var(--ink-10); } .ds-entry s { color: var(--ink-7); text-decoration-color: var(--vermilion); text-decoration-thickness: 2px; }"
+      "refersTo": "changes-column",
+      "description": "«Cambios» grande sobre la regla carbón; lo anterior tachado en carbón, lo nuevo en 17px 600.",
+      "html": "<section class=\"ds-changes\"><h2 class=\"ds-changes-head\">Cambios<span>1</span></h2><p class=\"ds-old\">Ingeniero de Software</p><p class=\"ds-new\">Sr. Ingeniero de Software</p><p class=\"ds-apparatus\">pág. 1 · Calibri → Carlito</p></section>",
+      "css": ".ds-changes { width: 304px; padding: 20px 24px; background: #f3f2ef; font-family: 'Archivo Variable', system-ui, sans-serif; color: #2a2a28; } .ds-changes-head { margin: 0 0 12px; padding-bottom: 8px; border-bottom: 3px solid #2a2a28; font-size: 30px; font-weight: 800; letter-spacing: -.025em; line-height: 1; } .ds-changes-head span { margin-left: 6px; font-size: 16px; font-weight: 600; color: #5f5d58; vertical-align: .35em; } .ds-old { margin: 0; font-size: 15px; color: #5f5d58; text-decoration: line-through; text-decoration-thickness: 1.5px; text-decoration-color: #2a2a28; } .ds-new { margin: 2px 0 0; font-size: 17px; font-weight: 600; } .ds-apparatus { margin: 6px 0 0; font-size: 13px; color: #5f5d58; }"
     },
     {
       "name": "Aviso",
       "kind": "custom",
       "refersTo": "title",
-      "description": "Aviso honesto en la columna de cambios: título sans en bermellón, cerrado por regla bermellón.",
-      "html": "<div class=\"ds-notice\" role=\"note\"><p class=\"ds-notice-title\">La página 2 no tiene texto</p><p class=\"ds-notice-body\">Parece escaneada; no hay texto que editar.</p></div>",
-      "css": ".ds-notice { width: 304px; padding-bottom: 16px; border-bottom: 1px solid var(--vermilion); } .ds-notice-title { margin: 0; font-family: 'Hanken Grotesk Variable', system-ui, sans-serif; font-size: 17px; font-weight: 600; color: var(--vermilion); } .ds-notice-body { margin: 4px 0 0; font-family: 'Hanken Grotesk Variable', system-ui, sans-serif; font-size: 15px; line-height: 1.625; color: var(--ink-8); }"
+      "description": "Aviso honesto: título rojo, cuerpo ink-8, regla roja al cierre.",
+      "html": "<div class=\"ds-notice\" role=\"alert\"><p class=\"ds-notice-title\">No se pudo exportar</p><p class=\"ds-notice-body\">Tus cambios siguen aquí.</p></div>",
+      "css": ".ds-notice { width: 304px; padding-bottom: 16px; border-bottom: 1px solid #a8322a; font-family: 'Archivo Variable', system-ui, sans-serif; } .ds-notice-title { margin: 0; font-size: 17px; font-weight: 600; color: #a8322a; } .ds-notice-body { margin: 4px 0 0; font-size: 15px; line-height: 1.625; color: #4a4844; }"
     }
   ],
   "narrative": {
-    "northStar": "El Diccionario de consulta",
-    "overview": "El editor se lee como un léxico del siglo XIX con hombro y lámina: siempre sabes dónde estás porque la cabeza nombra lo que tienes a la vista (palabras guía), el canto lleva uñeros para saltar de página, y cada corrección se asienta como una entrada de diccionario, tachada y reemplazada. El PDF es una lámina enmarcada en tinta y es lo único a todo color; la interfaz alrededor es papel biblia, tinta de grabado y dos tintas de imprenta usadas con avaricia.\n\nLa densidad es de herramienta (modo Operate): una barra de 58px, columnas delimitadas por reglas finas de tinta, cero sombras, cero tarjetas. La personalidad la ponen la tipografía y las reglas, no el color ni los efectos. La serif de texto vive solo donde el diccionario habla (palabras guía y entradas); todo lo que se opera habla en la sans de la app.\n\nRechazos confirmados: el arreglo de la categoría (barra llena de íconos sobre miniaturas grises, mosaicos de herramientas tipo iLovePDF) y el look «café literario» (crema y serif por todas partes).",
+    "northStar": "Concreto",
+    "overview": "Ghost se construye como un edificio de concreto de Teodoro González de León: poco color, mucha estructura. Volúmenes grises de aristas exactas se apoyan en una plaza con retícula y la luz de mediodía les proyecta una sombra larga y recta. El PDF es la hoja blanca más importante y lo único a todo color.",
     "keyCharacteristics": [
-      "Papel biblia frío (`ink-0`), nunca crema; todos los neutros salen de un solo ramp numerado de 11 pasos.",
-      "Bermellón y ultramar como únicas tintas de color, cada una con un oficio fijo.",
-      "Reglas de tinta de 1px como estructura; regla doble bajo la cabeza.",
-      "La lámina del PDF enmarcada en tinta, intocable por la UI.",
-      "Uñeros de media luna como firma; el actual en bermellón y más ancho.",
-      "Serif solo en palabras guía y entradas; sans en todo lo demás."
+      "Rampa de concreto de 11 pasos como únicos neutros; plaza con retícula de 24px.",
+      "Azul de cristal solo para lo activo; rojo solo para avisos.",
+      "Archivo como única familia; jerarquía por tamaño y peso.",
+      "Sombra larga y recta, sin difuminado, solo en lo que flota: la hoja, la losa y el uñero actual.",
+      "Aristas a 90° en todo."
     ],
     "rules": [
-      { "name": "The Papel Biblia Rule", "body": "El fondo es `ink-0`, un blanco frío. Nunca crema, nunca beige, nunca cálido.", "section": "colors" },
-      { "name": "The Two Inks Rule", "body": "El bermellón es tachado, edición activa y aviso; el ultramar es enlace, selección, foco y depuración. Si un elemento no hace uno de esos trabajos, es tinta o ramp neutro.", "section": "colors" },
-      { "name": "The Untinted Plate Rule", "body": "La UI nunca tiñe la página del PDF: las cajas de depuración son contornos ultramar sin relleno y el bermellón queda para la edición activa.", "section": "colors" },
-      { "name": "The One Ramp Rule", "body": "Todo neutro sale de `ink-0`…`ink-10`. No se introducen grises fuera del ramp.", "section": "colors" },
-      { "name": "The Dictionary Voice Rule", "body": "La serif (Source Serif 4) va SOLO en: las palabras guía (rango de páginas centrado en la cabeza, en versalitas, y su familia de marcadores de lugar: pie «Página n», etiqueta «Pág.», números de uñero), la cabecera «Cambios», las entradas de cambios, el nombre de archivo tachado en los errores y las definiciones de la columna de entrada. Todo lo demás (títulos, botones, avisos, etiquetas, controles) usa la sans de la app, Hanken Grotesk.", "section": "typography" },
-      { "name": "The Tabular Rule", "body": "Toda cifra que cambia en vivo (zoom, contadores, páginas, uñeros) usa cifras tabulares para no bailar.", "section": "typography" },
-      { "name": "The Ruled Page Rule", "body": "La estructura se dibuja con reglas de tinta (`rule` = `ink-10`): 1px entre columnas y bajo cabeceras, regla doble de 3px solo bajo la barra superior. Dentro de una columna, las entradas se separan con un filete de 1px en `ink-3`, y un aviso cierra con una regla bermellón.", "section": "elevation" },
-      { "name": "The No Shadow Rule", "body": "Ninguna superficie lleva sombra; si algo necesita destacarse, lo hace con tinta, regla o tipografía.", "section": "elevation" }
+      { "name": "The Two Jobs Rule", "body": "El azul hace lo activo (acción primaria, edición, selección, foco) y el rojo hace los avisos. Ninguno decora.", "section": "colors" },
+      { "name": "The Untinted Sheet Rule", "body": "La UI nunca tiñe la hoja del PDF: los contornos de edición y revisión son líneas sin relleno.", "section": "colors" },
+      { "name": "The One Ramp Rule", "body": "Todo neutro sale de ink-0…ink-10.", "section": "colors" },
+      { "name": "The One Family Rule", "body": "Todo en Archivo; lo que necesite destacarse sube de peso o de tamaño.", "section": "typography" },
+      { "name": "The Tabular Rule", "body": "Toda cifra que cambia en vivo (zoom, contadores, páginas, uñeros) usa cifras tabulares.", "section": "typography" },
+      { "name": "The Noon Light Rule", "body": "Una sola dirección de luz (abajo-derecha), cero difuminado, y solo en volúmenes que flotan. Elegida por el usuario.", "section": "elevation" },
+      { "name": "The Right Angle Rule", "body": "Sin radios: --radius es 0 en todo componente.", "section": "shapes" }
     ],
     "dos": [
-      "**Do** usar `ink-0` (papel biblia frío) como fondo y sacar cada neutro del ramp `ink-0`…`ink-10`.",
-      "**Do** hacer la acción primaria en tinta sólida (`ink-10` con texto `ink-0`), una por vista.",
-      "**Do** reservar el bermellón para tachado, edición activa / uñero actual y avisos, y el ultramar para enlaces, selección, foco y cajas de depuración.",
-      "**Do** separar planos con reglas de tinta de 1px y dejar la regla doble de 3px solo bajo la barra superior.",
-      "**Do** presentar cada página del PDF como lámina: borde de 1.5px en tinta, 8px de papel, hoja blanca.",
-      "**Do** escribir palabras guía, la cabecera «Cambios», las entradas, el nombre tachado y las definiciones en Source Serif 4; todo lo demás en Hanken Grotesk.",
-      "**Do** usar cifras tabulares en todo número que cambie en vivo.",
-      "**Do** marcar el uñero actual en bermellón y al ancho completo; los demás, tinta y más angostos."
+      "**Do** apoyar todo en la plaza con retícula y darle sombra larga solo a lo que flota.",
+      "**Do** usar el azul para lo activo y el rojo para avisos, y nada más.",
+      "**Do** resolver la jerarquía con tamaño y peso de Archivo.",
+      "**Do** mantener las aristas a 90° en cualquier componente nuevo."
     ],
     "donts": [
-      "**Don't** usar crema, beige ni papeles cálidos; el look «café literario» (crema y serif por todas partes) está rechazado.",
-      "**Don't** poner serif en títulos, botones, avisos, etiquetas ni controles.",
-      "**Don't** teñir ni rellenar la página del PDF desde la UI; las cajas de depuración son contornos ultramar sin relleno.",
-      "**Don't** usar bermellón para acciones primarias, decoración o énfasis general.",
-      "**Don't** agregar sombras, tarjetas elevadas ni fondos elevados.",
-      "**Don't** llenar la barra superior de íconos ni armar mosaicos de herramientas grandes al estilo iLovePDF.",
-      "**Don't** introducir grises fuera del ramp `ink`."
+      "**Don't** redondear esquinas, ni siquiera en botones o diálogos.",
+      "**Don't** usar sombras difuminadas, de color o en más de una dirección.",
+      "**Don't** traer de vuelta el mundo «Diccionario»: ni serif, ni bermellón como firma, ni «v. tr.».",
+      "**Don't** teñir la hoja del PDF ni rellenar cajas sobre ella.",
+      "**Don't** agregar un tercer color de acento."
     ]
   }
 }

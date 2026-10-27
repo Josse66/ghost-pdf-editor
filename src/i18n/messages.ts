@@ -78,13 +78,10 @@ export const messages = {
     errorNotPdf: 'Ese archivo no es un PDF.',
     errorUnknown: 'Algo falló al leerlo. Prueba de nuevo o con otro archivo.',
     defEditTerm: 'editar',
-    defEditPos: 'v. tr.',
     defEditBody: 'Tocar una línea del PDF y reescribirla ahí mismo, con su misma letra.',
     defExportTerm: 'exportar',
-    defExportPos: 'v. tr.',
     defExportBody: 'Descargar el PDF con tus cambios; lo tachado se borra del archivo.',
     defPrivateTerm: 'privado',
-    defPrivatePos: 'adj.',
     defPrivateBody: 'Que nunca sale de tu dispositivo: nada se sube a ningún servidor.',
   },
   en: {
@@ -164,14 +161,11 @@ export const messages = {
     errorNotPdf: 'That file is not a PDF.',
     errorUnknown: 'Something went wrong while reading it. Try again or use another file.',
     defEditTerm: 'edit',
-    defEditPos: 'v. tr.',
     defEditBody: 'To tap a line of the PDF and rewrite it right there, in the same lettering.',
     defExportTerm: 'export',
-    defExportPos: 'v. tr.',
     defExportBody:
       'To download the PDF with your changes; struck-out text is erased from the file.',
     defPrivateTerm: 'private',
-    defPrivatePos: 'adj.',
     defPrivateBody: 'Never leaving your device: nothing is uploaded to any server.',
   },
 } as const

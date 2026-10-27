@@ -30,7 +30,6 @@
   --color-ink-10: var(--ink-10);
   --color-vermilion: var(--vermilion);
   --color-ultramar: var(--ultramar);
-  --color-glass: var(--glass);
   --color-rule: var(--rule);
 
   --color-sidebar-ring: var(--ring);
@@ -81,8 +80,6 @@
   --vermilion: #a8322a;
   /* Activo: edición en curso, selección, foco y la acción primaria. */
   --ultramar: #24466b;
-  /* El mismo azul con luz: la acción primaria sobre la cabeza carbón, donde el profundo se apaga. */
-  --glass: #3e74ad;
   /* Junta entre volúmenes: el paso de concreto más oscuro que aún se lee como gris. */
   --rule: var(--ink-3);
 
@@ -184,12 +181,6 @@
   background-size: 24px 24px;
 }
 
-/* Muro cincelado: estrías verticales de 1px, solo en la franja de uñeros. */
-@utility chiseled {
-  background-color: var(--ink-2);
-  background-image: repeating-linear-gradient(90deg, rgb(0 0 0 / 0.04) 0 1px, transparent 1px 7px);
-}
-
 /*
  * Una corrección recién asentada aparece subiendo 8px (ease-out fuerte, 200ms): dice dónde quedó.
  * Es ocasional, así que se anima; deshacer y rehacer, que son de teclado, no.
@@ -224,7 +215,6 @@
   padding: 0;
   border: 0;
   border-top: 3px solid var(--ink-10);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
   background: var(--ink-0);
   color: var(--ink-10);
   transform: translateY(100%);

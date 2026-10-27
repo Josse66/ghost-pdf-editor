@@ -105,21 +105,20 @@ function Loading({ name, read, total }: { name: string; read: number; total: num
   )
 }
 
-/** En la entrada, la columna de cambios explica la app como entradas de diccionario. */
+/** Sin documento, la columna de cambios explica la app en tres términos: editar, exportar, privado. */
 export function Definitions() {
   const t = useT()
-  const entries: [MessageKey, MessageKey, MessageKey][] = [
-    ['defEditTerm', 'defEditPos', 'defEditBody'],
-    ['defExportTerm', 'defExportPos', 'defExportBody'],
-    ['defPrivateTerm', 'defPrivatePos', 'defPrivateBody'],
+  const entries: [MessageKey, MessageKey][] = [
+    ['defEditTerm', 'defEditBody'],
+    ['defExportTerm', 'defExportBody'],
+    ['defPrivateTerm', 'defPrivateBody'],
   ]
   return (
-    <dl className="px-6 py-5 font-serif">
-      {entries.map(([term, pos, body]) => (
+    <dl className="px-6 py-5">
+      {entries.map(([term, body]) => (
         <div key={term} className="border-ink-3 border-b py-4 first:pt-0 last:border-b-0">
-          <dt className="text-[19px] font-semibold">
-            {t(term)}{' '}
-            <span className="text-muted-foreground text-[15px] font-normal italic">{t(pos)}</span>
+          <dt className="text-[19px] font-extrabold tracking-tight first-letter:uppercase">
+            {t(term)}
           </dt>
           <dd className="text-ink-8 mt-1 text-[15px] leading-relaxed">{t(body)}</dd>
         </div>
