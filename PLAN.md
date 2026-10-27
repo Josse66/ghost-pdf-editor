@@ -174,10 +174,12 @@ Objetivo: eliminar incertidumbre antes de construir.
 - **Entregable:** ✅ subes un PDF y ves los bloques de texto resaltados correctamente. En producción desde el PR #1 (2026-10-26).
 
 ### Fase 3 — Capa de edición (1–2 semanas)
-- [ ] Doble clic en bloque → `contenteditable` posicionado exacto, con fuente/tamaño/color aproximados (CSS).
-- [ ] Store de ediciones + undo/redo (Ctrl+Z / Ctrl+Y).
-- [ ] Indicador visual de bloques editados.
-- [ ] Soporte táctil (celular).
+- [x] Doble clic en bloque → `contenteditable` posicionado exacto, con fuente/tamaño/color aproximados (CSS). *(Fuente gemela real de Fontsource —Carlito, Caladea, Arimo, Tinos, Cousine, Gelasio—, color de fondo y de tinta leídos del render, línea base alineada; se conservan negritas y cursivas; al confirmar se guardan las líneas tal como se cortaron en pantalla para la Fase 4.)*
+- [x] Store de ediciones + undo/redo (Ctrl+Z / Ctrl+Y). *(`core/edits/history`, inmutable; Restaurar por bloque.)*
+- [x] Indicador visual de bloques editados. *(Marca bermellón al margen; subrayado bermellón si el texto ya no cabe; entradas «tachado → nuevo» en Cambios.)*
+- [x] Soporte táctil (celular). *(Dos toques para editar; editor a ≥16px escalado para que iOS no haga zoom; teclado no tapa el editor; hoja de Cambios; dvh, zonas seguras, sin destello al tocar. **Falta probar en un iPhone real.**)*
+- [ ] Autoguardado del log de ediciones en OPFS (recomendado por la investigación; pendiente).
+- [ ] Orden de lectura por columnas para navegar bloques con Tab (pendiente desde la Fase 2).
 - 🧰 **Skills:** `emil-design-eng` (la capa de edición ES la experiencia: hover, foco, selección, feedback al editar). `prototype` para probar 2–3 variantes del overlay de edición y elegir. `mobile-native` para el soporte táctil (zoom en inputs, long-press, tap highlight). `apple-design` si haces pinch-zoom / gestos.
 - **Entregable:** puedes editar varios bloques y ver el resultado en pantalla.
 

@@ -31,7 +31,8 @@ export default function App() {
   const ready = status === 'ready' && doc
 
   return (
-    <div className="grid h-svh grid-rows-[auto_1fr] overflow-hidden">
+    // dvh sigue a la barra del navegador y al teclado; las zonas seguras dejan libre el notch.
+    <div className="grid h-dvh grid-rows-[auto_1fr] overflow-hidden pr-[env(safe-area-inset-right)] pl-[env(safe-area-inset-left)]">
       <TopBar />
       <div className="grid min-h-0 grid-cols-[2.75rem_1fr] lg:grid-cols-[5.5rem_1fr_22rem]">
         <aside className="border-rule min-h-0 border-r">

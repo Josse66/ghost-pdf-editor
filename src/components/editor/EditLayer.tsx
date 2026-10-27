@@ -15,6 +15,7 @@ import { flowText, runsFromBlock } from '@/core/edits/runs'
 import type { PageInfo, Rgb, TextBlock } from '@/core/engine'
 import { applyMatrix, toScreenRect, viewportTransform, type Matrix } from '@/core/geometry'
 import { measureBaseline, measureLines, placeCaretAt, readRuns } from '@/lib/editor-dom'
+import { useFinePointer } from '@/hooks/usePointer'
 import { loadRunFonts, runCss } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
 import { useT } from '@/i18n'
@@ -266,6 +267,12 @@ function BlockText({
   const shownRuns = editing ? frozenRuns : runs
   const closed = useRef(false)
   const rectWidth = rect.width
+  // iOS hace zoom al enfocar texto de menos de 16px (y no lo deshace). En táctil, el editor se
+  // pinta a ≥16px y se encoge con transform: se ve igual y el navegador no hace zoom. Nunca se
+  // desactiva el zoom del usuario.
+  const finePointer = useFinePointer()
+  const smallest = Math.min(...block.runs.map((r) => r.fontSize)) * scale
+  const k = editing && !finePointer && smallest < 16 ? 16 / smallest : 1
 
   // Alinea la línea base del texto nuevo con la del original, sea cual sea la gemela. Se mide de
   // inmediato y otra vez cuando la gemela termina de cargar (antes, las métricas son de respaldo).
@@ -276,7 +283,7 @@ function BlockText({
     const measure = () => {
       if (!alive) return
       el.style.top = `${baselineY - measureBaseline(el)}px`
-      markOverflow(el, rectWidth, lines.length, lineHeight)
+      markOverflow(el, rectWidth * k, lines.length, lineHeight && lineHeight * k)
       onMeasure?.({ width: el.offsetWidth, height: el.offsetHeight })
     }
     measure()
@@ -284,7 +291,7 @@ function BlockText({
     return () => {
       alive = false
     }
-  }, [baselineY, rectWidth, lines.length, lineHeight, shownRuns, onMeasure, block.runs])
+  }, [baselineY, rectWidth, lines.length, lineHeight, shownRuns, onMeasure, block.runs, k])
 
   // Al entrar a editar: foco y cursor donde fue el doble clic (o al final). Solo una vez.
   const caret = editing?.caret
@@ -295,6 +302,16 @@ function BlockText({
     if (!caret || !placeCaretAt(caret.x, caret.y)) {
       window.getSelection()?.selectAllChildren(el)
       window.getSelection()?.collapseToEnd()
+    }
+    if (finePointer) return
+    // En táctil sale el teclado y puede tapar el editor: cuando termina de abrir, se centra.
+    const reveal = () => el.scrollIntoView({ block: 'center' })
+    const viewport = window.visualViewport
+    viewport?.addEventListener('resize', reveal, { once: true })
+    const fallback = window.setTimeout(reveal, 400)
+    return () => {
+      viewport?.removeEventListener('resize', reveal)
+      window.clearTimeout(fallback)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- solo al montar el editor
   }, [])
@@ -325,9 +342,14 @@ function BlockText({
     left,
     top: baselineY,
     whiteSpace: multiline ? 'pre-wrap' : 'pre',
-    width: multiline ? rect.width + 2 : undefined,
-    minWidth: multiline ? undefined : rect.width,
-    lineHeight: lineHeight ? `${lineHeight}px` : 'normal',
+    width: multiline ? (rect.width + 2) * k : undefined,
+    minWidth: multiline ? undefined : rect.width * k,
+    lineHeight: lineHeight ? `${lineHeight * k}px` : 'normal',
+    ...(k !== 1 && {
+      transform: `scale(${1 / k})`,
+      transformOrigin: '0 0',
+      outlineWidth: `${1.5 * k}px`,
+    }),
   }
 
   return (
@@ -345,7 +367,9 @@ function BlockText({
       )}
       style={style}
       title={editing ? undefined : t('edited')}
-      onInput={(e) => markOverflow(e.currentTarget, rectWidth, lines.length, lineHeight)}
+      onInput={(e) =>
+        markOverflow(e.currentTarget, rectWidth * k, lines.length, lineHeight && lineHeight * k)
+      }
       onKeyDown={(e) => {
         if (e.key === 'Escape') {
           e.preventDefault()
@@ -372,7 +396,7 @@ function BlockText({
             key={i}
             data-style={run.style}
             style={{
-              ...runCss(original, scale),
+              ...runCss(original, scale * k),
               color: toCss(colors.inks[run.style] ?? [0, 0, 0]),
             }}
           >

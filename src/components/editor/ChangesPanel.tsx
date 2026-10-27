@@ -11,20 +11,12 @@ import { useFormatNumber, useT, type Translate } from '@/i18n'
 import { useDocument } from '@/store/document'
 import { useEdits } from '@/store/edits'
 
-/** Columna derecha: los cambios asentados como entradas de diccionario. */
+/** Columna derecha (escritorio): los cambios asentados como entradas de diccionario. */
 export function ChangesPanel() {
   const t = useT()
-  const format = useFormatNumber()
-  const finePointer = useFinePointer()
   const pageCount = useDocument((s) => s.doc?.numPages ?? 0)
   const current = useDocument((s) => s.current)
   const currentTextless = useDocument((s) => s.textless.has(s.current))
-  const present = useEdits((s) => s.history.present)
-  const canUndo = useEdits((s) => s.history.past.length > 0)
-  const canRedo = useEdits((s) => s.history.future.length > 0)
-  const undo = useEdits((s) => s.undo)
-  const redo = useEdits((s) => s.redo)
-  const entries = [...present.values()].sort(documentOrder)
 
   return (
     <div className="flex h-full flex-col">
@@ -37,52 +29,7 @@ export function ChangesPanel() {
             <p className="text-ink-8 mt-1 text-[15px] leading-relaxed">{t('noTextPage')}</p>
           </div>
         )}
-        <div className="border-rule flex items-center justify-between gap-2 border-b pb-1.5">
-          <h2 className="guide-caps text-[15px] font-semibold">
-            {t('changes')}{' '}
-            <span className="tabular text-muted-foreground font-normal">
-              · {format(entries.length)}
-            </span>
-          </h2>
-          <div className="flex gap-0.5">
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              disabled={!canUndo}
-              onClick={undo}
-              aria-label={t('undo')}
-              title={`${t('undo')} (Ctrl+Z)`}
-            >
-              <Undo2 />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              disabled={!canRedo}
-              onClick={redo}
-              aria-label={t('redo')}
-              title={`${t('redo')} (Ctrl+Y)`}
-            >
-              <Redo2 />
-            </Button>
-          </div>
-        </div>
-        {entries.length === 0 ? (
-          <>
-            <p className="text-muted-foreground mt-4 font-serif text-[15px] leading-relaxed">
-              {t('changesEmpty')}
-            </p>
-            <p className="text-ink-8 mt-3 text-sm leading-snug">
-              {finePointer ? t('changesHintMouse') : t('changesHintTouch')}
-            </p>
-          </>
-        ) : (
-          <ol className="mt-1">
-            {entries.map((edit) => (
-              <ChangeEntry key={edit.blockId} edit={edit} t={t} />
-            ))}
-          </ol>
-        )}
+        <ChangesList />
         <p className="tabular text-muted-foreground mt-6 text-xs">
           {pageCount === 1 ? t('pageCountOne') : t('pageCount', { n: pageCount })}
         </p>
@@ -92,8 +39,83 @@ export function ChangesPanel() {
   )
 }
 
+/**
+ * Encabezado «Cambios · n» con deshacer/rehacer y las entradas. Lo comparten la columna de
+ * escritorio y la hoja del celular; `onNavigate` avisa antes de ir al bloque (la hoja se cierra).
+ */
+export function ChangesList({ onNavigate }: { onNavigate?: () => void }) {
+  const t = useT()
+  const format = useFormatNumber()
+  const finePointer = useFinePointer()
+  const present = useEdits((s) => s.history.present)
+  const canUndo = useEdits((s) => s.history.past.length > 0)
+  const canRedo = useEdits((s) => s.history.future.length > 0)
+  const undo = useEdits((s) => s.undo)
+  const redo = useEdits((s) => s.redo)
+  const entries = [...present.values()].sort(documentOrder)
+
+  return (
+    <>
+      <div className="border-rule flex items-center justify-between gap-2 border-b pb-1.5">
+        <h2 className="guide-caps text-[15px] font-semibold">
+          {t('changes')}{' '}
+          <span className="tabular text-muted-foreground font-normal">
+            · {format(entries.length)}
+          </span>
+        </h2>
+        <div className="flex gap-0.5">
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            disabled={!canUndo}
+            onClick={undo}
+            aria-label={t('undo')}
+            title={`${t('undo')} (Ctrl+Z)`}
+          >
+            <Undo2 />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            disabled={!canRedo}
+            onClick={redo}
+            aria-label={t('redo')}
+            title={`${t('redo')} (Ctrl+Y)`}
+          >
+            <Redo2 />
+          </Button>
+        </div>
+      </div>
+      {entries.length === 0 ? (
+        <>
+          <p className="text-muted-foreground mt-4 font-serif text-[15px] leading-relaxed">
+            {t('changesEmpty')}
+          </p>
+          <p className="text-ink-8 mt-3 text-sm leading-snug">
+            {finePointer ? t('changesHintMouse') : t('changesHintTouch')}
+          </p>
+        </>
+      ) : (
+        <ol className="mt-1">
+          {entries.map((edit) => (
+            <ChangeEntry key={edit.blockId} edit={edit} t={t} onNavigate={onNavigate} />
+          ))}
+        </ol>
+      )}
+    </>
+  )
+}
+
 /** Una corrección asentada: lo viejo tachado, lo nuevo, y su «letra chiquita». */
-function ChangeEntry({ edit, t }: { edit: BlockEdit; t: Translate }) {
+function ChangeEntry({
+  edit,
+  t,
+  onNavigate,
+}: {
+  edit: BlockEdit
+  t: Translate
+  onNavigate?: () => void
+}) {
   const block = useEdits((s) => s.blocks.get(edit.blockId))
   const revert = useEdits((s) => s.revert)
   const style = block?.runs[0]
@@ -103,7 +125,10 @@ function ChangeEntry({ edit, t }: { edit: BlockEdit; t: Translate }) {
     <li className="entry-enter border-ink-3 border-b py-3.5 last:border-b-0">
       <button
         type="button"
-        onClick={() => scrollToBlock(edit.page, edit.blockId)}
+        onClick={() => {
+          onNavigate?.()
+          scrollToBlock(edit.page, edit.blockId)
+        }}
         className="block w-full rounded-sm text-left font-serif"
       >
         <span className="text-ink-7 decoration-vermilion line-clamp-2 text-[15px] line-through decoration-2">
