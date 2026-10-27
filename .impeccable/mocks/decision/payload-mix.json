@@ -1,0 +1,60 @@
+{
+  "title": "Ghost PDF Editor · Concreto con otra cabeza",
+  "question": "Las cuatro son Concreto (sombra larga de la hoja, uñeros tallados, «Cambios» grande). Las tres combinaciones agregan la plaza con retícula de Crouwel y cambian solo la cabeza. ¿Cuál cabeza te convence?",
+  "options": [
+    {
+      "id": "mix-losa",
+      "kind": "grounded",
+      "label": "Losa flotante",
+      "kicker": "COMBINACIÓN 1",
+      "lineage": "Concreto + retícula de Crouwel; la cabeza como volumen",
+      "thesis": "Sin barra pegada arriba: la cabeza es una losa de concreto claro flotando sobre la retícula, con la misma sombra larga que la hoja. Todo se vuelve volúmenes apoyados en la plaza.",
+      "palette": ["#E4E3DF", "#F3F2EF", "#2A2A28", "#24466B", "#BDBAB4"],
+      "materials": ["losa de concreto", "retícula de 24 px", "sombra larga"],
+      "viewport": "Retícula tenue en toda la plaza; arriba, la losa clara con marca, archivo, página, zoom, Abrir y Exportar; los uñeros como bloques sueltos, el actual en carbón con sombra; la hoja con su sombra larga.",
+      "risk": "En celular la losa flotante ocupa algo más de alto que una barra.",
+      "html": ".impeccable/mocks/decision/mix-losa.html"
+    },
+    {
+      "id": "mix-fichas",
+      "kind": "grounded",
+      "label": "Barra de fichas",
+      "kicker": "COMBINACIÓN 2",
+      "lineage": "Concreto + barra del Anuario de diseño",
+      "thesis": "Una cabeza clara y fina con una sola regla carbón debajo; archivo, página y zoom como fichas pequeñas con etiqueta. Ligera arriba, sólida abajo.",
+      "palette": ["#F3F2EF", "#E4E3DF", "#2A2A28", "#24466B", "#FFFFFF"],
+      "materials": ["fichas con etiqueta", "regla carbón de 1 px", "retícula en la plaza"],
+      "viewport": "Barra clara de 52 px; fichas «Archivo cv-calibri.pdf · Página 1/5 · Zoom 100%»; Exportar como botón carbón sólido; la retícula solo en la plaza, detrás de la hoja.",
+      "risk": "La más discreta: puede sentirse menos «firma» que las otras.",
+      "html": ".impeccable/mocks/decision/mix-fichas.html"
+    },
+    {
+      "id": "mix-reticula",
+      "kind": "grounded",
+      "label": "Cabeza en retícula",
+      "kicker": "COMBINACIÓN 3",
+      "lineage": "Concreto + cabeza de Crouwel",
+      "thesis": "Cabeza blanca dividida en celdas con bordes carbón de 2 px, alineada a la cuadrícula: un bloque «g» carbón como marca, el nombre en minúsculas geométricas y celdas para página, zoom, Abrir y Exportar.",
+      "palette": ["#FFFFFF", "#2A2A28", "#E4E3DF", "#24466B"],
+      "materials": ["celdas con borde de 2 px", "marca en bloque", "retícula de 24 px"],
+      "viewport": "Cabeza de 72 px partida en celdas; la marca «g» en un cuadro carbón alineado con el muro de uñeros; Exportar como la celda azul del extremo.",
+      "risk": "La más gráfica: los bordes gruesos le dan carácter pero pesan más.",
+      "html": ".impeccable/mocks/decision/mix-reticula.html"
+    },
+    {
+      "id": "concreto",
+      "kind": "grounded",
+      "label": "Concreto (actual)",
+      "kicker": "REFERENCIA",
+      "lineage": "Lo construido hoy en la rama design",
+      "thesis": "La cabeza carbón sólida que no te convenció, para compararla.",
+      "palette": ["#2A2A28", "#E4E3DF", "#F3F2EF", "#24466B", "#3E74AD"],
+      "materials": ["cabeza carbón", "plaza lisa"],
+      "viewport": "Cabeza carbón de 58 px a todo el ancho; plaza gris lisa.",
+      "risk": "La cabeza pesada que querías cambiar.",
+      "html": ".impeccable/mocks/decision/r1-pick.html"
+    }
+  ],
+  "reroll": { "registers": ["safer", "bolder"] },
+  "canon": false
+}

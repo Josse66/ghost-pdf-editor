@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Informe anual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Carlito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fafafa;--ink:#111;--mute:#5f5f5f;--line:#dedede;--acc:#0a7c66}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1440px;height:900px;overflow:hidden;font-family:"Inter Tight",sans-serif;color:var(--ink);background:var(--bg);font-variant-numeric:tabular-nums}
+.sc{font-variant-caps:all-small-caps;letter-spacing:.1em;font-weight:600;font-size:14px;color:var(--mute)}
+header{height:56px;display:flex;align-items:center;gap:20px;padding:0 32px;border-bottom:1px solid var(--line);background:#fff}
+.brand{font-size:16px;font-weight:700}
+.spacer{flex:1}
+.btn{height:36px;padding:0 16px;font:600 14px "Inter Tight";display:flex;align-items:center;border:1px solid var(--line);background:#fff}
+.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+main{display:grid;grid-template-columns:120px 1fr 400px;height:844px}
+.list{padding:30px 0 0 32px;display:flex;flex-direction:column;gap:14px}
+.it{display:flex;align-items:baseline;gap:10px;font-size:15px;color:var(--mute)}
+.it b{font-size:15px;width:24px}
+.it.cur{color:var(--ink);font-weight:600}
+.it.ed i{width:7px;height:7px;background:var(--acc);display:block;border-radius:50%}
+.stage{display:flex;justify-content:center;padding-top:36px;overflow:hidden}
+.sheet{width:600px;height:776px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.06);padding:66px 62px;font-family:Carlito,sans-serif;color:#222}
+.sheet h1{font-size:29px;color:#1f3864;margin-bottom:6px}
+.sheet .sub{font-size:12px;color:#666;margin-bottom:20px}
+.sheet h2{font-size:14.5px;color:#2e5597;border-bottom:1px solid #2e5597;padding-bottom:3px;margin:15px 0 9px}
+.sheet p{font-size:12px;line-height:1.45;margin-bottom:9px}
+.edited{box-shadow:-8px 0 0 var(--acc)}
+aside{border-left:1px solid var(--line);background:#fff;padding:30px 32px;display:flex;flex-direction:column}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding-bottom:22px;border-bottom:1px solid var(--ink)}
+.n{font-size:56px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.n.acc{color:var(--acc)}
+.stats p{margin-top:6px}
+.done{font-size:14px;line-height:1.45;color:var(--mute);margin:16px 0 8px}
+.head{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px}
+.head h3{font-size:22px;font-weight:700}
+.entry{padding:14px 0;border-bottom:1px solid var(--line)}
+.old{font-size:14px;color:var(--mute);text-decoration:line-through;line-height:1.4}
+.new{font-size:16px;font-weight:600;line-height:1.35;margin-top:4px}
+.meta{display:flex;justify-content:space-between;margin-top:8px;font-size:13px;color:var(--mute)}
+.meta b{color:var(--ink)}
+.warn{margin-top:6px;font-size:13px;color:#8a4b00}
+</style></head><body>
+<header><div class="brand">Ghost PDF Editor</div><span class="sc">cv-calibri.pdf</span><div class="spacer"></div><span class="sc">Página 1 de 5 · 100%</span><button class="btn">Abrir</button><button class="btn primary">Exportar PDF</button></header>
+<main>
+  <nav class="list"><span class="sc">Páginas</span><div class="it cur ed"><b>01</b><i></i></div><div class="it"><b>02</b></div><div class="it ed"><b>03</b><i></i></div><div class="it"><b>04</b></div><div class="it"><b>05</b></div></nav>
+  <section class="stage"><div class="sheet">
+    <h1>José Núñez Peña</h1>
+    <div class="sub">Desarrollador Full Stack · Ciudad de México · jose.nunez@ejemplo.com · +52 55 1234 5678</div>
+    <h2>Experiencia</h2>
+    <p class="edited"><b>Sr. Ingeniero de Software</b> — Compañía Ficticia S.A. de C.V. <i>(2022–2025)</i></p>
+    <p>Diseñé y mantuve una plataforma de facturación electrónica que procesa más de 40,000 documentos al día. Reduje el tiempo de respuesta promedio en un 35% migrando servicios críticos a una arquitectura basada en colas.</p>
+    <p><b>Desarrollador Web</b> — Agencia Creativa Ñandú <i>(2020–2022)</i></p>
+    <p>Construcción de sitios con React y Node.js para clientes del sector financiero; integración de pagos y accesibilidad (WCAG 2.1 AA).</p>
+    <h2>Educación</h2>
+    <p>Ingeniería en Computación — Universidad Nacional, 2016–2020. Promedio: 9.2</p>
+    <h2>Habilidades</h2>
+    <p>TypeScript, React, Node.js, PostgreSQL, Docker, pruebas automatizadas, inglés avanzado (C1), liderazgo técnico.</p>
+  </div></section>
+  <aside>
+    <div class="stats">
+      <div><div class="n acc">3</div><p class="sc">Cambios</p></div>
+      <div><div class="n">2</div><p class="sc">Páginas</p></div>
+      <div><div class="n">0</div><p class="sc">Rastros</p></div>
+    </div>
+    <div class="done">Se descargó cv-calibri-editado.pdf (+15 KB). El texto anterior se borró del archivo: cero rastros.</div>
+    <div class="head"><h3>Cambios</h3><span class="sc">Deshacer · Rehacer</span></div>
+    <div class="entry"><div class="old">Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div><div class="new">Sr. Ingeniero de Software — Compañía Ficticia S.A. de C.V. (2022–2025)</div><div class="meta"><span>Pág. 1 · Calibri → Carlito</span><b>Restaurar</b></div></div>
+    <div class="entry"><div class="old">… inglés avanzado (C1).</div><div class="new">… inglés avanzado (C1), liderazgo técnico.</div><div class="meta"><span>Pág. 1 · Calibri → Carlito</span><b>Restaurar</b></div><div class="warn">Letras un poco apretadas para caber</div></div>
+    <div class="entry"><div class="old">Inglés avanzado</div><div class="new">Inglés avanzado (certificado C1, 2024)</div><div class="meta"><span>Pág. 3 · Calibri → Carlito</span><b>Restaurar</b></div></div>
+  </aside>
+</main>
+</body></html>
