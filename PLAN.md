@@ -186,7 +186,7 @@ Objetivo: eliminar incertidumbre antes de construir.
 ### Fase 4 — Motor de exportación (1–2 semanas) ← **aquí se gana o se pierde**
 - [ ] `core/fonts`: tabla de equivalencias + carga de fuentes libres (servidas desde `/public/fonts`, cacheadas).
 - [ ] `core/color`: muestreo de fondo del canvas alrededor del bloque.
-- [ ] `core/writer`: por cada `Edit` → tapar → dibujar texto nuevo con fuente/tamaño/color/rotación correctos → ajuste si no cabe.
+- [ ] `core/writer`: por cada `Edit` → **borrar los glifos viejos con PDFium** (no tapar; guardado completo) → dibujar texto nuevo con fuente/tamaño/color/rotación correctos → ajuste si no cabe.
 - [ ] Export en un Web Worker, descarga con nombre `original-editado.pdf`.
 - [ ] Tests visuales: renderizar PDF exportado vs original y comparar píxeles (Playwright screenshots / pixelmatch) fuera de la zona editada.
 - 🧰 **Skills:** casi ninguna de diseño — esta fase es motor puro. Solo `/impeccable harden` sobre el flujo de exportar (errores, progreso, archivo grande, cancelar). Plugin **Playwright** (si lo activaste) o el navegador de la app para los tests e2e.
@@ -346,8 +346,8 @@ Varias skills de diseño se traslapan. Regla para no recibir consejos contradict
 1. ✅ Ubicación (`C:/dev/pdf-master`) y nombre (Ghost PDF Editor) decididos.
 2. ✅ **Fase 0** terminada (falta solo el corpus real, que llega en Fase 2). Ver `docs/fase0-hallazgos.md`.
 3. **Decisiones abiertas** que salieron del reporte de investigación (§ "Decisiones que tienes que tomar"). Se cierran cuando llegue su fase:
-   - **Antes de la Fase 4:** ¿adelantar al MVP la *eliminación real* de los glifos editados (PDFium), con guardado completo y una prueba automática de que el texto viejo no se recupera? Recomendado: sí, es la promesa de privacidad.
-   - **Fase 4:** fuentes faltantes (sustituir el run completo + aviso), Aptos y otras fuentes sin clon libre, límites de Tz/Tc antes de pasar a reflujo.
+   - ✅ **Decidido (2026-10-27), antes de la Fase 4:** *eliminación real* de los glifos editados con PDFium desde el MVP, guardado **completo** (nunca incremental) y prueba automática de que el texto viejo no se recupera.
+   - ✅ **Decidido (2026-10-27), Fase 4:** texto que no cabe → espacio libre a la derecha → apretar con Tz/Tc hasta ~85 % → reflujo a otra línea → reducir tamaño solo como último recurso. Fuentes sin gemela (Aptos, Verdana, Garamond…) → la gemela más parecida + aviso en Cambios.
    - **Fase 5:** ¿iOS Safari es de primera clase? Presupuesto de IA (qué paquetes, solo escritorio o también móvil).
    - **Posicionamiento (§0):** la edición gratis en el navegador ya existe (Stirling-PDF v3, BentoPDF). Ghost se diferencia por privacidad *verificable*, fidelidad en CVs y facturas de Office/Docs, y ligereza en móvil.
 4. 👉 **Fase 1 — Setup**, en este orden:

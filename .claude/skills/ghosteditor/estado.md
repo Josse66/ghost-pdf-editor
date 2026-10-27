@@ -53,10 +53,12 @@ probando varias direcciones; no es prioridad ahora.
 
 Si el PR #2 ya se juntó y `dev` no está sincronizado: `git checkout dev && git merge --ff-only origin/main && git push`.
 
+Luego el usuario cerró las 4 decisiones de la Fase 4, todas en lo recomendado (sección 6).
+
 **Pregunta pendiente para el usuario (hacerla al retomar):**
-> ¿Arrancamos la Fase 4 (exportar)? Antes hay que cerrar las decisiones de la sección 5, empezando por el borrado
-> real del texto viejo con PDFium.
-> Opciones: «Sí, vamos con las decisiones de la Fase 4» · «Primero documentar la Fase 3 con Impeccable (pendiente 2)».
+> ¿Empiezo a construir la Fase 4 por el motor (`core/writer` con borrado PDFium + prueba de que el texto viejo no
+> se recupera)?
+> Opciones: «Sí, arranca por el motor» · «Primero documentar la Fase 3 con Impeccable (pendiente 2)».
 
 ## 4. Pendientes concretos (en orden)
 
@@ -64,32 +66,32 @@ Si el PR #2 ya se juntó y `dev` no está sincronizado: `git checkout dev && git
 2. Refrescar `.impeccable/design.json` (quedó más viejo que `DESIGN.md`) y documentar los
    componentes nuevos de la Fase 3 (capa de edición, hoja de Cambios) con el documentador de Impeccable. Opcional:
    revisión final de Impeccable (`impeccable-finish-reviewer`) sobre la capa de edición.
-3. Arrancar la **Fase 4** (ver sección 5 para lo que hay que decidir primero).
+3. Construir la **Fase 4** (decisiones ya tomadas; notas en la sección 5).
 4. Anotados en `PLAN.md`, sin fecha: autoguardado del log de ediciones en OPFS; orden de lectura por columnas para
    navegar con Tab; OCR (v4) — caso real: PDF escaneado exportado de Notion no se puede editar; modo oscuro, PWA y
    landing (Fase 5); prueba en iPhone real (ya se probó en Android).
 5. **Rediseño visual al final (Fase 5):** el usuario siente la UI «un poco simple»; probar varias direcciones de
    diseño con Impeccable cuando lo funcional esté listo.
 
-## 5. Decisiones abiertas antes de la Fase 4 (preguntar al usuario)
+## 5. Decisiones abiertas
 
-1. **¿Borrado real de los glifos editados desde el MVP** (PDFium WASM, `@embedpdf/pdfium`, MIT) en vez de tapar con
-   rectángulo? Recomendado: **sí** (si no, el texto viejo sigue extraíble: contradice la promesa de privacidad).
-   Ya hay spike que lo valida (`spikes/spike3-pdfium-native.mjs`). Ojo: PDFium embebe la fuente completa → pasarle
-   la gemela ya recortada (subset).
-2. **Texto que no cabe:** propuesta: espacio libre a la derecha → Tz/Tc dentro de ~85–110 % → reflujo; reducir el
-   tamaño solo como último recurso (se ve feo, Spike 2).
-3. **Fuentes sin gemela** (Aptos, Verdana, Garamond…): usar la parecida + aviso (ya se avisa en Cambios).
-4. **Guardado:** completo (no incremental) por privacidad.
+Ninguna para la Fase 4: se cerraron el 2026-10-27 (ver sección 6). Notas para implementarla:
+- Spike que valida el borrado: `spikes/spike3-pdfium-native.mjs`. Ojo: PDFium embebe la fuente completa → pasarle
+  la gemela ya recortada (subset).
 - Skills de la Fase 4 según `PLAN.md` §8: casi ninguna de diseño; `/impeccable harden` sobre el flujo de exportar;
   Playwright para tests visuales de ida y vuelta (exportar → reabrir → comparar píxeles y texto).
 - La exportación debe respetar `BlockEdit.lines` (líneas tal como se cortaron en pantalla) y `runs` (estilo heredado).
+- Siguen abiertas para la Fase 5: ¿iOS Safari de primera clase? Presupuesto de IA (ver `PLAN.md` §9).
 
 ## 6. Decisiones ya tomadas (no reabrir sin razón)
 
 - Licencia **MIT** (se puede reevaluar AGPL solo si nos bloqueamos; mupdf.js queda fuera).
 - Stack: pdf.js 6 (lectura/render), **@cantoo/pdf-lib + @cantoo/fontkit** (pdf-lib original pierde glifos en el
   subset; cantoo con `@pdf-lib/fontkit` truena), **@embedpdf/pdfium** para edición nativa (Fase 4 / v2).
+- **Fase 4 (2026-10-27):** borrado real de los glifos editados con PDFium (`@embedpdf/pdfium`) desde el MVP, nunca
+  solo tapar; guardado **completo**; prueba automática de que el texto viejo no se recupera. Texto que no cabe:
+  espacio libre a la derecha → Tz/Tc hasta ~85 % → reflujo → reducir tamaño al final. Sin gemela: la más parecida
+  + aviso.
 - Unidad de edición: **párrafo/línea**, no fragmento (editar fragmentos encima el texto siguiente).
 - Dirección visual **«Diccionario»**: papel biblia `#F6F6F3` (nunca crema), tinta `#161412`, bermellón `#B8321F`
   (tachado, edición activa, avisos, uñero actual), ultramar `#2C4F9E` (enlaces, selección, foco, cajas debug).
