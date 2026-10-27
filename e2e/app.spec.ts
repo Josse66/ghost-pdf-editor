@@ -220,3 +220,29 @@ test('sin conexión la primera exportación lo explica y se puede reintentar', a
   await alert.getByRole('button', { name: 'Reintentar' }).click()
   expect((await download).suggestedFilename()).toBe('cv-calibri-editado.pdf')
 })
+
+// Fase 5: PWA. Después de la primera visita la app abre sin conexión, y se puede instalar.
+test('abre sin conexión después de la primera visita', async ({ page, context }, testInfo) => {
+  test.skip(testInfo.project.name !== 'chromium', 'service worker, una vez')
+  await page.goto('/')
+  await page.evaluate('navigator.serviceWorker.ready.then(() => true)')
+  // La primera carga instala el service worker; desde la segunda, él responde.
+  await page.reload()
+  await expect.poll(() => page.evaluate('!!navigator.serviceWorker.controller')).toBe(true)
+
+  await context.setOffline(true)
+  await page.reload()
+  await expect(page.getByRole('heading', { name: 'Abre tu PDF' })).toBeVisible()
+  await context.setOffline(false)
+})
+
+test('el manifiesto permite instalarla con su ícono', async ({ page, request }, testInfo) => {
+  test.skip(testInfo.project.name !== 'chromium', 'una vez')
+  await page.goto('/')
+  const href = await page.locator('link[rel="manifest"]').getAttribute('href')
+  const manifest = await (await request.get(href!)).json()
+  expect(manifest).toMatchObject({ name: 'Ghost PDF Editor', display: 'standalone' })
+  for (const icon of manifest.icons as { src: string }[]) {
+    expect((await request.get(`/${icon.src}`)).ok()).toBe(true)
+  }
+})

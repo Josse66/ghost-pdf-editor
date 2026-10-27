@@ -202,7 +202,7 @@ El usuario siente la UI «un poco simple». Antes de pulir (Fase 5), se prueban 
 
 ### Fase 5 — Pulido y PWA (1 semana)
 - [ ] UI final (toolbar, miniaturas de páginas, atajos de teclado, modo oscuro).
-- [ ] vite-plugin-pwa: instalable + offline.
+- [x] vite-plugin-pwa: instalable + offline. *(Ícono propio en el mundo Concreto, `scripts/make-icons.mjs` genera los PNG desde `public/favicon.svg`; la app y el visor se precachean, el motor de exportación y las fuentes se guardan al primer uso; e2e que abre sin conexión.)*
 - [ ] Manejo de errores amable (cifrado, escaneado, corrupto).
 - [ ] Landing simple + "tus archivos nunca salen de tu dispositivo".
 - 🧰 **Skills (esta es la fase de diseño fuerte):**
